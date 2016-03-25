@@ -6,15 +6,26 @@ using namespace sf;
 namespace ui
 {
 
-
+CButton::CButton()
+	: m_background({ 100, 30 })
+{
+	m_background.setScale(5, 2);
+}
 
 void CButton::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	RectangleShape rs({ 20, 30 });
-	target.draw(rs, states);
+	target.draw(m_background, states);
+}
 
-	target;
-	states;
+bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)
+{
+	sf::Vector2f pt(float(event.x), float(event.y));
+	if (m_background.getGlobalBounds().contains(pt))
+	{
+		// TODO: action.
+		return true;
+	}
+	return false;
 }
 
 }

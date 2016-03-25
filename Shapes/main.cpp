@@ -7,9 +7,8 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
+	ui::CButton button;
 
 	while (window.isOpen())
 	{
@@ -17,17 +16,21 @@ int main()
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
+			{
 				window.close();
+			}
+			else
+			{
+				button.OnEvent(event);
+			}
 		}
 
 		window.clear();
 
 		{
-			ui::CButton b;
-			window.draw(b);
+			window.draw(button);
 		}
 
-		window.draw(shape);
 		window.display();
 	}
 
