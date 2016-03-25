@@ -10,6 +10,12 @@
 #include <stdio.h>
 #include <tchar.h>
 
+#include <memory>
+#include <cstdint>
+#include <climits>
+#include <vector>
+#include <algorithm>
+
 #include <SFML/Graphics.hpp>
 
 
