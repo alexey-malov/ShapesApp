@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 
+#include "Button.h"
 
 int main()
 {
@@ -20,6 +21,12 @@ int main()
 		}
 
 		window.clear();
+
+		{
+			ui::CButton b;
+			window.draw(b);
+		}
+
 		window.draw(shape);
 		window.display();
 	}
