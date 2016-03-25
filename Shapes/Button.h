@@ -10,7 +10,7 @@ public:
 	CButton();
 
 protected:
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	bool OnMousePressed(sf::Event::MouseButtonEvent const& event) override;
 
 private:

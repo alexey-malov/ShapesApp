@@ -9,10 +9,9 @@ namespace ui
 CButton::CButton()
 	: m_background({ 100, 30 })
 {
-	m_background.setScale(5, 2);
 }
 
-void CButton::draw(sf::RenderTarget & target, sf::RenderStates states) const
+void CButton::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(m_background, states);
 }
