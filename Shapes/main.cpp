@@ -4,11 +4,19 @@
 #include "stdafx.h"
 
 #include "Button.h"
+#include <iostream>
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
 	ui::CButton button;
+
+	sf::Texture textureImage;
+	textureImage.loadFromFile("C://write.png");
+	if (!button.setIcon(&textureImage))
+	{
+		std::cout << "error";
+	}
 
 	while (window.isOpen())
 	{
