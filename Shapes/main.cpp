@@ -1,14 +1,13 @@
-// Shapes.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
-
+#include <iostream>
 #include "Button.h"
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
 	ui::CButton button;
+	button.setPosition({ 200.f, 200.f });
+	button.setScale({ 2.f, 2.f });
 
 	while (window.isOpen())
 	{
