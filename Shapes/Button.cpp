@@ -48,11 +48,11 @@ namespace ui
 		return false;
 	}
 
-	bool CButton::OnMouseHovered(sf::Vector2f const & pos)
+	bool CButton::OnMouseHovered(sf::Event::MouseMoveEvent const& event)
 	{
+		sf::Vector2f pos(float(event.x), float(event.y));
 		if (m_background.getGlobalBounds().contains(pos))
 		{
-			std::cout << "hovered" << std::endl;
 			ChangeColor(ButtonState::HOVERED);
 			return true;
 		}
@@ -66,7 +66,7 @@ void CButton::ChangeColor(const ButtonState & state) {
 	case ButtonState::NORMAL:
 		m_background.setFillColor(sf::Color::White);
 		break;
-	case ButtonState::HOVERED:
+	case ButtonState::HOVERED: 
 		m_background.setFillColor(sf::Color::Yellow);
 		break;
 	case ButtonState::PRESSED:

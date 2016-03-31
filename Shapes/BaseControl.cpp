@@ -54,8 +54,10 @@ namespace ui
 			return OnMousePressed(event.mouseButton);
 		case sf::Event::MouseButtonReleased:
 			return OnMouseReleased(event.mouseButton);
+		case sf::Event::MouseMoved:
+			return OnMouseHovered(event.mouseMove);
 		default:
-			OnMouseHovered(sf::Vector2f(sf::Mouse::getPosition()));
+			
 			return false;
 		}
 	}
@@ -70,7 +72,7 @@ namespace ui
 		return false;
 	}
 
-	bool CBaseControl::OnMouseHovered(sf::Vector2f const & posMouse)
+	bool CBaseControl::OnMouseHovered(sf::Event::MouseMoveEvent const& event)
 	{
 		return false;
 	}

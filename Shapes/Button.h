@@ -21,7 +21,7 @@ protected:
 	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	bool OnMousePressed(sf::Event::MouseButtonEvent const& event) override;
 	bool OnMouseReleased(sf::Event::MouseButtonEvent const& event) override;
-	bool OnMouseHovered(sf::Vector2f const & pos) override;
+	bool OnMouseHovered(sf::Event::MouseMoveEvent const& event) override;
 	void ChangeColor(const ButtonState & state);
 private:
 	sf::RectangleShape m_background;
