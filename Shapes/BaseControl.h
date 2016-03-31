@@ -11,13 +11,14 @@ class CBaseControl : public sf::Drawable
 public:
 	virtual ~CBaseControl() = default;
 
-	bool OnEvent(sf::Event const& event);
+	virtual bool OnEvent(sf::Event const& event);
 
 	void InsertChild(const CBaseControlPtr & control, unsigned index = UINT_MAX);
 
 protected:
 	virtual bool OnMousePressed(sf::Event::MouseButtonEvent const& event);
 	virtual bool OnMouseReleased(sf::Event::MouseButtonEvent const& event);
+	virtual bool OnMouseHovered(sf::Vector2f const &posMouse);
 	virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:

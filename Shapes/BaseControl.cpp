@@ -7,63 +7,72 @@ using namespace std;
 namespace ui
 {
 
-bool CBaseControl::OnEvent(sf::Event const & event)
-{
-	auto HandledEvent = [&](auto & child) {
-		return child->OnEvent(event);
-	};
-
-	return any_of(m_children.rbegin(), m_children.rend(), HandledEvent)
-		|| DispatchOwnEvent(event);
-}
-
-void CBaseControl::InsertChild(const CBaseControlPtr & control, unsigned index)
-{
-	if (index < m_children.size())
+	bool CBaseControl::OnEvent(sf::Event const & event)
 	{
-		m_children.insert(m_children.begin() + index, control);
+		
+		auto HandledEvent = [&](auto & child) {
+			return child->OnEvent(event);
+			
+		};
+
+		return any_of(m_children.rbegin(), m_children.rend(), HandledEvent)
+			|| DispatchOwnEvent(event);
 	}
-	else
+
+	void CBaseControl::InsertChild(const CBaseControlPtr & control, unsigned index)
 	{
-		m_children.push_back(control);
+		if (index < m_children.size())
+		{
+			m_children.insert(m_children.begin() + index, control);
+		}
+		else
+		{
+			m_children.push_back(control);
+		}
 	}
-}
 
-void CBaseControl::OnDraw(sf::RenderTarget & /*target*/, sf::RenderStates /*states*/) const
-{
-}
-
-void CBaseControl::draw(RenderTarget & target, RenderStates states) const
-{
-	OnDraw(target, states);
-
-	for (auto & child : m_children)
+	void CBaseControl::OnDraw(sf::RenderTarget & /*target*/, sf::RenderStates /*states*/) const
 	{
-		child->draw(target, states);
 	}
-}
 
-bool CBaseControl::DispatchOwnEvent(sf::Event const & event)
-{
-	switch (event.type)
+	void CBaseControl::draw(RenderTarget & target, RenderStates states) const
 	{
-	case sf::Event::MouseButtonPressed:
-		return OnMousePressed(event.mouseButton);
-	case sf::Event::MouseButtonReleased:
-		return OnMouseReleased(event.mouseButton);
-	default:
+		
+		OnDraw(target, states);
+		
+		for (auto & child : m_children)
+		{
+			child->draw(target, states);
+		}
+	}
+
+	bool CBaseControl::DispatchOwnEvent(sf::Event const & event)
+	{
+		switch (event.type)
+		{
+		case sf::Event::MouseButtonPressed:
+			return OnMousePressed(event.mouseButton);
+		case sf::Event::MouseButtonReleased:
+			return OnMouseReleased(event.mouseButton);
+		default:
+			OnMouseHovered(sf::Vector2f(sf::Mouse::getPosition()));
+			return false;
+		}
+	}
+
+	bool CBaseControl::OnMousePressed(sf::Event::MouseButtonEvent const &)
+	{
 		return false;
 	}
-}
 
-bool CBaseControl::OnMousePressed(sf::Event::MouseButtonEvent const &)
-{
-	return false;
-}
+	bool CBaseControl::OnMouseReleased(sf::Event::MouseButtonEvent const &)
+	{
+		return false;
+	}
 
-bool CBaseControl::OnMouseReleased(sf::Event::MouseButtonEvent const &)
-{
-	return false;
-}
+	bool CBaseControl::OnMouseHovered(sf::Vector2f const & posMouse)
+	{
+		return false;
+	}
 
 }
