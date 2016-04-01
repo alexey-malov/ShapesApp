@@ -32,4 +32,9 @@ bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)
 	return false;
 }
 
+void CButton::OnFrameChanged(const sf::FloatRect & newRect)
+{
+	m_background.setSize({ newRect.width, newRect.height });
+}
+
 }

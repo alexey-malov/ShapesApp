@@ -29,12 +29,32 @@ void CBaseControl::InsertChild(const CBaseControlPtr & control, unsigned index)
 	}
 }
 
+void CBaseControl::SetFrame(const sf::FloatRect & frame)
+{
+	if (frame != m_frame)
+	{
+		m_frame = frame;
+		OnFrameChanged(m_frame);
+	}
+}
+
+sf::FloatRect CBaseControl::GetFrame() const
+{
+	return m_frame;
+}
+
 void CBaseControl::OnDraw(sf::RenderTarget & /*target*/, sf::RenderStates /*states*/) const
 {
 }
 
+void CBaseControl::OnFrameChanged(const sf::FloatRect & /*newFrame*/)
+{
+	// Can be overriden in subclasses
+}
+
 void CBaseControl::draw(RenderTarget & target, RenderStates states) const
 {
+	states.transform.translate({ m_frame.left, m_frame.top });
 	OnDraw(target, states);
 
 	for (auto & child : m_children)
