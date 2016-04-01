@@ -11,9 +11,18 @@ CButton::CButton()
 {
 }
 
+void CButton::setIcon(sf::Texture * texture)
+{
+	m_image.setTexture(*texture);
+	m_image.setPosition(m_background.getPosition()
+		+ m_background.getSize() * 0.5f
+		- sf::Vector2f(m_image.getGlobalBounds().width, m_image.getGlobalBounds().height) *0.5f);
+}
+
 void CButton::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(m_background, states);
+	target.draw(m_image, states);
 }
 
 bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)
