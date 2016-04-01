@@ -32,6 +32,7 @@ namespace ui
 		if (m_background.getGlobalBounds().contains(pt))
 		{
 			ChangeColor(ButtonState::PRESSED);
+			isPressed = true;
 			return true;
 		}
 		return false;
@@ -40,9 +41,11 @@ namespace ui
 	bool CButton::OnMouseReleased(sf::Event::MouseButtonEvent const& event)
 	{
 		sf::Vector2f pt(float(event.x), float(event.y));
+		isPressed = false;
 		if (m_background.getGlobalBounds().contains(pt))
 		{
 			ChangeColor(ButtonState::HOVERED);
+			
 			return true;
 		}
 		return false;
@@ -53,14 +56,19 @@ namespace ui
 		sf::Vector2f pos(float(event.x), float(event.y));
 		if (m_background.getGlobalBounds().contains(pos))
 		{
-			ChangeColor(ButtonState::HOVERED);
+			if (!isPressed)
+			{
+				ChangeColor(ButtonState::HOVERED);
+			}
 			return true;
 		}
+		isPressed = false;
 		ChangeColor(ButtonState::NORMAL);
 		return false;		
 	}
 
-void CButton::ChangeColor(const ButtonState & state) {
+void CButton::ChangeColor(const ButtonState & state) 
+{
 	switch (state)
 	{
 	case ButtonState::NORMAL:

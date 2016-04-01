@@ -25,6 +25,7 @@ protected:
 	void ChangeColor(const ButtonState & state);
 private:
 	sf::RectangleShape m_background;
+	bool isPressed = false;
 };
 
 }
