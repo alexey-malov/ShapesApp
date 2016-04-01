@@ -66,4 +66,9 @@ bool CBaseControl::OnMouseReleased(sf::Event::MouseButtonEvent const &)
 	return false;
 }
 
+sf::FloatRect CBaseControl::GetBoundingRect() const
+{
+	return sf::FloatRect();
+}
+
 }
