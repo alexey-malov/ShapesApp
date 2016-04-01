@@ -7,7 +7,7 @@ namespace ui
 class CButton : public CBaseControl
 {
 public:
-	CButton();
+	CButton(std::string const& name, sf::Vector2f const& pos);
 
 protected:
 	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -15,6 +15,10 @@ protected:
 
 private:
 	sf::RectangleShape m_background;
+
+	sf::Vector2f m_buttonPos;
+
+	std::string m_buttonName;
 };
 
 }

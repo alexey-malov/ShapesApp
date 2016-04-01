@@ -4,11 +4,13 @@
 #include "stdafx.h"
 
 #include "Button.h"
+#include "ToolBar.h"
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
-	ui::CButton button;
+//	ui::CButton button;
+	ui::CToolBar toolBar(window);
 
 	while (window.isOpen())
 	{
@@ -21,14 +23,15 @@ int main()
 			}
 			else
 			{
-				button.OnEvent(event);
+				toolBar.OnEvent(event);
 			}
 		}
 
 		window.clear();
 
 		{
-			window.draw(button);
+			window.draw(toolBar);
+			//window.draw(button);
 		}
 
 		window.display();
