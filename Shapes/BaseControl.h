@@ -10,6 +10,8 @@ class CBaseControl
 	: public sf::Drawable
 	, public std::enable_shared_from_this<CBaseControl>
 {
+	CBaseControl(const CBaseControl &) = delete;
+	CBaseControl& operator = (const CBaseControl &) = delete;
 public:
 	static std::shared_ptr<CBaseControl> Create();
 

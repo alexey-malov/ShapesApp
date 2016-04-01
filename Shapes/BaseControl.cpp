@@ -24,17 +24,19 @@ bool CBaseControl::OnEvent(sf::Event const & event)
 
 void CBaseControl::InsertChild(const CBaseControlPtr & control, unsigned index)
 {
+
 	if (index < m_children.size())
 	{
-		auto self = shared_from_this();
-		control->RemoveFromParent();
 		m_children.insert(m_children.begin() + index, control);
-		control->SetParent(self);
 	}
 	else
 	{
 		m_children.push_back(control);
 	}
+
+	auto self = shared_from_this();
+	control->RemoveFromParent();
+	control->SetParent(self);
 }
 
 CBaseControlPtr CBaseControl::GetParent() const
