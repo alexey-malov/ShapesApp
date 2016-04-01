@@ -12,6 +12,8 @@
 
 
 #include <boost/algorithm/string/replace.hpp>
+#include <boost/range/algorithm/find.hpp>
+#include <boost/range/algorithm/remove.hpp>
 
 // TODO: reference additional headers your program requires here
 #define BOOST_TEST_INCLUDED
