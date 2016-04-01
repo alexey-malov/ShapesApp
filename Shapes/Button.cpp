@@ -5,7 +5,6 @@ using namespace sf;
 
 namespace ui
 {
-typedef boost::signals2::connection Connection;
 
 CButton::CButton()
 	: m_background({ 100, 30 })
@@ -17,7 +16,7 @@ void CButton::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(m_background, states);
 }
 
-Connection CButton::DoOnClick(OnClickSlotType const &handler)
+Connection CButton::DoOnClick(OnClick::slot_type const &handler)
 {
 	return m_onClick.connect(handler);
 }

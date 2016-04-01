@@ -1,19 +1,17 @@
 #pragma once
 #include "BaseControl.h"
-#include <boost/signals2.hpp>
+#include "Signals.h"
 
 namespace ui
 {
 
 class CButton : public CBaseControl
 {
-	typedef boost::signals2::signal<void()> OnClick;
-	typedef OnClick::slot_type OnClickSlotType;
-	typedef boost::signals2::connection Connection;
+	typedef Signal<void()> OnClick;
 public:
 	CButton();
 
-	Connection DoOnClick(OnClickSlotType const &handler);
+	Connection DoOnClick(OnClick::slot_type const &handler);
 
 protected:
 	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
