@@ -22,9 +22,13 @@ bool CBaseControl::OnEvent(sf::Event const & event)
 		|| DispatchOwnEvent(event);
 }
 
-void CBaseControl::InsertChild(const CBaseControlPtr & control, unsigned index)
+void CBaseControl::AppendChild(const CBaseControlPtr & control)
 {
+	InsertChildAtIndex(control, GetChildCount());
+}
 
+void CBaseControl::InsertChildAtIndex(const CBaseControlPtr & control, unsigned index)
+{
 	if (index < m_children.size())
 	{
 		m_children.insert(m_children.begin() + index, control);
@@ -39,6 +43,16 @@ void CBaseControl::InsertChild(const CBaseControlPtr & control, unsigned index)
 	control->SetParent(self);
 }
 
+unsigned CBaseControl::GetChildCount() const
+{
+	return boost::numeric_cast<unsigned>(m_children.size());
+}
+
+CBaseControlPtr CBaseControl::GetChild(unsigned index) const
+{
+	return m_children.at(index);
+}
+
 CBaseControlPtr CBaseControl::GetParent() const
 {
 	return m_parent.lock();
@@ -51,6 +65,7 @@ void CBaseControl::RemoveFromParent()
 	{
 		auto self = shared_from_this();
 		parent->RemoveChild(self);
+		m_parent.reset();
 	}
 }
 

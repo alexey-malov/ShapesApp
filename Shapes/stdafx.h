@@ -20,7 +20,7 @@
 
 #include <boost/range/algorithm/find.hpp>
 #include <boost/range/algorithm/remove.hpp>
-
+#include <boost/numeric/conversion/cast.hpp>
 
 
 // TODO: reference additional headers your program requires here

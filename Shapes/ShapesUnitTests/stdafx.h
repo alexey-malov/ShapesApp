@@ -14,6 +14,8 @@
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/range/algorithm/find.hpp>
 #include <boost/range/algorithm/remove.hpp>
+#include <boost/numeric/conversion/cast.hpp>
+#include <boost/algorithm/cxx11/all_of.hpp>
 
 // TODO: reference additional headers your program requires here
 #define BOOST_TEST_INCLUDED

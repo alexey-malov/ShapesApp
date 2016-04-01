@@ -15,14 +15,17 @@ class CBaseControl
 public:
 	static std::shared_ptr<CBaseControl> Create();
 
-	virtual ~CBaseControl() = default;
-
 	bool OnEvent(sf::Event const& event);
 
-	void InsertChild(const CBaseControlPtr & control, unsigned index = UINT_MAX);
+	void AppendChild(const CBaseControlPtr & control);
+	void InsertChildAtIndex(const CBaseControlPtr & control, unsigned index);
+	unsigned GetChildCount()const;
+	CBaseControlPtr GetChild(unsigned index) const;
+
 	CBaseControlPtr GetParent()const;
 	void RemoveFromParent();
 
+	virtual ~CBaseControl() = default;
 protected:
 	// Конструктор защищен, чтобы требовать создания
 	// объекта исключительно в куче (этого требует наследование от shared_from_this)
