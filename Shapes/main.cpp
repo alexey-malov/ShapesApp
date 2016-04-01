@@ -10,6 +10,8 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
 	ui::CButton button;
 
+	button.SetPosition({ 50, 0 });
+	button.SetSize({150, 80});
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -23,6 +25,7 @@ int main()
 			{
 				button.OnEvent(event);
 			}
+
 		}
 
 		window.clear();

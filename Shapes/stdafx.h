@@ -15,6 +15,7 @@
 #include <climits>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 #include <SFML/Graphics.hpp>
 
