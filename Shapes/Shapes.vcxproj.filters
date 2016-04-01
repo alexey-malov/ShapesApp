@@ -29,6 +29,9 @@
     <ClInclude Include="BaseControl.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
+    <ClInclude Include="Signals.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

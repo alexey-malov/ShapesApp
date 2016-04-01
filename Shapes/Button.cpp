@@ -16,12 +16,17 @@ void CButton::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(m_background, states);
 }
 
+Connection CButton::DoOnClick(OnClick::slot_type const &handler)
+{
+	return m_onClick.connect(handler);
+}
+
 bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)
 {
 	sf::Vector2f pt(float(event.x), float(event.y));
 	if (m_background.getGlobalBounds().contains(pt))
 	{
-		// TODO: action.
+		m_onClick();
 		return true;
 	}
 	return false;
