@@ -13,7 +13,7 @@ protected:
 	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	bool OnMousePressed(sf::Event::MouseButtonEvent const& event) override;
 private:
-	sf::RectangleShape m_background;
+	sf::RectangleShape m_background; // для коммита
 	sf::Texture	m_backgroundTesture;
 };
 

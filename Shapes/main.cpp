@@ -11,7 +11,7 @@ int main()
 	ui::CButton button;
 
 	sf::Texture background;
-	background.loadFromFile("Images/wood.jpg");
+	background.loadFromFile("Images/wood.jpg"); // для коммита
 	button.SetBackground(background);
 	background.loadFromFile("Images/leather.jpg");
 	while (window.isOpen())

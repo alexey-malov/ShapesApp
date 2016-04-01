@@ -28,7 +28,7 @@ bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)
 }
 void CButton::SetBackground(const sf::Texture & texture)
 {
-	m_backgroundTesture = texture;
+	m_backgroundTesture = texture; // для коммита
 	m_background.setTexture(&m_backgroundTesture);
 }
 
