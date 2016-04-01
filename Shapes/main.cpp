@@ -10,6 +10,10 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
 	ui::CButton button;
 
+	sf::Texture background;
+	background.loadFromFile("Images/wood.jpg"); // для коммита
+	button.SetBackground(background);
+	background.loadFromFile("Images/leather.jpg");
 	while (window.isOpen())
 	{
 		sf::Event event;
