@@ -6,6 +6,11 @@ using namespace sf;
 namespace ui
 {
 
+std::shared_ptr<CButton> CButton::Create()
+{
+	return std::shared_ptr<CButton>(new CButton());
+}
+
 CButton::CButton()
 	: m_background({ 100, 30 })
 {

@@ -9,9 +9,9 @@
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
-	ui::CButton button;
+	auto button = ui::CButton::Create();
 
-	boost::signals2::scoped_connection con = button.DoOnClick([](){std::cout << "click" << std::endl; });
+	boost::signals2::scoped_connection con = button->DoOnClick([](){std::cout << "click" << std::endl; });
 
 	while (window.isOpen())
 	{
@@ -24,14 +24,14 @@ int main()
 			}
 			else
 			{
-				button.OnEvent(event);
+				button->OnEvent(event);
 			}
 		}
 
 		window.clear();
 
 		{
-			window.draw(button);
+			window.draw(*button);
 		}
 
 		window.display();

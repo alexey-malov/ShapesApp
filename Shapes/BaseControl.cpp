@@ -7,6 +7,11 @@ using namespace std;
 namespace ui
 {
 
+std::shared_ptr<CBaseControl> CBaseControl::Create()
+{
+	return shared_ptr<CBaseControl>(new CBaseControl());
+}
+
 bool CBaseControl::OnEvent(sf::Event const & event)
 {
 	auto HandledEvent = [&](auto & child) {
@@ -21,11 +26,29 @@ void CBaseControl::InsertChild(const CBaseControlPtr & control, unsigned index)
 {
 	if (index < m_children.size())
 	{
+		auto self = shared_from_this();
+		control->RemoveFromParent();
 		m_children.insert(m_children.begin() + index, control);
+		control->SetParent(self);
 	}
 	else
 	{
 		m_children.push_back(control);
+	}
+}
+
+CBaseControlPtr CBaseControl::GetParent() const
+{
+	return m_parent.lock();
+}
+
+void CBaseControl::RemoveFromParent()
+{
+	auto parent = GetParent();
+	if (parent)
+	{
+		auto self = shared_from_this();
+		parent->RemoveChild(self);
 	}
 }
 
@@ -54,6 +77,16 @@ bool CBaseControl::DispatchOwnEvent(sf::Event const & event)
 	default:
 		return false;
 	}
+}
+
+void CBaseControl::SetParent(const CBaseControlPtr & parent)
+{
+	m_parent = parent;
+}
+
+void CBaseControl::RemoveChild(const CBaseControlPtr & child)
+{
+	m_children.erase(boost::remove(m_children, child), m_children.end());
 }
 
 bool CBaseControl::OnMousePressed(sf::Event::MouseButtonEvent const &)
