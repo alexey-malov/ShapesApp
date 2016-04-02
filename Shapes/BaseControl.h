@@ -41,6 +41,8 @@ private:
 	bool DispatchOwnEvent(sf::Event const& event);
 	void SetParent(const CBaseControlPtr & parent);
 	void RemoveChild(const CBaseControlPtr & child);
+	void ChangeChildIndex(const CBaseControlPtr & control, unsigned newIndex);
+	void AdoptChild(const CBaseControlPtr & control, unsigned index);
 
 	std::vector<CBaseControlPtr> m_children;
 	std::weak_ptr<CBaseControl> m_parent;

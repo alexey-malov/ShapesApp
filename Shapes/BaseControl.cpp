@@ -3,6 +3,7 @@
 
 using namespace sf;
 using namespace std;
+using boost::find;
 
 namespace ui
 {
@@ -29,18 +30,30 @@ void CBaseControl::AppendChild(const CBaseControlPtr & control)
 
 void CBaseControl::InsertChildAtIndex(const CBaseControlPtr & control, unsigned index)
 {
-	if (index < m_children.size())
+	if (!control)
 	{
-		m_children.insert(m_children.begin() + index, control);
+		throw std::invalid_argument("Invalid control");
+	}
+	if (control.get() == this)
+	{
+		throw std::invalid_argument("Can not insert itself as a child");
+	}
+	for (auto parent = GetParent(); parent; parent = parent->GetParent())
+	{
+		if (control == parent)
+		{
+			throw std::invalid_argument("Can not insert any control parent as a child");
+		}
+	}
+
+	if (control->GetParent().get() == this)
+	{
+		ChangeChildIndex(control, index);
 	}
 	else
 	{
-		m_children.push_back(control);
+		AdoptChild(control, index);
 	}
-
-	auto self = shared_from_this();
-	control->RemoveFromParent();
-	control->SetParent(self);
 }
 
 unsigned CBaseControl::GetChildCount() const
@@ -104,6 +117,51 @@ void CBaseControl::SetParent(const CBaseControlPtr & parent)
 void CBaseControl::RemoveChild(const CBaseControlPtr & child)
 {
 	m_children.erase(boost::remove(m_children, child), m_children.end());
+}
+
+void CBaseControl::ChangeChildIndex(const CBaseControlPtr & control, unsigned newIndex)
+{
+	assert(control);
+	assert(control->GetParent().get() == this);
+	assert(control.get() != this);
+
+	auto src = find(m_children, control);
+	assert(src != m_children.end());
+
+	if (newIndex >= GetChildCount())
+	{
+		newIndex = GetChildCount() - 1;
+	}
+
+	auto dst = m_children.begin() + newIndex;
+	if (src < dst)
+	{
+		rotate(src, src + 1, dst + 1);
+	}
+	else if (dst < src)
+	{
+		rotate(dst, src, src + 1);
+	}
+}
+
+void CBaseControl::AdoptChild(const CBaseControlPtr & control, unsigned index)
+{
+	assert(control);
+	assert(control.get() != this);
+	assert(control->GetParent().get() != this);
+
+	if (index < m_children.size())
+	{
+		m_children.insert(m_children.begin() + index, control);
+	}
+	else
+	{
+		m_children.push_back(control);
+	}
+
+	auto self = shared_from_this();
+	control->RemoveFromParent();
+	control->SetParent(self);
 }
 
 bool CBaseControl::OnMousePressed(sf::Event::MouseButtonEvent const &)
