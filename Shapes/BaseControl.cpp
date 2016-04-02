@@ -38,15 +38,13 @@ void CBaseControl::InsertChildAtIndex(const CBaseControlPtr & control, unsigned 
 	{
 		throw std::invalid_argument("Can not insert itself as a child");
 	}
-	for (auto parent = GetParent(); parent; parent = parent->GetParent())
+	if (IsItOneOfMyParents(control))
 	{
-		if (control == parent)
-		{
-			throw std::invalid_argument("Can not insert any control parent as a child");
-		}
+		throw std::invalid_argument("Can not insert any control parent as a child");
 	}
 
-	if (control->GetParent().get() == this)
+	const bool itIsMyChild = (control->GetParent().get() == this);
+	if (itIsMyChild)
 	{
 		ChangeChildIndex(control, index);
 	}
@@ -162,6 +160,20 @@ void CBaseControl::AdoptChild(const CBaseControlPtr & control, unsigned index)
 	auto self = shared_from_this();
 	control->RemoveFromParent();
 	control->SetParent(self);
+}
+
+bool CBaseControl::IsItOneOfMyParents(const CBaseControlPtr & control) const
+{
+	assert(control);
+	for (auto parent = GetParent(); parent; parent = parent->GetParent())
+	{
+		if (control == parent)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 bool CBaseControl::OnMousePressed(sf::Event::MouseButtonEvent const &)
