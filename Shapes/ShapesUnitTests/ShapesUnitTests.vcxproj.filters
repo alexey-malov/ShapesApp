@@ -3,15 +3,17 @@
   <ItemGroup>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Tests">
+      <UniqueIdentifier>{a903e33f-f143-4815-9af6-c3fbcd63aa9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui">
+      <UniqueIdentifier>{815810ec-417d-4b2c-ae50-21a0786ce97f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -19,19 +21,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\BaseControl.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Button.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Signals.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -42,13 +44,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BaseControlTests.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Tests</Filter>
     </ClCompile>
     <ClCompile Include="..\BaseControl.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\Button.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
