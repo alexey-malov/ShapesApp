@@ -9,7 +9,7 @@ class CButton : public CBaseControl
 public:
 	CButton();
 
-	void setIcon(sf::Texture *);
+	void setIcon(std::shared_ptr<sf::Texture>);
 protected:
 	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	bool OnMousePressed(sf::Event::MouseButtonEvent const& event) override;

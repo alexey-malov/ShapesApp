@@ -11,12 +11,9 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
 	ui::CButton button;
 
-	sf::Texture textureImage;
-	textureImage.loadFromFile("C://write.png");
-	if (!button.setIcon(&textureImage))
-	{
-		std::cout << "error";
-	}
+	std::shared_ptr<sf::Texture> textureImage;
+	textureImage->loadFromFile("C://write.png");
+	button.setIcon(textureImage);
 
 	while (window.isOpen())
 	{

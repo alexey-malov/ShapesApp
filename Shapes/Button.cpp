@@ -11,7 +11,7 @@ CButton::CButton()
 {
 }
 
-void CButton::setIcon(sf::Texture * texture)
+void CButton::setIcon(std::shared_ptr<sf::Texture> texture)
 {
 	m_image.setTexture(*texture);
 	m_image.setPosition(m_background.getPosition()
