@@ -5,11 +5,15 @@
 
 #include "Button.h"
 #include <iostream>
+#include "ToolBar.h"
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
 	auto button = ui::CButton::Create();
+	auto toolbar = ui::CToolBar::Create(window.getSize());
+	toolbar->InsertChildAtIndex(button, 1);
+	
 
 	boost::signals2::scoped_connection con = button->DoOnClick([](){std::cout << "click" << std::endl; });
 
@@ -31,7 +35,8 @@ int main()
 		window.clear();
 
 		{
-			window.draw(*button);
+			//window.draw(*button);
+			window.draw(*toolbar);
 		}
 
 		window.display();
