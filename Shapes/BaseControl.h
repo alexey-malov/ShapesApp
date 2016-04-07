@@ -33,6 +33,7 @@ protected:
 
 	virtual bool OnMousePressed(sf::Event::MouseButtonEvent const& event);
 	virtual bool OnMouseReleased(sf::Event::MouseButtonEvent const& event);
+	virtual bool OnMouseHovered(sf::Event::MouseMoveEvent const& event);
 	virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
