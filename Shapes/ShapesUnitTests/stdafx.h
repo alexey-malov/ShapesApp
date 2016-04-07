@@ -10,17 +10,21 @@
 #include <stdio.h>
 #include <tchar.h>
 
-#include <memory>
-#include <cstdint>
-#include <climits>
+
+#include <boost/algorithm/string/replace.hpp>
+#include <boost/range/algorithm/find.hpp>
+#include <boost/range/algorithm/remove.hpp>
+#include <boost/numeric/conversion/cast.hpp>
+#include <boost/algorithm/cxx11/all_of.hpp>
+
+// TODO: reference additional headers your program requires here
+#define BOOST_TEST_INCLUDED
+#pragma warning (disable: 4702)
+#pragma warning (push, 3)
+#include <boost/test/unit_test.hpp>
+#pragma warning (pop)
+
 #include <vector>
 #include <algorithm>
 
 #include <SFML/Graphics.hpp>
-
-#include <boost/range/algorithm/find.hpp>
-#include <boost/range/algorithm/remove.hpp>
-#include <boost/numeric/conversion/cast.hpp>
-
-
-// TODO: reference additional headers your program requires here

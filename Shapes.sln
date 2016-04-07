@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shapes", "Shapes\Shapes.vcxproj", "{570ABA82-AA48-4B01-9FEC-D3CB2C2C822B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShapesUnitTests", "Shapes\ShapesUnitTests\ShapesUnitTests.vcxproj", "{D3E06B75-F77D-4208-98A3-66D6D87FF51D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{570ABA82-AA48-4B01-9FEC-D3CB2C2C822B}.Release|x64.Build.0 = Release|x64
 		{570ABA82-AA48-4B01-9FEC-D3CB2C2C822B}.Release|x86.ActiveCfg = Release|Win32
 		{570ABA82-AA48-4B01-9FEC-D3CB2C2C822B}.Release|x86.Build.0 = Release|Win32
+		{D3E06B75-F77D-4208-98A3-66D6D87FF51D}.Debug|x64.ActiveCfg = Debug|x64
+		{D3E06B75-F77D-4208-98A3-66D6D87FF51D}.Debug|x64.Build.0 = Debug|x64
+		{D3E06B75-F77D-4208-98A3-66D6D87FF51D}.Debug|x86.ActiveCfg = Debug|Win32
+		{D3E06B75-F77D-4208-98A3-66D6D87FF51D}.Debug|x86.Build.0 = Debug|Win32
+		{D3E06B75-F77D-4208-98A3-66D6D87FF51D}.Release|x64.ActiveCfg = Release|x64
+		{D3E06B75-F77D-4208-98A3-66D6D87FF51D}.Release|x64.Build.0 = Release|x64
+		{D3E06B75-F77D-4208-98A3-66D6D87FF51D}.Release|x86.ActiveCfg = Release|Win32
+		{D3E06B75-F77D-4208-98A3-66D6D87FF51D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

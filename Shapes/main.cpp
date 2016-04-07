@@ -4,16 +4,20 @@
 #include "stdafx.h"
 
 #include "Button.h"
+#include <iostream>
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
-	ui::CButton button;
+	auto button = ui::CButton::Create();
 
-	sf::Texture background;
-	background.loadFromFile("Images/wood.jpg");
-	button.SetBackground(background);
-	background.loadFromFile("Images/leather.jpg");
+	std::shared_ptr<sf::Texture> background = std::make_shared<sf::Texture>();
+	background->loadFromFile("./images/wood.jpg");
+	button->SetBackground(background);
+	background->loadFromFile("./images/stainless-steel.jpg");
+
+	boost::signals2::scoped_connection con = button->DoOnClick([](){std::cout << "click" << std::endl; });
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -25,19 +29,18 @@ int main()
 			}
 			else
 			{
-				button.OnEvent(event);
+				button->OnEvent(event);
 			}
 		}
 
 		window.clear();
 
 		{
-			window.draw(button);
+			window.draw(*button);
 		}
 
 		window.display();
 	}
-
 	return 0;
 }
 
