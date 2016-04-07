@@ -13,7 +13,7 @@ public:
 
 	Connection DoOnClick(OnClick::slot_type const &handler);
 
-	void setIcon(std::shared_ptr<sf::Texture>);
+	void SetIcon(std::shared_ptr<sf::Texture>);
 protected:
 	CButton();
 	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;

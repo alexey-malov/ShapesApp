@@ -16,12 +16,12 @@ CButton::CButton()
 {
 }
 
-void CButton::setIcon(std::shared_ptr<sf::Texture> texture)
+void CButton::SetIcon(std::shared_ptr<sf::Texture> texture)
 {
 	m_image.setTexture(*texture);
 	m_image.setPosition(m_background.getPosition()
 		+ m_background.getSize() * 0.5f
-		- sf::Vector2f(m_image.getGlobalBounds().width, m_image.getGlobalBounds().height) *0.5f);
+		- sf::Vector2f(m_image.getGlobalBounds().width, m_image.getGlobalBounds().height) * 0.5f);
 }
 
 void CButton::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
