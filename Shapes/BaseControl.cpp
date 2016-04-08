@@ -207,3 +207,6 @@ bool CBaseControl::OnMouseReleased(sf::Event::MouseButtonEvent const &)
 }
 
 }
+
+
+

@@ -5,30 +5,43 @@
 
 #include "Button.h"
 #include <iostream>
+#include "ToolBar.h"
 
 using namespace std;
 using namespace ui;
+
+void AppendToolbar(CBaseControl & parent, const sf::Vector2u & size)
+{
+	auto button = ui::CButton::Create();
+	auto button1 = ui::CButton::Create();
+
+	auto toolbar = ui::CToolBar::Create(size);
+	toolbar->AddChildWithIndex(button, 1);
+	toolbar->AddChildWithIndex(button1, 2);
+
+	toolbar->SetFrame({ 5, 50, 500, 50 });
+
+	std::shared_ptr<sf::Texture> background = std::make_shared<sf::Texture>();
+	background->loadFromFile("./images/wood.jpg");
+	button->SetBackground(background);
+	background->loadFromFile("./images/stainless-steel.jpg");
+
+	boost::signals2::scoped_connection con = button->DoOnClick([]() {std::cout << "click" << std::endl; });
+	boost::signals2::scoped_connection con2 = button1->DoOnClick([]() {std::cout << "clack" << std::endl; });
+
+	std::shared_ptr<sf::Texture> textureImage = std::make_shared<sf::Texture>();
+	textureImage->loadFromFile("./images/test_icon.png");
+	button->SetIcon(textureImage);
+
+	parent.AppendChild(toolbar);
+}
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
 
 	auto root = CBaseControl::Create();
-	auto button = CButton::Create();
-
-	std::shared_ptr<sf::Texture> background = std::make_shared<sf::Texture>();
-	background->loadFromFile("./images/wood.jpg");
-	button->SetBackground(background);
-	background->loadFromFile("./images/stainless-steel.jpg");
-	button->SetFrame({10, 10, 300, 100});
-	root->SetFrame({5, 50, 45, 80});
-	root->AppendChild(button);
-
-	boost::signals2::scoped_connection con = button->DoOnClick([](){std::cout << "click" << std::endl; });
-
-	std::shared_ptr<sf::Texture> textureImage = std::make_shared<sf::Texture>();
-	textureImage->loadFromFile("./images/test_icon.png");
-	button->SetIcon(textureImage);
+	AppendToolbar(*root, window.getSize());
 
 	while (window.isOpen())
 	{
