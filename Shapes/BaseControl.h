@@ -25,7 +25,15 @@ public:
 	CBaseControlPtr GetParent()const;
 	void RemoveFromParent();
 
+	// Устанавливает фрейм объекта (в системе координат родителя)
+	void SetFrame(const sf::FloatRect & frame);
+
+	sf::FloatRect GetFrame()const;
+
+	void Test();
+
 	virtual ~CBaseControl() = default;
+
 protected:
 	// Конструктор защищен, чтобы требовать создания
 	// объекта исключительно в куче (этого требует наследование от shared_from_this)
@@ -34,7 +42,7 @@ protected:
 	virtual bool OnMousePressed(sf::Event::MouseButtonEvent const& event);
 	virtual bool OnMouseReleased(sf::Event::MouseButtonEvent const& event);
 	virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const;
-
+	virtual void OnFrameChanged(const sf::FloatRect & newFrame);
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const final;
 
@@ -47,5 +55,8 @@ private:
 
 	std::vector<CBaseControlPtr> m_children;
 	std::weak_ptr<CBaseControl> m_parent;
+
+	sf::FloatRect m_frame;
+
 };
 }

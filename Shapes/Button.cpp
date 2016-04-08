@@ -1,40 +1,47 @@
 #include "stdafx.h"
 #include "Button.h"
+#include <iostream>
 
 using namespace sf;
 
 namespace ui
 {
 
-std::shared_ptr<CButton> CButton::Create()
-{
-	return std::shared_ptr<CButton>(new CButton());
-}
-
-CButton::CButton()
-	: m_background({ 100, 30 })
-{
-}
-
-void CButton::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
-{
-	target.draw(m_background, states);
-}
-
-Connection CButton::DoOnClick(OnClick::slot_type const &handler)
-{
-	return m_onClick.connect(handler);
-}
-
-bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)
-{
-	sf::Vector2f pt(float(event.x), float(event.y));
-	if (m_background.getGlobalBounds().contains(pt))
+	std::shared_ptr<CButton> CButton::Create()
 	{
-		m_onClick();
-		return true;
+		return std::shared_ptr<CButton>(new CButton());
 	}
-	return false;
-}
+
+	CButton::CButton()
+		: m_background({ 100, 30 })
+	{
+	}
+
+	void CButton::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
+	{
+		target.draw(m_background, states);
+	}
+
+	Connection CButton::DoOnClick(OnClick::slot_type const &handler)
+	{
+		return m_onClick.connect(handler);
+	}
+
+	bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)
+	{
+		sf::Vector2f pt(float(event.x), float(event.y));
+		if ( m_background.getGlobalBounds().contains(pt))
+		{
+			m_onClick();
+			return true;
+		}
+		return false;
+	}
+
+	void CButton::OnFrameChanged(const sf::FloatRect & newRect)
+	{
+		m_background.setPosition({ newRect.left, newRect.top });
+		m_background.setSize({ newRect.width, newRect.height });
+	}
 
 }

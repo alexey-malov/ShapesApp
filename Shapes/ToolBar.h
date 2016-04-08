@@ -17,7 +17,7 @@ namespace ui
 	private:
 		CToolBar(sf::Vector2u const& size);
 
-		std::vector<CBaseControlPtr> m_children;
+		unsigned m_countChild;
 
 		sf::RectangleShape m_background;
 
