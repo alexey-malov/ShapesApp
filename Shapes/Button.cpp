@@ -37,9 +37,15 @@ void CButton::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 	}
 }
 
-Connection CButton::DoOnClick(OnClick::slot_type const &handler)
+Connection CButton::DoOnClick(OnClick::slot_type const & handler)
 {
 	return m_onClick.connect(handler);
+}
+
+void CButton::SetBackground(const std::shared_ptr<sf::Texture> & texture)
+{
+	m_backgroundTexture = texture;
+	m_background.setTexture(m_backgroundTexture.get());
 }
 
 bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)

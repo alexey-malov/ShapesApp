@@ -15,6 +15,11 @@ int main()
 
 	auto root = CBaseControl::Create();
 	auto button = CButton::Create();
+
+	std::shared_ptr<sf::Texture> background = std::make_shared<sf::Texture>();
+	background->loadFromFile("./images/wood.jpg");
+	button->SetBackground(background);
+	background->loadFromFile("./images/stainless-steel.jpg");
 	button->SetFrame({10, 10, 300, 100});
 	root->SetFrame({5, 50, 45, 80});
 	root->AppendChild(button);
