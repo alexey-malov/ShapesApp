@@ -17,7 +17,7 @@ protected:
 	CButton();
 	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	bool OnMousePressed(sf::Event::MouseButtonEvent const& event) override;
-
+	void OnFrameChanged(const sf::FloatRect & newRect) override;
 private:
 	sf::RectangleShape m_background;
 	OnClick m_onClick;

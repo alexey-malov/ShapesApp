@@ -6,10 +6,18 @@
 #include "Button.h"
 #include <iostream>
 
+using namespace std;
+using namespace ui;
+
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
-	auto button = ui::CButton::Create();
+
+	auto root = CBaseControl::Create();
+	auto button = CButton::Create();
+	button->SetFrame({10, 10, 300, 100});
+	root->SetFrame({5, 50, 45, 80});
+	root->AppendChild(button);
 
 	boost::signals2::scoped_connection con = button->DoOnClick([](){std::cout << "click" << std::endl; });
 
@@ -24,14 +32,14 @@ int main()
 			}
 			else
 			{
-				button->OnEvent(event);
+				root->OnEvent(event);
 			}
 		}
 
 		window.clear();
 
 		{
-			window.draw(*button);
+			window.draw(*root);
 		}
 
 		window.display();
