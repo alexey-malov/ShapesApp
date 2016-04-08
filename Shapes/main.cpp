@@ -21,6 +21,10 @@ int main()
 
 	boost::signals2::scoped_connection con = button->DoOnClick([](){std::cout << "click" << std::endl; });
 
+	std::shared_ptr<sf::Texture> textureImage = std::make_shared<sf::Texture>();
+	textureImage->loadFromFile("./images/test_icon.png");
+	button->SetIcon(textureImage);
+
 	while (window.isOpen())
 	{
 		sf::Event event;

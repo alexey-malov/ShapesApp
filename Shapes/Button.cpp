@@ -16,9 +16,25 @@ CButton::CButton()
 {
 }
 
+void CButton::SetIcon(const std::shared_ptr<sf::Texture> & texture)
+{
+	m_iconTexture = texture;
+	if (texture)
+	{
+		m_iconSprite.setTexture(*texture);
+		m_iconSprite.setPosition(m_background.getPosition()
+			+ m_background.getSize() * 0.5f
+			- sf::Vector2f(m_iconSprite.getGlobalBounds().width, m_iconSprite.getGlobalBounds().height) * 0.5f);
+	}
+}
+
 void CButton::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(m_background, states);
+	if (m_iconTexture)
+	{
+		target.draw(m_iconSprite, states);
+	}
 }
 
 Connection CButton::DoOnClick(OnClick::slot_type const &handler)

@@ -13,6 +13,7 @@ public:
 
 	Connection DoOnClick(OnClick::slot_type const &handler);
 
+	void SetIcon(const std::shared_ptr<sf::Texture>& texture);
 protected:
 	CButton();
 	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -20,6 +21,8 @@ protected:
 	void OnFrameChanged(const sf::FloatRect & newRect) override;
 private:
 	sf::RectangleShape m_background;
+	std::shared_ptr<sf::Texture> m_iconTexture;
+	sf::Sprite m_iconSprite;
 	OnClick m_onClick;
 };
 
