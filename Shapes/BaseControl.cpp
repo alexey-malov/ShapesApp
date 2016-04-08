@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "BaseControl.h"
 
 using namespace sf;
@@ -103,7 +103,7 @@ bool CBaseControl::DispatchOwnEvent(sf::Event const & event)
 	case sf::Event::MouseButtonReleased:
 		return OnMouseReleased(event.mouseButton);
 	case sf::Event::MouseMoved:
-		return OnMouseHovered(event.mouseMove);
+		return OnMouseMoved(event.mouseMove);
 	default:
 		return false;
 	}
@@ -188,7 +188,7 @@ bool CBaseControl::OnMouseReleased(sf::Event::MouseButtonEvent const &)
 	return false;
 }
 
-bool CBaseControl::OnMouseHovered(sf::Event::MouseMoveEvent const& event)
+bool CBaseControl::OnMouseMoved(sf::Event::MouseMoveEvent const& )
 {
 	return false;
 }

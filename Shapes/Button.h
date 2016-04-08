@@ -24,13 +24,14 @@ protected:
 	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	bool OnMousePressed(sf::Event::MouseButtonEvent const& event) override;
 	bool OnMouseReleased(sf::Event::MouseButtonEvent const& event) override;
-	bool OnMouseHovered(sf::Event::MouseMoveEvent const& event) override;
+	bool OnMouseMoved(sf::Event::MouseMoveEvent const& event) override;
 	void ChangeColor(const ButtonState & state);
 
 private:
+	bool IsContainButton(sf::Vector2f const & pos);
 	sf::RectangleShape m_background;
 	OnClick m_onClick;
-	bool isPressed = false;
+	bool m_isPressed = false;
 };
 
 }

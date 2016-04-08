@@ -28,8 +28,7 @@ Connection CButton::DoOnClick(OnClick::slot_type const &handler)
 
 bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)
 {
-	sf::Vector2f pt(float(event.x), float(event.y));
-	if (m_background.getGlobalBounds().contains(pt))
+	if (IsContainButton({ float(event.x), float(event.y) }))
 	{
 		ChangeColor(ButtonState::PRESSED);
 		isPressed = true;
@@ -41,21 +40,18 @@ bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)
 
 bool CButton::OnMouseReleased(sf::Event::MouseButtonEvent const& event)
 {
-	sf::Vector2f pt(float(event.x), float(event.y));
 	isPressed = false;
-	if (m_background.getGlobalBounds().contains(pt))
+	if (IsContainButton({ float(event.x), float(event.y) }))
 	{
 		ChangeColor(ButtonState::HOVERED);
-
 		return true;
 	}
 	return false;
 }
 
-bool CButton::OnMouseHovered(sf::Event::MouseMoveEvent const& event)
+bool CButton::OnMouseMoved(sf::Event::MouseMoveEvent const& event)
 {
-	sf::Vector2f pos(float(event.x), float(event.y));
-	if (m_background.getGlobalBounds().contains(pos))
+	if (IsContainButton({ float(event.x), float(event.y) })) 
 	{
 		if (!isPressed)
 		{
@@ -82,6 +78,11 @@ void CButton::ChangeColor(const ButtonState & state)
 		m_background.setFillColor(sf::Color::Blue);
 		break;
 	}
+}
+
+bool CButton::IsContainButton(sf::Vector2f const & pos)
+{
+	return m_background.getGlobalBounds().contains(pos);
 }
 
 }
