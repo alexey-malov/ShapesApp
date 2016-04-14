@@ -9,8 +9,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Tests">
+      <UniqueIdentifier>{a903e33f-f143-4815-9af6-c3fbcd63aa9f}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\ui">
-      <UniqueIdentifier>{effbb389-508f-4075-bd0a-841c2f91ec05}</UniqueIdentifier>
+      <UniqueIdentifier>{815810ec-417d-4b2c-ae50-21a0786ce97f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -23,22 +26,13 @@
     <ClInclude Include="targetver.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
+    <ClInclude Include="..\BaseControl.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
-    <ClInclude Include="BaseControl.h">
+    <ClInclude Include="..\Button.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
-    <ClInclude Include="Signals.h">
-      <Filter>Source Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="ToolBar.h">
-      <Filter>Source Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceHolder.h">
-      <Filter>Source Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceIdientificators.h">
+    <ClInclude Include="..\Signals.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
   </ItemGroup>
@@ -46,16 +40,16 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source Files\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseControl.cpp">
-      <Filter>Source Files\ui</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ToolBar.cpp">
+    <ClCompile Include="BaseControlTests.cpp">
+      <Filter>Source Files\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BaseControl.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Button.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
   </ItemGroup>
