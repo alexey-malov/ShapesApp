@@ -34,4 +34,20 @@ namespace ui
 
 	}
 
+	void CToolBar::SetRightIndentSize(float width)
+	{
+		m_rightIndentSize = width;
+	}
+
+	bool CToolBar::OnWindowResized(sf::Event::SizeEvent const& event)
+	{
+		if (event.width != m_background.getSize().x)
+		{
+			m_background.setSize({ static_cast<float>(event.width) - m_rightIndentSize
+				, m_background.getSize().y });
+			return true;
+		}
+		return false;
+	}
+
 }
