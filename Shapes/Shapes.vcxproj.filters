@@ -35,6 +35,9 @@
     <ClInclude Include="ToolBar.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
+    <ClInclude Include="ToolbarButton.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -50,6 +53,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ToolBar.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolbarButton.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
   </ItemGroup>
