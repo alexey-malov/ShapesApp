@@ -19,8 +19,6 @@ void AppendToolbar(CBaseControl & parent, const sf::Vector2u & size)
 	toolbar->AddChildWithIndex(button, 1);
 	toolbar->AddChildWithIndex(button1, 2);
 
-	toolbar->SetRightIndentSize(float(500u - size.x));
-
 	toolbar->SetFrame({ 5, 50, 500, 50 });
 
 	std::shared_ptr<sf::Texture> background = std::make_shared<sf::Texture>();
@@ -59,6 +57,8 @@ int main()
 			}
 			else
 			{
+				root->OnEvent(event);
+
 				if (event.type == sf::Event::Resized)
 				{
 					view = sf::View(sf::FloatRect(0.f, 0.f,
@@ -66,16 +66,11 @@ int main()
 						float(window.getSize().y)));
 					window.setView(view);
 				}
-				root->OnEvent(event);
 			}
 		}
 
 		window.clear();
-
-		{
-			window.draw(*root);
-		}
-
+		window.draw(*root);
 		window.display();
 	}
 	return 0;
