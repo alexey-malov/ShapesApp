@@ -19,6 +19,8 @@ void AppendToolbar(CBaseControl & parent, const sf::Vector2u & size)
 	toolbar->AddChildWithIndex(button, 1);
 	toolbar->AddChildWithIndex(button1, 2);
 
+	toolbar->SetRightIndentSize(float(500u - size.x));
+
 	toolbar->SetFrame({ 5, 50, 500, 50 });
 
 	std::shared_ptr<sf::Texture> background = std::make_shared<sf::Texture>();
@@ -39,9 +41,12 @@ void AppendToolbar(CBaseControl & parent, const sf::Vector2u & size)
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
+	window.setFramerateLimit(30);
+
+	sf::View view(window.getDefaultView());
 
 	auto root = CBaseControl::Create();
-	AppendToolbar(*root, window.getSize());
+	AppendToolbar(*root, sf::Vector2u(490, 500));
 
 	while (window.isOpen())
 	{
@@ -54,6 +59,13 @@ int main()
 			}
 			else
 			{
+				if (event.type == sf::Event::Resized)
+				{
+					view = sf::View(sf::FloatRect(0.f, 0.f,
+						float(window.getSize().x),
+						float(window.getSize().y)));
+					window.setView(view);
+				}
 				root->OnEvent(event);
 			}
 		}

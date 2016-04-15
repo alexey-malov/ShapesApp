@@ -122,6 +122,8 @@ bool CBaseControl::DispatchOwnEvent(sf::Event const & event)
 		return OnMousePressed(event.mouseButton);
 	case sf::Event::MouseButtonReleased:
 		return OnMouseReleased(event.mouseButton);
+	case sf::Event::Resized:
+		return OnWindowResized(event.size);
 	default:
 		return false;
 	}
@@ -202,6 +204,11 @@ bool CBaseControl::OnMousePressed(sf::Event::MouseButtonEvent const &)
 }
 
 bool CBaseControl::OnMouseReleased(sf::Event::MouseButtonEvent const &)
+{
+	return false;
+}
+
+bool CBaseControl::OnWindowResized(sf::Event::SizeEvent const &)
 {
 	return false;
 }
