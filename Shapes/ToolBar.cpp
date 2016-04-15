@@ -25,13 +25,30 @@ namespace ui
 		target.draw(m_background, states);
 	}
 
-	void CToolBar::AddChildWithIndex(const CBaseControlPtr & control, unsigned index)
+	void CToolBar::AddChildWithIndex(unsigned index)
 	{
+		auto button = CButton::Create();
 
-		control->SetFrame({ float(GetChildCount() * 50 + 5), 5, BUTTON_SIZE.x , BUTTON_SIZE.y });
+		InsertChildAtIndex(button, index);
 
-		InsertChildAtIndex(control, index);
+		m_buttons.insert({ index, CToolbarButton::Create(button) });
 
+		button->SetFrame({ float((GetChildCount() - 1) * 50 + 5), 5, BUTTON_SIZE.x , BUTTON_SIZE.y });
+
+
+	}
+
+	std::shared_ptr<CToolbarButton> CToolBar::GetButton(unsigned const & index)
+	{
+		return m_buttons.find(index)->second;
+	}
+
+	void CToolBar::SetButtonsBackgrounds(const std::shared_ptr<sf::Texture>& texture)
+	{
+		for (auto &it : m_buttons)
+		{
+			it.second->SetBackground(texture);
+		}
 	}
 
 }

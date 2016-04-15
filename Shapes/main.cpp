@@ -12,8 +12,29 @@ using namespace ui;
 
 void AppendToolbar(CBaseControl & parent, const sf::Vector2u & size)
 {
-	auto button = ui::CButton::Create();
+	auto toolbar = ui::CToolBar::Create(size);
+	toolbar->AddChildWithIndex(1);
+	toolbar->AddChildWithIndex(2);
+	toolbar->AddChildWithIndex(3);
+
+	auto button1 = toolbar->GetButton(1);
+	auto button2 = toolbar->GetButton(2);
+	auto button3 = toolbar->GetButton(3);
+
+	button1->SetAction([]() {std::cout << "click" << std::endl; });
+	button2->SetAction([]() {std::cout << "clack" << std::endl; });
+	button3->SetAction([]() {std::cout << "bang" << std::endl; });
+
+	std::shared_ptr<sf::Texture> background = std::make_shared<sf::Texture>();
+	background->loadFromFile("./images/wood.jpg");
+	toolbar->SetButtonsBackgrounds(background);
+
+	toolbar->SetFrame({ 5, 50, 500, 50 });
+	/*auto button = ui::CButton::Create();
 	auto button1 = ui::CButton::Create();
+
+	boost::signals2::scoped_connection con = button->DoOnClick([]() {std::cout << "click" << std::endl; });
+	boost::signals2::scoped_connection con2 = button1->DoOnClick([]() {std::cout << "clack" << std::endl; });
 
 	auto toolbar = ui::CToolBar::Create(size);
 	toolbar->AddChildWithIndex(button, 1);
@@ -26,12 +47,10 @@ void AppendToolbar(CBaseControl & parent, const sf::Vector2u & size)
 	button->SetBackground(background);
 	background->loadFromFile("./images/stainless-steel.jpg");
 
-	boost::signals2::scoped_connection con = button->DoOnClick([]() {std::cout << "click" << std::endl; });
-	boost::signals2::scoped_connection con2 = button1->DoOnClick([]() {std::cout << "clack" << std::endl; });
 
 	std::shared_ptr<sf::Texture> textureImage = std::make_shared<sf::Texture>();
 	textureImage->loadFromFile("./images/test_icon.png");
-	button->SetIcon(textureImage);
+	button->SetIcon(textureImage);*/
 
 	parent.AppendChild(toolbar);
 }
