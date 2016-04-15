@@ -39,9 +39,12 @@ void AppendToolbar(CBaseControl & parent, const sf::Vector2u & size)
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
+	window.setFramerateLimit(30);
+
+	sf::View view(window.getDefaultView());
 
 	auto root = CBaseControl::Create();
-	AppendToolbar(*root, window.getSize());
+	AppendToolbar(*root, sf::Vector2u(490, 500));
 
 	while (window.isOpen())
 	{
@@ -55,15 +58,19 @@ int main()
 			else
 			{
 				root->OnEvent(event);
+
+				if (event.type == sf::Event::Resized)
+				{
+					view = sf::View(sf::FloatRect(0.f, 0.f,
+						float(window.getSize().x),
+						float(window.getSize().y)));
+					window.setView(view);
+				}
 			}
 		}
 
 		window.clear();
-
-		{
-			window.draw(*root);
-		}
-
+		window.draw(*root);
 		window.display();
 	}
 	return 0;
