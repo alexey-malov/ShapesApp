@@ -16,32 +16,60 @@ CButton::CButton()
 {
 }
 
+void CButton::SetIcon(const std::shared_ptr<sf::Texture> & texture)
+{
+	m_iconTexture = texture;
+	if (texture)
+	{
+		m_iconSprite.setTexture(*texture);
+		m_iconSprite.setPosition(m_background.getPosition()
+			+ m_background.getSize() * 0.5f
+			- sf::Vector2f(m_iconSprite.getGlobalBounds().width, m_iconSprite.getGlobalBounds().height) * 0.5f);
+	}
+}
+
 void CButton::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(m_background, states);
+	if (m_iconTexture)
+	{
+		target.draw(m_iconSprite, states);
+	}
 }
 
-Connection CButton::DoOnClick(OnClick::slot_type const &handler)
+Connection CButton::DoOnClick(OnClick::slot_type const & handler)
 {
 	return m_onClick.connect(handler);
 }
 
+void CButton::SetBackground(const std::shared_ptr<sf::Texture> & texture)
+{
+	m_backgroundTexture = texture;
+	m_background.setTexture(m_backgroundTexture.get());
+}
+
 bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)
 {
-	if (IsContainButton({ float(event.x), float(event.y) }))
+	if (HitTest({ float(event.x), float(event.y) }))
 	{
 		ChangeColor(ButtonState::PRESSED);
-		isPressed = true;
+		m_isPressed = true;
 		m_onClick();
 		return true;
 	}
 	return false;
 }
 
+void CButton::OnFrameChanged(const sf::FloatRect & newRect)
+{
+	m_background.setPosition({ newRect.left, newRect.top });
+	m_background.setSize({ newRect.width, newRect.height });
+}
+
 bool CButton::OnMouseReleased(sf::Event::MouseButtonEvent const& event)
 {
-	isPressed = false;
-	if (IsContainButton({ float(event.x), float(event.y) }))
+	m_isPressed = false;
+	if (HitTest({ float(event.x), float(event.y) }))
 	{
 		ChangeColor(ButtonState::HOVERED);
 		return true;
@@ -51,15 +79,15 @@ bool CButton::OnMouseReleased(sf::Event::MouseButtonEvent const& event)
 
 bool CButton::OnMouseMoved(sf::Event::MouseMoveEvent const& event)
 {
-	if (IsContainButton({ float(event.x), float(event.y) })) 
+	if (HitTest({ float(event.x), float(event.y) })) 
 	{
-		if (!isPressed)
+		if (!m_isPressed)
 		{
 			ChangeColor(ButtonState::HOVERED);
 		}
 		return true;
 	}
-	isPressed = false;
+	m_isPressed = false;
 	ChangeColor(ButtonState::NORMAL);
 	return false;
 }
@@ -80,7 +108,7 @@ void CButton::ChangeColor(const ButtonState & state)
 	}
 }
 
-bool CButton::IsContainButton(sf::Vector2f const & pos)
+bool CButton::HitTest(sf::Vector2f const & pos)
 {
 	return m_background.getGlobalBounds().contains(pos);
 }

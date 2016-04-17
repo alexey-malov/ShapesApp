@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "BaseControl.h"
 
 using namespace sf;
@@ -80,12 +80,32 @@ void CBaseControl::RemoveFromParent()
 	}
 }
 
+void CBaseControl::SetFrame(const sf::FloatRect & frame)
+{
+	if (frame != m_frame)
+	{
+		m_frame = frame;
+		OnFrameChanged(m_frame);
+	}
+}
+
+sf::FloatRect CBaseControl::GetFrame() const
+{
+	return m_frame;
+}
+
 void CBaseControl::OnDraw(sf::RenderTarget & /*target*/, sf::RenderStates /*states*/) const
 {
 }
 
+void CBaseControl::OnFrameChanged(const sf::FloatRect & /*newFrame*/)
+{
+	// Can be overriden in subclasses
+}
+
 void CBaseControl::draw(RenderTarget & target, RenderStates states) const
 {
+	states.transform.translate({ m_frame.left, m_frame.top });
 	OnDraw(target, states);
 
 	for (auto & child : m_children)
@@ -102,6 +122,8 @@ bool CBaseControl::DispatchOwnEvent(sf::Event const & event)
 		return OnMousePressed(event.mouseButton);
 	case sf::Event::MouseButtonReleased:
 		return OnMouseReleased(event.mouseButton);
+	case sf::Event::Resized:
+		return OnWindowResized(event.size);
 	case sf::Event::MouseMoved:
 		return OnMouseMoved(event.mouseMove);
 	default:
@@ -188,9 +210,17 @@ bool CBaseControl::OnMouseReleased(sf::Event::MouseButtonEvent const &)
 	return false;
 }
 
+bool CBaseControl::OnWindowResized(sf::Event::SizeEvent const &)
+{
+	return false;
+}
+
 bool CBaseControl::OnMouseMoved(sf::Event::MouseMoveEvent const& )
 {
 	return false;
 }
 
 }
+
+
+
