@@ -14,7 +14,6 @@ public:
 	const sf::Vector2f GetPosition() const;
 	sf::FloatRect GetGlobalBounds() const;
 	void SetScale(float factorX, float factorY);
-	const sf::Transform& GetTransform() const;
 	void SetSize(float x, float y) override;
 	void SetSize(sf::Vector2f const& size) override;
 	sf::Vector2f GetSize()const override;

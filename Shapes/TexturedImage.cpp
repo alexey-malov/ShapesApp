@@ -42,10 +42,6 @@ void CTexturedImage::SetScale(float factorX, float factorY)
 	m_sprite.setScale(factorX, factorY);
 }
 
-const sf::Transform & CTexturedImage::GetTransform() const
-{
-	return m_sprite.getTransform();
-}
 
 void CTexturedImage::SetSize(float x, float y)
 {
