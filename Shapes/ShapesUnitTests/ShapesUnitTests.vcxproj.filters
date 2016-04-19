@@ -15,6 +15,9 @@
     <Filter Include="Source Files\ui">
       <UniqueIdentifier>{815810ec-417d-4b2c-ae50-21a0786ce97f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{1c832b4d-089a-438b-a2c2-0df657165722}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -35,6 +38,12 @@
     <ClInclude Include="..\Signals.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
+    <ClInclude Include="..\TexturedImage.h">
+      <Filter>Source Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Scale9GridTexturedImage.h">
+      <Filter>Source Files\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -51,6 +60,15 @@
     </ClCompile>
     <ClCompile Include="..\Button.cpp">
       <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="9PatchTests.cpp">
+      <Filter>Source Files\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TexturedImage.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Scale9GridTexturedImage.cpp">
+      <Filter>Source Files\utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
