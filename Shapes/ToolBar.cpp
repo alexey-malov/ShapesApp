@@ -49,4 +49,24 @@ void CToolBar::SetButtonsBackgrounds(const std::shared_ptr<sf::Texture>& texture
 	}
 }
 
+sf::Vector2f CToolBar::GetToolbarSize()const
+{
+	return m_background.getSize();
+}
+
+void CToolBar::SetToolbarSize(sf::Vector2f const & size)
+{
+	m_background.setSize(size);
+}
+
+void CToolBar::SetRightIndentSize(float width)
+{
+	m_rightIndentSize = width;
+}
+
+float CToolBar::GetRightIndentSize() const
+{
+	return m_rightIndentSize;
+}
+
 }

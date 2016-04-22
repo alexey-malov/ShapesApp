@@ -151,7 +151,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseControl.h" />
+    <ClInclude Include="BaseControlContainer.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="MainView.h" />
+    <ClInclude Include="Stage.h" />
     <ClInclude Include="ToolBar.h" />
     <ClInclude Include="Signals.h" />
     <ClInclude Include="stdafx.h" />
@@ -162,6 +165,8 @@
     <ClCompile Include="BaseControl.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainView.cpp" />
+    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="ToolBar.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
