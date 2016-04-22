@@ -38,6 +38,15 @@
     <ClInclude Include="ToolbarButton.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseControlContainer.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="MainView.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -56,6 +65,12 @@
       <Filter>Source Files\ui</Filter>
     </ClCompile>
     <ClCompile Include="ToolbarButton.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="MainView.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
   </ItemGroup>
