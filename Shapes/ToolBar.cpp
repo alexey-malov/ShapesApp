@@ -32,7 +32,11 @@ void CToolBar::AddChildWithIndex(unsigned index)
 	InsertChildAtIndex(button, index);
 
 	m_buttons.insert({ index, CToolbarButton::Create(button) });
-
+	std::shared_ptr<sf::Texture> backgroundTexture = std::make_shared<sf::Texture>();
+	backgroundTexture->loadFromFile("./images/wood.jpg");
+	auto textureSize = backgroundTexture->getSize();
+	std::shared_ptr<IImage> image = std::make_shared<CScale9GridTexturedImage>(backgroundTexture, sf::IntRect(0, 0, textureSize.x, textureSize.y));
+	button->SetBackground(image);
 	button->SetFrame({ float((GetChildCount() - 1) * 50 + 5), 5, BUTTON_SIZE.x , BUTTON_SIZE.y });
 }
 
@@ -41,11 +45,11 @@ std::shared_ptr<CToolbarButton> CToolBar::GetButton(unsigned const & index)
 	return m_buttons.find(index)->second;
 }
 
-void CToolBar::SetButtonsBackgrounds(const std::shared_ptr<sf::Texture>& texture)
+void CToolBar::SetButtonsBackgrounds(const std::shared_ptr<IImage> & image)
 {
 	for (auto &it : m_buttons)
 	{
-		it.second->SetBackground(texture);
+		it.second->SetBackground(image);
 	}
 }
 

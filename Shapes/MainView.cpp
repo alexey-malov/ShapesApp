@@ -45,10 +45,6 @@ void CMainView::CreateMainToolbar()
 	button2->SetAction([]() {cout << "clack" << endl; });
 	button3->SetAction([]() {cout << "bang" << endl; });
 
-	shared_ptr<Texture> background = make_shared<Texture>();
-	background->loadFromFile("./images/wood.jpg");
-	toolbar->SetButtonsBackgrounds(background);
-
 	toolbar->SetFrame({ 5, 50, 500, 50 });
 	AppendChild(toolbar);
 }

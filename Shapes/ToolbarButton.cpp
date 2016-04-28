@@ -23,9 +23,9 @@ void CToolbarButton::SetIcon(const std::shared_ptr<sf::Texture>& texture)
 	m_button->SetIcon(texture);
 }
 
-void CToolbarButton::SetBackground(const std::shared_ptr<sf::Texture>& texture)
+void CToolbarButton::SetBackground(const std::shared_ptr<IImage> & image)
 {
-	m_button->SetBackground(texture);
+	m_button->SetBackground(image);
 }
 
 }

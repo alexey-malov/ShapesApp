@@ -10,7 +10,7 @@ struct IToolbarButton
 
 	virtual void SetIcon(const std::shared_ptr<sf::Texture> & texture) = 0;
 
-	virtual void SetBackground(const std::shared_ptr<sf::Texture> & texture) = 0;
+	virtual void SetBackground(const std::shared_ptr<IImage> & image) = 0;
 };
 
 
@@ -21,7 +21,7 @@ public:
 	static std::shared_ptr<CToolbarButton> Create(std::shared_ptr<CButton> & button);
 	void SetAction(OnClick::slot_type const &handler) override;
 	void SetIcon(const std::shared_ptr<sf::Texture> & texture) override;
-	void SetBackground(const std::shared_ptr<sf::Texture> & texture) override;
+	void SetBackground(const std::shared_ptr<IImage> & image) override;
 
 private:
 	CToolbarButton(std::shared_ptr<CButton> & button);

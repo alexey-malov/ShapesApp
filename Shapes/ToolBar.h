@@ -14,7 +14,7 @@ public:
 
 	std::shared_ptr<CToolbarButton> GetButton(unsigned const& index);
 
-	void SetButtonsBackgrounds(const std::shared_ptr<sf::Texture> & texture);
+	void SetButtonsBackgrounds(const std::shared_ptr<IImage> & image);
 	
 	sf::Vector2f GetToolbarSize()const;
 	void SetToolbarSize(sf::Vector2f const &size);
