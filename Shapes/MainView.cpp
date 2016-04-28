@@ -33,17 +33,41 @@ void CMainView::CreateMainToolbar()
 
 	toolbar->SetRightIndentSize(float(500u - 490u));
 
-	toolbar->AddChildWithIndex(1);
-	toolbar->AddChildWithIndex(2);
-	toolbar->AddChildWithIndex(3);
+	auto createRectangleButton = toolbar->AddChildWithIndex(1);
+	auto createTriangleButton = toolbar->AddChildWithIndex(2);
+	auto createCircleButton = toolbar->AddChildWithIndex(3);
+	auto undoButton = toolbar->AddChildWithIndex(4);
+	auto redoButton =toolbar->AddChildWithIndex(5);
+	auto deleteButton = toolbar->AddChildWithIndex(6);
 
-	auto button1 = toolbar->GetButton(1);
-	auto button2 = toolbar->GetButton(2);
-	auto button3 = toolbar->GetButton(3);
+	std::shared_ptr<sf::Texture> rectangleTexture = std::make_shared<sf::Texture>();
+	std::shared_ptr<sf::Texture> triangleTexture = std::make_shared<sf::Texture>();
+	std::shared_ptr<sf::Texture> circleTexture = std::make_shared<sf::Texture>();
+	std::shared_ptr<sf::Texture> undoTexture = std::make_shared<sf::Texture>();
+	std::shared_ptr<sf::Texture> redoTexture = std::make_shared<sf::Texture>();
+	std::shared_ptr<sf::Texture> deleteTexture = std::make_shared<sf::Texture>();
 
-	button1->SetAction([]() {cout << "click" << endl; });
-	button2->SetAction([]() {cout << "clack" << endl; });
-	button3->SetAction([]() {cout << "bang" << endl; });
+	rectangleTexture->loadFromFile("./images/icons/rectangle.png");
+	triangleTexture->loadFromFile("./images/icons/triangle.png");
+	circleTexture->loadFromFile("./images/icons/circle.png");
+	undoTexture->loadFromFile("./images/icons/undo.png");
+	redoTexture->loadFromFile("./images/icons/redo.png");
+	deleteTexture->loadFromFile("./images/icons/delete.png");
+
+	createRectangleButton->SetIcon(rectangleTexture);
+	createTriangleButton->SetIcon(triangleTexture);
+	createCircleButton->SetIcon(circleTexture);
+	undoButton->SetIcon(undoTexture);
+	redoButton->SetIcon(redoTexture);
+	deleteButton->SetIcon(deleteTexture);
+
+
+	createRectangleButton->SetAction([]() {cout << "Rectangle created" << endl; });
+	createTriangleButton->SetAction([]() {cout << "Triangle created" << endl; });
+	createCircleButton->SetAction([]() {cout << "Circle created" << endl; });
+	undoButton->SetAction([]() {cout << "Undo" << endl; });
+	redoButton->SetAction([]() {cout << "Redo" << endl; });
+	deleteButton->SetAction([]() {cout << "delete shape" << endl; });
 
 	shared_ptr<Texture> background = make_shared<Texture>();
 	background->loadFromFile("./images/wood.jpg");
