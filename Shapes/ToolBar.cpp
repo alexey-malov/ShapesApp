@@ -25,7 +25,7 @@ void CToolBar::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(m_background, states);
 }
 
-void CToolBar::AddChildWithIndex(unsigned index)
+std::shared_ptr<CToolbarButton> CToolBar::AddChildWithIndex(unsigned index)
 {
 	auto button = CButton::Create();
 
@@ -34,6 +34,7 @@ void CToolBar::AddChildWithIndex(unsigned index)
 	m_buttons.insert({ index, CToolbarButton::Create(button) });
 
 	button->SetFrame({ float((GetChildCount() - 1) * 50 + 5), 5, BUTTON_SIZE.x , BUTTON_SIZE.y });
+	return m_buttons.find(index)->second;
 }
 
 std::shared_ptr<CToolbarButton> CToolBar::GetButton(unsigned const & index)

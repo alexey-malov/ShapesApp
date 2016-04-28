@@ -10,7 +10,7 @@ class CToolBar : public ui::CBaseControl
 public:
 	static std::shared_ptr<CToolBar> Create(sf::Vector2u const& size);
 
-	void AddChildWithIndex(unsigned index);
+	std::shared_ptr<CToolbarButton> AddChildWithIndex(unsigned index);
 
 	std::shared_ptr<CToolbarButton> GetButton(unsigned const& index);
 
