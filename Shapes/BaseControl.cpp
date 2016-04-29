@@ -94,6 +94,25 @@ sf::FloatRect CBaseControl::GetFrame() const
 	return m_frame;
 }
 
+sf::Vector2f CBaseControl::LocalToGlobal(const sf::Vector2f & local) const
+{
+	auto parent = m_parent.lock();
+	auto global = parent ? parent->LocalToGlobal(local) : local;
+	return GetOrigin() + global;
+}
+
+sf::Vector2f CBaseControl::GlobalToLocal(const sf::Vector2f & global) const
+{
+	sf::Vector2f origin = GetOrigin();
+	auto parent = m_parent.lock();
+	while (parent)
+	{
+		origin += parent->GetOrigin();
+		parent = parent->GetParent();
+	}
+	return global - origin;
+}
+
 void CBaseControl::OnDraw(sf::RenderTarget & /*target*/, sf::RenderStates /*states*/) const
 {
 }
@@ -198,6 +217,11 @@ bool CBaseControl::IsItOneOfMyParents(const CBaseControlPtr & control) const
 	}
 
 	return false;
+}
+
+sf::Vector2f CBaseControl::GetOrigin() const
+{
+	return { m_frame.left, m_frame.top };
 }
 
 bool CBaseControl::OnMousePressed(sf::Event::MouseButtonEvent const &)

@@ -30,6 +30,10 @@ public:
 	void SetFrame(const sf::FloatRect & frame);
 	sf::FloatRect GetFrame()const;
 
+	sf::Vector2f GetOrigin()const;
+	sf::Vector2f LocalToGlobal(const sf::Vector2f & local) const;
+	sf::Vector2f GlobalToLocal(const sf::Vector2f & global) const;
+
 	virtual ~CBaseControl() = default;
 
 protected:

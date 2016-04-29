@@ -5,6 +5,8 @@ using namespace ui;
 using namespace std;
 
 using boost::algorithm::all_of;
+using sf::Vector2f;
+using sf::FloatRect;
 
 
 struct BaseControl_
@@ -36,8 +38,28 @@ BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 		{
 			BOOST_CHECK_EQUAL(control->GetChildCount(), 0u);
 		}
+		BOOST_AUTO_TEST_CASE(transforms_coordinates_using_own_frame)
+		{
+			const Vector2f pt(3.45f, 5.17f);
+			const FloatRect frm(2.17f, 16.23f, 15.29f, 17.98f);
+
+			control->SetFrame(frm);
+
+			const auto origin = Vector2f(frm.left, frm.top);
+
+			BOOST_CHECK(control->LocalToGlobal(pt) == (pt + origin));
+			BOOST_CHECK(control->GlobalToLocal(pt) == (pt - origin));
+		}
 	BOOST_AUTO_TEST_SUITE_END()
-	
+
+	BOOST_AUTO_TEST_CASE(has_origin_equal_to_frame_left_top_corner)
+	{
+		const FloatRect frm(2.17f, 16.23f, 15.29f, 17.98f);
+		const auto origin = Vector2f(frm.left, frm.top);
+		control->SetFrame(frm);
+		BOOST_CHECK(origin == control->GetOrigin());
+	}
+
 	struct after_inserting_children_ : BaseControl_
 	{
 		after_inserting_children_()
@@ -173,6 +195,18 @@ BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 			BOOST_CHECK_THROW(control->AppendChild(grandParent), std::invalid_argument);
 			BOOST_CHECK_EQUAL(control->GetParent(), parent);
 			BOOST_CHECK(!grandParent->GetParent());
+		}
+		BOOST_AUTO_TEST_CASE(takes_all_parent_frames_into_account)
+		{
+
+			control->SetFrame({ 2.13f, 2.35f, 0.32f, 9.77f });
+
+			parent->SetFrame({ 7.16f, 8.33f, 7.11f, 8.64f });
+			grandParent->SetFrame({ 8.11f, -7.16f, 3.08f, 1.1f });
+
+			const Vector2f pt(19.17f, 7.33f);
+			BOOST_CHECK(control->LocalToGlobal(pt) == pt + (control->GetOrigin() + parent->GetOrigin() + grandParent->GetOrigin()));
+			BOOST_CHECK(control->GlobalToLocal(pt) == pt - (control->GetOrigin() + parent->GetOrigin() + grandParent->GetOrigin()));
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 
