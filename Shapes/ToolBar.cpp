@@ -3,7 +3,7 @@
 #include <iostream>
 namespace ui
 {
-static const sf::Vector2f BUTTON_SIZE = { 50.0f, 20.0f };
+static const sf::Vector2f BUTTON_SIZE = { 10.f, 10.f };
 
 std::shared_ptr<CToolBar> CToolBar::Create(sf::Vector2u const& size)
 {
@@ -33,9 +33,9 @@ void CToolBar::AddChildWithIndex(unsigned index)
 
 	m_buttons.insert({ index, CToolbarButton::Create(button) });
 	std::shared_ptr<sf::Texture> backgroundTexture = std::make_shared<sf::Texture>();
-	backgroundTexture->loadFromFile("./images/wood.jpg");
+	backgroundTexture->loadFromFile("./images/btn1-normal.png");
 	auto textureSize = backgroundTexture->getSize();
-	std::shared_ptr<IImage> image = std::make_shared<CScale9GridTexturedImage>(backgroundTexture, sf::IntRect(0, 0, textureSize.x, textureSize.y));
+	std::shared_ptr<IImage> image = std::make_shared<CScale9GridTexturedImage>(backgroundTexture, sf::IntRect(2, 2, 6, 6));
 	button->SetBackground(image);
 	button->SetFrame({ float((GetChildCount() - 1) * 50 + 5), 5, BUTTON_SIZE.x , BUTTON_SIZE.y });
 }
