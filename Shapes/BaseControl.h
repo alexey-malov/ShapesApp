@@ -1,4 +1,5 @@
 #pragma once
+#include "BaseControlContainer.h"
 
 namespace ui
 {
@@ -9,13 +10,14 @@ typedef std::shared_ptr<CBaseControl> CBaseControlPtr;
 class CBaseControl 
 	: public sf::Drawable
 	, public std::enable_shared_from_this<CBaseControl>
+	, public ui::IBaseControlContainer
 {
 	CBaseControl(const CBaseControl &) = delete;
 	CBaseControl& operator = (const CBaseControl &) = delete;
 public:
 	static std::shared_ptr<CBaseControl> Create();
 
-	bool OnEvent(sf::Event const& event);
+	bool OnEvent(sf::Event const& event) override;
 
 	void AppendChild(const CBaseControlPtr & control);
 	void InsertChildAtIndex(const CBaseControlPtr & control, unsigned index);

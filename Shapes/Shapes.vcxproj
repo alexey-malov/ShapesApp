@@ -101,13 +101,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;freetype.lib;jpeg.lib;winmm.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;freetype.lib;jpeg.lib;winmm.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -151,7 +152,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseControl.h" />
+    <ClInclude Include="BaseControlContainer.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="MainView.h" />
+    <ClInclude Include="Stage.h" />
     <ClInclude Include="ToolBar.h" />
     <ClInclude Include="Signals.h" />
     <ClInclude Include="stdafx.h" />
@@ -162,6 +166,8 @@
     <ClCompile Include="BaseControl.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainView.cpp" />
+    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="ToolBar.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
