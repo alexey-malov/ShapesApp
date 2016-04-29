@@ -50,7 +50,7 @@ void CButton::SetBackground(const std::shared_ptr<sf::Texture> & texture)
 
 bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)
 {
-	if (HitTest({ float(event.x), float(event.y) }))
+	if (MouseHitTest({ event.x, event.y }))
 	{
 		ChangeColor(ButtonState::PRESSED);
 		m_isPressed = true;
@@ -62,14 +62,13 @@ bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)
 
 void CButton::OnFrameChanged(const sf::FloatRect & newRect)
 {
-	m_background.setPosition({ newRect.left, newRect.top });
 	m_background.setSize({ newRect.width, newRect.height });
 }
 
 bool CButton::OnMouseReleased(sf::Event::MouseButtonEvent const& event)
 {
 	m_isPressed = false;
-	if (HitTest({ float(event.x), float(event.y) }))
+	if (MouseHitTest({ event.x, event.y }))
 	{
 		ChangeColor(ButtonState::HOVERED);
 		return true;
@@ -79,7 +78,7 @@ bool CButton::OnMouseReleased(sf::Event::MouseButtonEvent const& event)
 
 bool CButton::OnMouseMoved(sf::Event::MouseMoveEvent const& event)
 {
-	if (HitTest({ float(event.x), float(event.y) })) 
+	if (MouseHitTest({ event.x, event.y }))
 	{
 		if (!m_isPressed)
 		{
@@ -108,9 +107,9 @@ void CButton::ChangeColor(const ButtonState & state)
 	}
 }
 
-bool CButton::HitTest(sf::Vector2f const & pos)const
+bool CButton::MouseHitTest(const sf::Vector2i & mousePos) const
 {
-	return m_background.getGlobalBounds().contains(pos);
+	return HitTest(GlobalToLocal(Vector2f(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))));
 }
 
 }

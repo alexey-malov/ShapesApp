@@ -33,7 +33,7 @@ std::shared_ptr<IToolbarButton> CToolBar::AddChildWithIndex(unsigned index)
 
 	m_buttons.insert({ index, CToolbarButton::Create(button) });
 
-	button->SetFrame({ float((GetChildCount() - 1) * 50 + 5), 5, BUTTON_SIZE.x , BUTTON_SIZE.y });
+	button->SetFrame({ float((GetChildCount() - 1) * 55 + 5), 5, BUTTON_SIZE.x , BUTTON_SIZE.y });
 	return m_buttons.find(index)->second;
 }
 
