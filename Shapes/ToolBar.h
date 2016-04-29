@@ -10,9 +10,9 @@ class CToolBar : public ui::CBaseControl
 public:
 	static std::shared_ptr<CToolBar> Create(sf::Vector2u const& size);
 
-	std::shared_ptr<CToolbarButton> AddChildWithIndex(unsigned index);
+	std::shared_ptr<IToolbarButton> AddChildWithIndex(unsigned index);
 
-	std::shared_ptr<CToolbarButton> GetButton(unsigned const& index);
+	std::shared_ptr<IToolbarButton> GetButton(unsigned index);
 
 	void SetButtonsBackgrounds(const std::shared_ptr<sf::Texture> & texture);
 	

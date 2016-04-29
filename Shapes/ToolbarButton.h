@@ -11,6 +11,8 @@ struct IToolbarButton
 	virtual void SetIcon(const std::shared_ptr<sf::Texture> & texture) = 0;
 
 	virtual void SetBackground(const std::shared_ptr<sf::Texture> & texture) = 0;
+
+	virtual ~IToolbarButton() = default;
 };
 
 

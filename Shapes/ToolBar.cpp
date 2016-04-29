@@ -25,7 +25,7 @@ void CToolBar::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(m_background, states);
 }
 
-std::shared_ptr<CToolbarButton> CToolBar::AddChildWithIndex(unsigned index)
+std::shared_ptr<IToolbarButton> CToolBar::AddChildWithIndex(unsigned index)
 {
 	auto button = CButton::Create();
 
@@ -37,7 +37,7 @@ std::shared_ptr<CToolbarButton> CToolBar::AddChildWithIndex(unsigned index)
 	return m_buttons.find(index)->second;
 }
 
-std::shared_ptr<CToolbarButton> CToolBar::GetButton(unsigned const & index)
+std::shared_ptr<IToolbarButton> CToolBar::GetButton(unsigned index)
 {
 	return m_buttons.find(index)->second;
 }
