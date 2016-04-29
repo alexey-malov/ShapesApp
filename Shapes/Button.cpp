@@ -50,9 +50,10 @@ void CButton::SetBackground(const std::shared_ptr<sf::Texture> & texture)
 
 bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)
 {
-	sf::Vector2f pt(float(event.x), float(event.y));
-	if (m_background.getGlobalBounds().contains(pt))
+	if (HitTest({ float(event.x), float(event.y) }))
 	{
+		ChangeColor(ButtonState::PRESSED);
+		m_isPressed = true;
 		m_onClick();
 		return true;
 	}
@@ -63,6 +64,53 @@ void CButton::OnFrameChanged(const sf::FloatRect & newRect)
 {
 	m_background.setPosition({ newRect.left, newRect.top });
 	m_background.setSize({ newRect.width, newRect.height });
+}
+
+bool CButton::OnMouseReleased(sf::Event::MouseButtonEvent const& event)
+{
+	m_isPressed = false;
+	if (HitTest({ float(event.x), float(event.y) }))
+	{
+		ChangeColor(ButtonState::HOVERED);
+		return true;
+	}
+	return false;
+}
+
+bool CButton::OnMouseMoved(sf::Event::MouseMoveEvent const& event)
+{
+	if (HitTest({ float(event.x), float(event.y) })) 
+	{
+		if (!m_isPressed)
+		{
+			ChangeColor(ButtonState::HOVERED);
+		}
+		return true;
+	}
+	m_isPressed = false;
+	ChangeColor(ButtonState::NORMAL);
+	return false;
+}
+
+void CButton::ChangeColor(const ButtonState & state)
+{
+	switch (state)
+	{
+	case ButtonState::NORMAL:
+		m_background.setFillColor(sf::Color::White);
+		break;
+	case ButtonState::HOVERED:
+		m_background.setFillColor(sf::Color::Yellow);
+		break;
+	case ButtonState::PRESSED:
+		m_background.setFillColor(sf::Color::Blue);
+		break;
+	}
+}
+
+bool CButton::HitTest(sf::Vector2f const & pos)
+{
+	return m_background.getGlobalBounds().contains(pos);
 }
 
 }

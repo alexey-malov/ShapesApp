@@ -2,6 +2,12 @@
 #include "BaseControl.h"
 #include "Signals.h"
 
+enum class ButtonState {
+	NORMAL,
+	HOVERED,
+	PRESSED
+};
+
 namespace ui
 {
 
@@ -20,12 +26,16 @@ protected:
 	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	bool OnMousePressed(sf::Event::MouseButtonEvent const& event) override;
 	void OnFrameChanged(const sf::FloatRect & newRect) override;
-private:
+	bool OnMouseReleased(sf::Event::MouseButtonEvent const& event) override;
+	bool OnMouseMoved(sf::Event::MouseMoveEvent const& event) override;
+	void ChangeColor(const ButtonState & state);private:
+	bool HitTest(sf::Vector2f const & pos);
 	std::shared_ptr<sf::Texture> m_backgroundTexture;
 	sf::RectangleShape m_background;
 	std::shared_ptr<sf::Texture> m_iconTexture;
 	sf::Sprite m_iconSprite;
 	OnClick m_onClick;
+	bool m_isPressed = false;
 };
 
 }

@@ -30,12 +30,15 @@ public:
 
 	sf::FloatRect GetFrame()const;
 
+	virtual ~CBaseControl() = default;
+
 protected:
 	CBaseControl() = default;
 
 	virtual bool OnWindowResized(sf::Event::SizeEvent const& event);
 	virtual bool OnMousePressed(sf::Event::MouseButtonEvent const& event);
 	virtual bool OnMouseReleased(sf::Event::MouseButtonEvent const& event);
+	virtual bool OnMouseMoved(sf::Event::MouseMoveEvent const& event);
 	virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const;
 	virtual void OnFrameChanged(const sf::FloatRect & newFrame);
 private:
