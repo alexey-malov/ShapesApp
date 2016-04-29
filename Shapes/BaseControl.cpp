@@ -123,6 +123,12 @@ sf::Vector2f CBaseControl::ConvertPointToControl(const sf::Vector2f & pt, const 
 	return control->ConvertPointFromControl(pt, shared_from_this());
 }
 
+bool CBaseControl::HitTest(sf::Vector2f const & local) const
+{
+	return (local.x >= 0 && local.x < m_frame.width)	// x is within the horizontal bounds
+		&& (local.y >= 0 && local.y < m_frame.height);	// y is within the vertical bounds
+}
+
 void CBaseControl::OnDraw(sf::RenderTarget & /*target*/, sf::RenderStates /*states*/) const
 {
 }

@@ -39,6 +39,8 @@ public:
 	sf::Vector2f ConvertPointFromControl(const sf::Vector2f & pt, const CBaseControlConstPtr& control) const;
 	sf::Vector2f ConvertPointToControl(const sf::Vector2f & pt, const CBaseControlConstPtr& control) const;
 
+	virtual bool HitTest(sf::Vector2f const & local)const ;
+
 	virtual ~CBaseControl() = default;
 
 protected:

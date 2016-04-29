@@ -60,6 +60,19 @@ BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 		BOOST_CHECK(origin == control->GetOrigin());
 	}
 
+	BOOST_AUTO_TEST_CASE(can_perform_point_hit_test)
+	{
+		const FloatRect frm(-4, 3, 8, 5);
+		const Vector2f size(frm.width, frm.height);
+		const Vector2f eps(frm.width * 0.1f, frm.height * 0.1f);
+		
+		control->SetFrame(frm);
+		BOOST_CHECK(control->HitTest({ 0, 0 }));
+		BOOST_CHECK(!control->HitTest(Vector2f() - eps));
+		BOOST_CHECK(!control->HitTest({ frm.width, frm.height }));
+		BOOST_CHECK(control->HitTest(size - eps));
+	}
+
 	struct after_inserting_children_ : BaseControl_
 	{
 		after_inserting_children_()

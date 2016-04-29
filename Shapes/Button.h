@@ -29,7 +29,7 @@ protected:
 	bool OnMouseReleased(sf::Event::MouseButtonEvent const& event) override;
 	bool OnMouseMoved(sf::Event::MouseMoveEvent const& event) override;
 	void ChangeColor(const ButtonState & state);private:
-	bool HitTest(sf::Vector2f const & pos);
+	bool HitTest(sf::Vector2f const & pos)const;
 	std::shared_ptr<sf::Texture> m_backgroundTexture;
 	sf::RectangleShape m_background;
 	std::shared_ptr<sf::Texture> m_iconTexture;

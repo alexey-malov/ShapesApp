@@ -108,7 +108,7 @@ void CButton::ChangeColor(const ButtonState & state)
 	}
 }
 
-bool CButton::HitTest(sf::Vector2f const & pos)
+bool CButton::HitTest(sf::Vector2f const & pos)const
 {
 	return m_background.getGlobalBounds().contains(pos);
 }
