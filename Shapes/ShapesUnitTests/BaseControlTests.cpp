@@ -177,6 +177,10 @@ BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 		{
 			grandParent->AppendChild(parent);
 			parent->AppendChild(control); 
+
+			control->SetFrame({ 2.13f, 2.35f, 0.32f, 9.77f });
+			parent->SetFrame({ 7.16f, 8.33f, 7.11f, 8.64f });
+			grandParent->SetFrame({ 8.11f, -7.16f, 3.08f, 1.1f });
 		}
 	};
 	BOOST_FIXTURE_TEST_SUITE(being_a_child, being_a_child_)
@@ -198,15 +202,24 @@ BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 		}
 		BOOST_AUTO_TEST_CASE(takes_all_parent_frames_into_account)
 		{
-
-			control->SetFrame({ 2.13f, 2.35f, 0.32f, 9.77f });
-
-			parent->SetFrame({ 7.16f, 8.33f, 7.11f, 8.64f });
-			grandParent->SetFrame({ 8.11f, -7.16f, 3.08f, 1.1f });
-
 			const Vector2f pt(19.17f, 7.33f);
 			BOOST_CHECK(control->LocalToGlobal(pt) == pt + (control->GetOrigin() + parent->GetOrigin() + grandParent->GetOrigin()));
 			BOOST_CHECK(control->GlobalToLocal(pt) == pt - (control->GetOrigin() + parent->GetOrigin() + grandParent->GetOrigin()));
+		}
+		BOOST_AUTO_TEST_CASE(can_convert_point_from_and_to_other_controls_coordinate_frame)
+		{
+			const auto otherControl = CBaseControl::Create();
+			otherControl->SetFrame({ 1.f, 2.f, 3.f, 4.f });
+			grandParent->AppendChild(otherControl);
+
+			const Vector2f pt(19.17f, 7.33f);
+			BOOST_CHECK(control->ConvertPointFromControl(pt, otherControl) == 
+				control->GlobalToLocal(otherControl->LocalToGlobal(pt))
+			);
+
+			BOOST_CHECK(control->ConvertPointToControl(pt, otherControl) ==
+				otherControl->GlobalToLocal(control->LocalToGlobal(pt))
+			);
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 

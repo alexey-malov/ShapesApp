@@ -113,6 +113,16 @@ sf::Vector2f CBaseControl::GlobalToLocal(const sf::Vector2f & global) const
 	return global - origin;
 }
 
+sf::Vector2f CBaseControl::ConvertPointFromControl(const sf::Vector2f & pt, const CBaseControlConstPtr & control) const
+{
+	return GlobalToLocal(control->LocalToGlobal(pt));
+}
+
+sf::Vector2f CBaseControl::ConvertPointToControl(const sf::Vector2f & pt, const CBaseControlConstPtr & control) const
+{
+	return control->ConvertPointFromControl(pt, shared_from_this());
+}
+
 void CBaseControl::OnDraw(sf::RenderTarget & /*target*/, sf::RenderStates /*states*/) const
 {
 }

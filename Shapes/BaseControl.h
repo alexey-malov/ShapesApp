@@ -6,6 +6,7 @@ namespace ui
 
 class CBaseControl;
 typedef std::shared_ptr<CBaseControl> CBaseControlPtr;
+typedef std::shared_ptr<const CBaseControl> CBaseControlConstPtr;
 
 class CBaseControl 
 	: public sf::Drawable
@@ -31,8 +32,12 @@ public:
 	sf::FloatRect GetFrame()const;
 
 	sf::Vector2f GetOrigin()const;
+	
 	sf::Vector2f LocalToGlobal(const sf::Vector2f & local) const;
 	sf::Vector2f GlobalToLocal(const sf::Vector2f & global) const;
+	
+	sf::Vector2f ConvertPointFromControl(const sf::Vector2f & pt, const CBaseControlConstPtr& control) const;
+	sf::Vector2f ConvertPointToControl(const sf::Vector2f & pt, const CBaseControlConstPtr& control) const;
 
 	virtual ~CBaseControl() = default;
 
