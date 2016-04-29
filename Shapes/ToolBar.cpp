@@ -3,7 +3,7 @@
 #include <iostream>
 namespace ui
 {
-static const sf::Vector2f BUTTON_SIZE = { 10.f, 10.f };
+static const sf::Vector2f BUTTON_SIZE = { 80.f, 80.f };
 
 std::shared_ptr<CToolBar> CToolBar::Create(sf::Vector2u const& size)
 {

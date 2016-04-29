@@ -82,8 +82,8 @@ sf::FloatRect CScale9GridTexturedImage::GetGlobalBounds() const
 
 void CScale9GridTexturedImage::SetPosition(float x, float y)
 {
-	m_texturedImages[8].SetPosition(x + m_texturedImages[0].GetSize().x + m_texturedImages[8].GetSize().x / 2.f,
-		y + m_texturedImages[0].GetSize().y + m_texturedImages[8].GetSize().y / 2.f);
+	m_texturedImages[8].SetPosition(x + m_texturedImages[0].GetSize().x,
+		y + m_texturedImages[0].GetSize().y);
 	UpdateCellsPosition();
 }
 
@@ -156,13 +156,15 @@ void CScale9GridTexturedImage::UpdateCellsPosition()
 	auto middle = m_texturedImages[8].GetGlobalBounds();
 	auto middleUpperRight = middle.left + middle.width;
 	auto middleBottomLeft = middle.top + middle.height;
-	m_texturedImages[1].SetPosition(middle.left, 0);
-	m_texturedImages[2].SetPosition(middleUpperRight, 0);
-	m_texturedImages[3].SetPosition(middleUpperRight, static_cast<float>(m_middle.top));
+	m_texturedImages[0].SetPosition(middle.left - m_texturedImages[0].GetSize().x,
+		middle.top - m_texturedImages[0].GetSize().y);
+	m_texturedImages[1].SetPosition(middle.left, middle.top - m_texturedImages[1].GetSize().y);
+	m_texturedImages[2].SetPosition(middleUpperRight, middle.top - m_texturedImages[2].GetSize().y);
+	m_texturedImages[3].SetPosition(middleUpperRight, middle.top);
 	m_texturedImages[4].SetPosition(middleUpperRight, middleBottomLeft);
 	m_texturedImages[5].SetPosition(middle.left, middleBottomLeft);
-	m_texturedImages[6].SetPosition(0, middleBottomLeft);
-	m_texturedImages[7].SetPosition(0, middle.top);
+	m_texturedImages[6].SetPosition(middle.left - m_texturedImages[6].GetSize().x, middleBottomLeft);
+	m_texturedImages[7].SetPosition(middle.left - m_texturedImages[7].GetSize().x, middle.top);
 }
 
 bool CScale9GridTexturedImage::IsImageIncludeScaleRect()
