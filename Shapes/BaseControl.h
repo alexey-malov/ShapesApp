@@ -26,8 +26,8 @@ public:
 
 	CBaseControlPtr GetParent()const;
 	void RemoveFromParent();
+	
 	void SetFrame(const sf::FloatRect & frame);
-
 	sf::FloatRect GetFrame()const;
 
 	virtual ~CBaseControl() = default;
