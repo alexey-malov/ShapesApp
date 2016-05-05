@@ -76,19 +76,25 @@ bool CButton::OnMouseReleased(sf::Event::MouseButtonEvent const& event)
 	return false;
 }
 
-bool CButton::OnMouseMoved(sf::Event::MouseMoveEvent const& event)
+void CButton::OnMouseOver(sf::Event::MouseMoveEvent const& event)
 {
 	if (MouseHitTest({ event.x, event.y }))
 	{
 		if (!m_isPressed)
 		{
 			ChangeColor(ButtonState::HOVERED);
+			m_isPressed = false;
 		}
-		return true;
 	}
-	m_isPressed = false;
-	ChangeColor(ButtonState::NORMAL);
-	return false;
+}
+
+void CButton::OnMouseLeave(sf::Event::MouseMoveEvent const& event)
+{
+	if (!MouseHitTest({ event.x, event.y }))
+	{
+		ChangeColor(ButtonState::NORMAL);
+		m_isPressed = false;
+	}
 }
 
 void CButton::ChangeColor(const ButtonState & state)

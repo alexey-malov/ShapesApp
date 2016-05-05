@@ -151,6 +151,8 @@ void CBaseControl::draw(RenderTarget & target, RenderStates states) const
 
 bool CBaseControl::DispatchOwnEvent(sf::Event const & event)
 {
+	OnMouseOver(event.mouseMove);
+	OnMouseLeave(event.mouseMove);
 	switch (event.type)
 	{
 	case sf::Event::MouseButtonPressed:
@@ -159,8 +161,6 @@ bool CBaseControl::DispatchOwnEvent(sf::Event const & event)
 		return OnMouseReleased(event.mouseButton);
 	case sf::Event::Resized:
 		return OnWindowResized(event.size);
-	case sf::Event::MouseMoved:
-		return OnMouseMoved(event.mouseMove);
 	default:
 		return false;
 	}
@@ -251,11 +251,6 @@ bool CBaseControl::OnMouseReleased(sf::Event::MouseButtonEvent const &)
 }
 
 bool CBaseControl::OnWindowResized(sf::Event::SizeEvent const &)
-{
-	return false;
-}
-
-bool CBaseControl::OnMouseMoved(sf::Event::MouseMoveEvent const& )
 {
 	return false;
 }
