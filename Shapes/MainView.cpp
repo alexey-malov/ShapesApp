@@ -77,6 +77,14 @@ void CMainView::CreateMainToolbar()
 	AppendChild(toolbar);
 }
 
+void  CMainView::CreateCanvas()
+{
+	m_canvas = CCanvas::Create(sf::Vector2u(550, 300));
+
+	m_canvas->SetCanvasPosition(sf::Vector2f(50, 150));
+	InsertChildAtIndex(m_canvas, 2);
+}
+
 bool CMainView::OnWindowResized(sf::Event::SizeEvent const & event)
 {
 	for (auto it : m_toolbars)
@@ -85,6 +93,7 @@ bool CMainView::OnWindowResized(sf::Event::SizeEvent const & event)
 			- it.second->GetRightIndentSize()
 			, it.second->GetToolbarSize().y });
 	}
+	m_canvas->SetCanvasSize({float(event.width), float(event.height)});
 
 	return true;
 }
