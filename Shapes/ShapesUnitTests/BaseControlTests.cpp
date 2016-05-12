@@ -8,7 +8,6 @@ using boost::algorithm::all_of;
 using sf::Vector2f;
 using sf::FloatRect;
 
-
 struct BaseControl_
 {
 	CBaseControlPtr control = CBaseControl::Create();
@@ -27,6 +26,8 @@ struct BaseControl_
 		}
 	}
 };
+
+
 
 BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 	BOOST_AUTO_TEST_SUITE(by_default)
@@ -234,6 +235,57 @@ BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 				otherControl->GlobalToLocal(control->LocalToGlobal(pt))
 			);
 		}
-	BOOST_AUTO_TEST_SUITE_END()
+		BOOST_AUTO_TEST_SUITE_END()
 
+
+		class CBaseControlDerived : public CBaseControl
+		{
+		public:
+			size_t onRemovingCounter = 0;
+			size_t onAddingCounter = 0;
+
+			static std::shared_ptr<CBaseControlDerived> Create()
+			{
+				return std::make_shared<CBaseControlDerived>();
+			}
+
+			void OnAddedToParent() override
+			{
+				onAddingCounter++;
+			}
+
+			void OnRemovedFromParent() override
+			{
+				onRemovingCounter++;
+			}
+		};
+
+		BOOST_AUTO_TEST_SUITE(process_event_on)
+
+			BOOST_AUTO_TEST_CASE(removing_from_parent)
+			{
+				auto derived = CBaseControlDerived::Create();
+				control->AppendChild(derived);
+				derived->RemoveFromParent();
+				BOOST_CHECK_EQUAL(derived->onRemovingCounter, 1);
+				derived->RemoveFromParent();
+				BOOST_CHECK_EQUAL(derived->onRemovingCounter, 1);
+				control->AppendChild(derived);
+				derived->RemoveFromParent();
+				BOOST_CHECK_EQUAL(derived->onRemovingCounter, 2);
+			}
+
+			BOOST_AUTO_TEST_CASE(adding_to_parent)
+			{
+				auto derived = CBaseControlDerived::Create();
+				control->AppendChild(derived);
+				BOOST_CHECK_EQUAL(derived->onAddingCounter, 1);
+				derived->RemoveFromParent();
+				control->AppendChild(derived);
+				BOOST_CHECK_EQUAL(derived->onAddingCounter, 2);
+				control->InsertChildAtIndex(derived, 2);
+				BOOST_CHECK_EQUAL(derived->onAddingCounter, 2);
+			}
+
+		BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
