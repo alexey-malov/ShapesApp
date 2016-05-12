@@ -27,7 +27,8 @@ protected:
 	bool OnMousePressed(sf::Event::MouseButtonEvent const& event) override;
 	void OnFrameChanged(const sf::FloatRect & newRect) override;
 	bool OnMouseReleased(sf::Event::MouseButtonEvent const& event) override;
-	bool OnMouseMoved(sf::Event::MouseMoveEvent const& event) override;
+	void OnMouseOver(sf::Event::MouseMoveEvent const& event) override;
+	void OnMouseLeave(sf::Event::MouseMoveEvent const& event) override;
 	void ChangeColor(const ButtonState & state);
 private:
 	bool MouseHitTest(const sf::Vector2i & mousePos)const;

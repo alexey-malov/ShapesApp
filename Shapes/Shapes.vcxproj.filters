@@ -12,6 +12,9 @@
     <Filter Include="Source Files\ui">
       <UniqueIdentifier>{effbb389-508f-4075-bd0a-841c2f91ec05}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ui\ShapeView">
+      <UniqueIdentifier>{e24fdad9-4313-4f54-bd8c-b6afcc482ec0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -47,6 +50,21 @@
     <ClInclude Include="MainView.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
+    <ClInclude Include="Canvas.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeView.h">
+      <Filter>Source Files\ui\ShapeView</Filter>
+    </ClInclude>
+    <ClInclude Include="RectangleShapeView.h">
+      <Filter>Source Files\ui\ShapeView</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleShapeView.h">
+      <Filter>Source Files\ui\ShapeView</Filter>
+    </ClInclude>
+    <ClInclude Include="EllipseShapeView.h">
+      <Filter>Source Files\ui\ShapeView</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -72,6 +90,21 @@
     </ClCompile>
     <ClCompile Include="MainView.cpp">
       <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="Canvas.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapeView.cpp">
+      <Filter>Source Files\ui\ShapeView</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleShapeView.cpp">
+      <Filter>Source Files\ui\ShapeView</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleShapeView.cpp">
+      <Filter>Source Files\ui\ShapeView</Filter>
+    </ClCompile>
+    <ClCompile Include="EllipseShapeView.cpp">
+      <Filter>Source Files\ui\ShapeView</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
