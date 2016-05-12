@@ -5,9 +5,10 @@
 CEllipseShapeView::CEllipseShapeView(sf::Vector2f const & size, sf::Vector2f const & pos)
 	: CShapeView(size, pos)
 {
+	InitCircle(size, pos);
 }
 
-void CEllipseShapeView::OnDraw(sf::RenderTarget & target, sf::RenderStates states)
+void CEllipseShapeView::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(m_circle, states);
 }

@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "MainView.h"
+#include "RectangleShapeView.h"
+#include "TriangleShapeView.h"
+#include "EllipseShapeView.h"
 #include <iostream>
 
 using namespace ui;
@@ -82,6 +85,9 @@ void  CMainView::CreateCanvas()
 	m_canvas = CCanvas::Create(sf::Vector2u(550, 300));
 
 	m_canvas->SetCanvasPosition(sf::Vector2f(50, 150));
+	m_canvas->AppendShape(std::make_shared<CRectangleShapeView>(sf::Vector2f(50, 30), sf::Vector2f(120, 300)));
+	m_canvas->AppendShape(std::make_shared<CTriangleShapeView>(sf::Vector2f(150, 180), sf::Vector2f(160, 300)));
+	m_canvas->AppendShape(std::make_shared<CEllipseShapeView>(sf::Vector2f(70, 100), sf::Vector2f(175, 200)));
 	InsertChildAtIndex(m_canvas, 2);
 }
 

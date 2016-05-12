@@ -8,7 +8,7 @@ CTriangleShapeView::CTriangleShapeView(sf::Vector2f const& size, sf::Vector2f co
 	InitTriangle(size, pos);
 }
 
-void CTriangleShapeView::OnDraw(sf::RenderTarget & target, sf::RenderStates states)
+void CTriangleShapeView::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(m_triangle, states);
 }

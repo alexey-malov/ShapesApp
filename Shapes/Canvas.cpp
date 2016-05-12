@@ -12,6 +12,13 @@ std::shared_ptr<CCanvas> CCanvas::Create(sf::Vector2u const & size)
 void CCanvas::AppendShape(std::shared_ptr<CShapeView> && shape)
 {
 	m_shapes.emplace_back(move(shape));
+	this->InsertChildAtIndex(m_shapes.back(), static_cast<unsigned>(m_shapes.size()));
+}
+
+std::shared_ptr<CShapeView> CCanvas::GetShape(unsigned index)
+{
+	assert(index >= m_shapes.size());
+	return m_shapes[index];
 }
 
 CCanvas::CCanvas(sf::Vector2u const & size)

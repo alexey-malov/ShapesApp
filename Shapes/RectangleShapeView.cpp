@@ -7,7 +7,7 @@ CRectangleShapeView::CRectangleShapeView(sf::Vector2f const & size, sf::Vector2f
 	InitRectangle(size, pos);
 }
 
-void CRectangleShapeView::OnDraw(sf::RenderTarget & target, sf::RenderStates states)
+void CRectangleShapeView::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(m_rectangle, states);
 }

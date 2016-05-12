@@ -11,6 +11,7 @@ public:
 	static std::shared_ptr<CCanvas> Create(sf::Vector2u const& size);
 
 	void AppendShape(std::shared_ptr<CShapeView> && shape);
+	std::shared_ptr<CShapeView> GetShape(unsigned index);
 
 	sf::Vector2f GetCanvasSize()const;
 	void SetCanvasSize(sf::Vector2f const &size);
