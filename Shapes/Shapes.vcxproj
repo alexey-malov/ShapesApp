@@ -154,19 +154,28 @@
     <ClInclude Include="BaseControl.h" />
     <ClInclude Include="BaseControlContainer.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Ellipse.h" />
     <ClInclude Include="MainView.h" />
+    <ClInclude Include="RectangleModel.h" />
+    <ClInclude Include="ShapeCollection.h" />
+    <ClInclude Include="ShapesModel.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="ToolBar.h" />
     <ClInclude Include="Signals.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ToolbarButton.h" />
+    <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseControl.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Ellipse.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainView.cpp" />
+    <ClCompile Include="RectangleModel.cpp" />
+    <ClCompile Include="ShapeCollection.cpp" />
+    <ClCompile Include="ShapesModel.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="ToolBar.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -176,6 +185,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ToolbarButton.cpp" />
+    <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
