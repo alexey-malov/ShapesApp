@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MainView.h"
 #include <iostream>
+#include "TexturedImage.h"
 
 using namespace ui;
 using namespace std;
@@ -25,6 +26,14 @@ shared_ptr<CToolBar> CMainView::GetToolbar(unsigned index)
 	return m_toolbars.at(index);
 }
 
+CMainView::CMainView()
+{
+	std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
+	texture->loadFromFile("./images/btn1-normal.png");
+
+	m_texturedImage = make_unique<CTexturedImage2>(texture);
+}
+
 void CMainView::CreateMainToolbar()
 {
 	AddChildWithIndex(0, sf::Vector2u(490, 500));
@@ -47,6 +56,19 @@ void CMainView::CreateMainToolbar()
 
 	toolbar->SetFrame({ 5, 50, 500, 50 });
 	AppendChild(toolbar);
+}
+
+void ui::CMainView::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
+{
+	m_texturedImage->SetSize(Vector2f(30, 20));
+	auto t0 = states.transform;
+	states.transform.translate(10, 20);
+	target.draw(*m_texturedImage, states);
+
+	m_texturedImage->SetSize(Vector2f(50, 30));
+	states.transform = t0;
+	states.transform.translate(10, 200);
+	target.draw(*m_texturedImage, states);
 }
 
 bool CMainView::OnWindowResized(sf::Event::SizeEvent const & event)

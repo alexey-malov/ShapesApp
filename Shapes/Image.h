@@ -12,3 +12,10 @@ public:
 	virtual void SetTexture(std::shared_ptr<sf::Texture> const& texturePtr, bool resetRect = false) = 0;
 	virtual ~IImage() = default;
 };
+
+class IImage2 : public sf::Drawable
+{
+public:
+	virtual void SetSize(const sf::Vector2f & size) = 0;
+	virtual sf::Vector2f GetSize()const = 0;
+};

@@ -65,3 +65,29 @@ sf::Vector2f CTexturedImage::GetSize() const
 	return sf::Vector2f(bounds.width, bounds.height);
 }
 
+CTexturedImage2::CTexturedImage2(const std::shared_ptr<sf::Texture>& texture)
+	:m_texture(texture)
+{
+}
+
+void CTexturedImage2::draw(sf::RenderTarget & target, sf::RenderStates states) const
+{
+	sf::Sprite spr;
+	spr.setTexture(*m_texture);
+	sf::Transform t;
+	auto originalSize = m_texture->getSize();
+	t.scale(sf::Vector2f(m_size.x / originalSize.x, m_size.y / originalSize.y));
+	states.transform.combine(t);
+
+	target.draw(spr, states);
+}
+
+void CTexturedImage2::SetSize(const sf::Vector2f & size)
+{
+	m_size = size;
+}
+
+sf::Vector2f CTexturedImage2::GetSize() const
+{
+	return m_size;
+}

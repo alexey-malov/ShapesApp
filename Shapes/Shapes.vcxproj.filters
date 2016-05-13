@@ -48,13 +48,13 @@
       <Filter>Source Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="Scale9GridTexturedImage.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="TexturedImage.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -83,10 +83,10 @@
       <Filter>Source Files\ui</Filter>
     </ClCompile>
     <ClCompile Include="Scale9GridTexturedImage.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ui</Filter>
     </ClCompile>
     <ClCompile Include="TexturedImage.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
