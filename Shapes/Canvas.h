@@ -5,12 +5,13 @@
 namespace ui
 {
 
-class CCanvas : public ui::CBaseControl
+class CCanvas : public CBaseControl
 {
 public:
 	static std::shared_ptr<CCanvas> Create(sf::Vector2u const& size);
 
-	void AppendShape(std::shared_ptr<CShapeView> && shape);
+
+	void Insert(std::shared_ptr<CShapeView> const & shape, unsigned index);
 	std::shared_ptr<CShapeView> GetShape(unsigned index);
 
 	sf::Vector2f GetCanvasSize()const;
@@ -23,7 +24,7 @@ protected:
 	void OnDraw(sf::RenderTarget & target, sf::RenderStates states) const override;
 private:
 	CCanvas(sf::Vector2u const& size);
-
+	CBaseControlPtr m_canvas;
 	sf::RectangleShape m_background;
 
 	std::vector<std::shared_ptr<CShapeView>> m_shapes;

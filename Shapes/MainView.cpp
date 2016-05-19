@@ -85,9 +85,10 @@ void  CMainView::CreateCanvas()
 	m_canvas = CCanvas::Create(sf::Vector2u(550, 300));
 
 	m_canvas->SetCanvasPosition(sf::Vector2f(50, 150));
-	m_canvas->AppendShape(std::make_shared<CRectangleShapeView>(sf::Vector2f(50, 30), sf::Vector2f(120, 300)));
-	m_canvas->AppendShape(std::make_shared<CTriangleShapeView>(sf::Vector2f(150, 180), sf::Vector2f(160, 300)));
-	m_canvas->AppendShape(std::make_shared<CEllipseShapeView>(sf::Vector2f(70, 100), sf::Vector2f(175, 200)));
+	m_canvas->Insert(std::make_shared<CRectangleShapeView>(sf::FloatRect(150, 300, 50, 30)), 1);
+	m_canvas->Insert(std::make_shared<CTriangleShapeView>(sf::FloatRect(170, 300, 160, 170)), 2);
+	m_canvas->Insert(std::make_shared<CEllipseShapeView>(sf::FloatRect(175, 200, 70, 100)), 3);
+	m_canvas->Insert(std::make_shared<CRectangleShapeView>(sf::FloatRect(200, 200, 100, 100)), 0);
 	InsertChildAtIndex(m_canvas, 2);
 }
 

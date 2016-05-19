@@ -9,10 +9,15 @@ std::shared_ptr<CCanvas> CCanvas::Create(sf::Vector2u const & size)
 	return std::shared_ptr<CCanvas>(new CCanvas(size));
 }
 
-void CCanvas::AppendShape(std::shared_ptr<CShapeView> && shape)
+void CCanvas::Insert(std::shared_ptr<CShapeView> const & shape, unsigned index)
 {
-	m_shapes.emplace_back(move(shape));
-	this->InsertChildAtIndex(m_shapes.back(), static_cast<unsigned>(m_shapes.size()));
+	if (index >= m_shapes.size())
+	{
+		m_shapes.resize(index);
+	}
+	m_shapes.insert(m_shapes.begin() + index, shape);
+
+	this->InsertChildAtIndex(shape, index);
 }
 
 std::shared_ptr<CShapeView> CCanvas::GetShape(unsigned index)
@@ -25,6 +30,7 @@ CCanvas::CCanvas(sf::Vector2u const & size)
 {
 	m_background.setSize({ float(size.x), float(size.y) });
 	m_background.setFillColor(sf::Color::White);
+
 }
 
 void CCanvas::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const

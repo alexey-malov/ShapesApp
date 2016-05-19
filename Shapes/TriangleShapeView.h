@@ -1,16 +1,24 @@
 #pragma once
 #include "ShapeView.h"
 
+
+namespace ui
+{
+
 class CTriangleShapeView : public CShapeView
 {
 public:
-	CTriangleShapeView(sf::Vector2f const& size, sf::Vector2f const& pos);
+	CTriangleShapeView(sf::FloatRect const & frame);
+	void OnFrameChanged(const sf::FloatRect & newFrame) override;
+	bool HitTest(sf::Vector2f const & local) const override;
+protected:
 	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void SetSize(const sf::Vector2f & size) override;
-	void SetPosition(const sf::Vector2f & position) override;
 private:
-	void InitTriangle(sf::Vector2f position, sf::Vector2f size);
+	void InitTriangle();
 private:
 	sf::ConvexShape m_triangle;
+	sf::FloatRect m_frame;
 };
+
+}
 

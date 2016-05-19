@@ -2,10 +2,41 @@
 #include "TriangleShapeView.h"
 
 
-CTriangleShapeView::CTriangleShapeView(sf::Vector2f const& size, sf::Vector2f const& pos)
-	: CShapeView(size, pos)
+namespace ui
 {
-	InitTriangle(size, pos);
+
+CTriangleShapeView::CTriangleShapeView(sf::FloatRect const & frame)
+	: CShapeView(frame)
+	, m_frame(frame)
+{
+	InitTriangle();
+}
+
+void CTriangleShapeView::OnFrameChanged(const sf::FloatRect & newFrame)
+{
+	m_frame = newFrame;
+	sf::Vector2f size({ m_frame.width, m_frame.height });
+	m_triangle.setPoint(0, { size.x / 2.f, 0.f });
+	m_triangle.setPoint(1, { size.x, size.y });
+	m_triangle.setPoint(2, { 0.f, size.y });
+
+	m_triangle.setOrigin({ size.x / 2.f, size.y / 2.f });
+	m_triangle.setPosition({ m_frame.left, m_frame.top });
+}
+
+bool CTriangleShapeView::HitTest(sf::Vector2f const & local) const
+{
+	sf::Vector2f a = m_triangle.getPoint(0);
+	sf::Vector2f b = m_triangle.getPoint(1);
+	sf::Vector2f c = m_triangle.getPoint(2);
+	sf::Vector2f originSize({ m_frame.width / 2.f, m_frame.height / 2.f });
+	a = { m_frame.left, m_frame.top - originSize.y };
+	b = { m_frame.left + b.x - originSize.x,  m_frame.top + b.y - originSize.y };
+	c = { m_frame.left + c.x - originSize.x, m_frame.top + c.y - originSize.y };
+
+	return (((local.x - a.x)*(b.y - a.y) - (local.y - a.y)*(b.x - a.x)) <= 0 &&
+		((local.x - b.x)*(c.y - b.y) - (local.y - b.y)*(c.x - b.x)) <= 0 &&
+		((local.x - a.x)*(c.y - a.y) - (local.y - a.y)*(c.x - a.x)) >= 0);
 }
 
 void CTriangleShapeView::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
@@ -13,28 +44,13 @@ void CTriangleShapeView::OnDraw(sf::RenderTarget & target, sf::RenderStates stat
 	target.draw(m_triangle, states);
 }
 
-void CTriangleShapeView::SetSize(const sf::Vector2f & size)
-{
-	m_size = size;
-	m_triangle.setPoint(0, { m_size.x / 2.f, 0.f });
-	m_triangle.setPoint(1, { m_size.x, m_size.y });
-	m_triangle.setPoint(2, { 0.f, m_size.y });
-
-	m_triangle.setOrigin({ m_size.x / 2.f, m_size.y / 2.f });
-}
-
-void CTriangleShapeView::SetPosition(const sf::Vector2f & position)
-{
-	m_position = position;
-	m_triangle.setPosition(m_position);
-}
-
-void CTriangleShapeView::InitTriangle(sf::Vector2f size, sf::Vector2f position)
+void CTriangleShapeView::InitTriangle()
 {
 	m_triangle.setPointCount(3);
-	SetSize(size);
-	SetPosition(position);
+	OnFrameChanged(m_frame);
 	m_triangle.setFillColor(sf::Color::Red);
 	m_triangle.setOutlineThickness(2.f);
 	m_triangle.setOutlineColor(sf::Color::Black);
+}
+
 }

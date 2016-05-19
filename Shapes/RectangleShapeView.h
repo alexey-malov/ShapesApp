@@ -1,16 +1,22 @@
 #pragma once
 #include "ShapeView.h"
 
+namespace ui
+{
+
 class CRectangleShapeView : public CShapeView
 {
 public:
-	CRectangleShapeView(sf::Vector2f const& size, sf::Vector2f const& pos);
+	CRectangleShapeView(sf::FloatRect const & frame);
+	void OnFrameChanged(const sf::FloatRect & newFrame) override;
+protected:
 	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void SetSize(const sf::Vector2f & size) override;
-	void SetPosition(const sf::Vector2f & position) override;
 private:
-	void InitRectangle(sf::Vector2f size, sf::Vector2f position);
+	void InitRectangle();
 private:
 	sf::RectangleShape m_rectangle;
+	sf::FloatRect m_frame;
 };
+
+}
 

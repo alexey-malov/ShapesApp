@@ -1,16 +1,22 @@
 #pragma once
 #include "ShapeView.h"
 
+namespace ui
+{
+
 class CEllipseShapeView : public CShapeView
 {
 public:
-	CEllipseShapeView(sf::Vector2f const& size, sf::Vector2f const& pos);
-	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const  override;
-	void SetSize(const sf::Vector2f & size) override;
-	void SetPosition(const sf::Vector2f & position) override;
+	CEllipseShapeView(sf::FloatRect const & frame);
+	void OnFrameChanged(const sf::FloatRect & newFrame) override;
+	bool HitTest(sf::Vector2f const & local) const override;
+protected:
+	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
-	void InitCircle(sf::Vector2f position, sf::Vector2f size);
+	void InitCircle();
 private:
 	sf::CircleShape m_circle;
+	sf::FloatRect m_frame;
 };
 
+}
