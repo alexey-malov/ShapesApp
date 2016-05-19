@@ -273,6 +273,17 @@ BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 			{
 				BOOST_CHECK(children[0]->GetParent() == nullptr);
 			}
+			BOOST_AUTO_TEST_CASE(if_child_has_a_parent_then_after_append_to_new_node_his_parent_is_equal_nullptr)
+			{
+				auto oldParent = CBaseControl::Create();
+				oldParent->AppendChild(children[1]);
+				BOOST_CHECK(children[1]->GetParent() == oldParent);
+
+				BOOST_CHECK_NO_THROW(unqPtr->AppendChild(children[1]));
+				BOOST_CHECK_EQUAL(unqPtr->GetChildCount(), 2);
+				BOOST_CHECK(unqPtr->GetChild(1) == children[1]);
+				BOOST_CHECK(unqPtr->GetChild(1)->GetParent() == nullptr);
+			}
 		BOOST_AUTO_TEST_SUITE_END()
 
 		struct after_convert_from_unique_to_shared_ptr_ : can_append_child_and_dont_get_except_

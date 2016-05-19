@@ -31,7 +31,7 @@ bool CBaseControl::CanBeAParent()
 	}
 	catch (bad_weak_ptr)
 	{
-		m_childNotBeAdded = true;
+		m_haveDeferredChildren = true;
 		return false;
 	}
 	return true;
@@ -41,9 +41,9 @@ void CBaseControl::AddDeferredChildren()
 {
 	for (auto &it : m_children)
 	{
-		it->RemoveFromParent();
 		it->SetParent(shared_from_this());
 	}
+	m_haveDeferredChildren = false;
 }
 
 void CBaseControl::AppendChild(const CBaseControlPtr & control)
@@ -205,10 +205,9 @@ void CBaseControl::ChangeChildIndex(const CBaseControlPtr & control, unsigned ne
 	assert(control->GetParent().get() == this);
 	assert(control.get() != this);
 
-	if (CanBeAParent() && m_childNotBeAdded)
+	if (CanBeAParent() && m_haveDeferredChildren)
 	{
 		AddDeferredChildren();
-		m_childNotBeAdded = false;
 	}
 
 	auto src = find(m_children, control);
@@ -236,6 +235,7 @@ void CBaseControl::AdoptChild(const CBaseControlPtr & control, unsigned index)
 	assert(control.get() != this);
 	assert(control->GetParent().get() != this);
 
+	control->RemoveFromParent();
 	if (index < m_children.size())
 	{
 		m_children.insert(m_children.begin() + index, control);
@@ -247,10 +247,9 @@ void CBaseControl::AdoptChild(const CBaseControlPtr & control, unsigned index)
 
 	if (CanBeAParent())
 	{
-		if (m_childNotBeAdded)
+		if (m_haveDeferredChildren)
 		{
 			AddDeferredChildren();
-			m_childNotBeAdded = false;
 		}
 		else
 		{

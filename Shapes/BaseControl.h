@@ -67,6 +67,6 @@ private:
 	std::vector<CBaseControlPtr> m_children;
 	std::weak_ptr<CBaseControl> m_parent;
 	sf::FloatRect m_frame;
-	bool m_childNotBeAdded;
+	bool m_haveDeferredChildren;
 };
 }
