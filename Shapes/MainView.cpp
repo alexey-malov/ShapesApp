@@ -84,11 +84,19 @@ void  CMainView::CreateCanvas()
 {
 	m_canvas = CCanvas::Create(sf::FloatRect(50, 150, 550, 300));
 	AppendChild(m_canvas->GetSheet());
-	//m_canvas->SetCanvasPosition(sf::Vector2f(50, 150));
-	m_canvas->Insert(std::make_shared<CRectangleShapeView>(sf::FloatRect(150, 300, 50, 30)), 1);
-	m_canvas->Insert(std::make_shared<CTriangleShapeView>(sf::FloatRect(170, 300, 160, 170)), 2);
-	m_canvas->Insert(std::make_shared<CEllipseShapeView>(sf::FloatRect(175, 200, 70, 100)), 3);
-	m_canvas->Insert(std::make_shared<CRectangleShapeView>(sf::FloatRect(200, 200, 100, 100)), 0);
+
+	auto rect = make_shared<CRectangleShapeView>(sf::FloatRect(150, 300, 50, 30));
+	m_canvas->Insert(rect, 1);
+	
+	auto triangle = make_shared<CTriangleShapeView>(sf::FloatRect(170, 300, 160, 170));
+	m_canvas->Insert(triangle, 2);
+
+	auto ellipse = make_shared<CEllipseShapeView>(sf::FloatRect(175, 200, 70, 100));
+	m_canvas->Insert(ellipse, 3);
+
+	auto rect2 = make_shared<CRectangleShapeView>(sf::FloatRect(200, 200, 100, 100));
+	m_canvas->Insert(rect2, 0);
+
 	AppendChild(m_canvas->GetSheet());
 }
 
