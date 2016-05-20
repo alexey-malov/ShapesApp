@@ -82,14 +82,14 @@ void CMainView::CreateMainToolbar()
 
 void  CMainView::CreateCanvas()
 {
-	m_canvas = CCanvas::Create(sf::Vector2u(550, 300));
-
-	m_canvas->SetCanvasPosition(sf::Vector2f(50, 150));
+	m_canvas = CCanvas::Create(sf::FloatRect(50, 150, 550, 300));
+	AppendChild(m_canvas->GetSheet());
+	//m_canvas->SetCanvasPosition(sf::Vector2f(50, 150));
 	m_canvas->Insert(std::make_shared<CRectangleShapeView>(sf::FloatRect(150, 300, 50, 30)), 1);
 	m_canvas->Insert(std::make_shared<CTriangleShapeView>(sf::FloatRect(170, 300, 160, 170)), 2);
 	m_canvas->Insert(std::make_shared<CEllipseShapeView>(sf::FloatRect(175, 200, 70, 100)), 3);
 	m_canvas->Insert(std::make_shared<CRectangleShapeView>(sf::FloatRect(200, 200, 100, 100)), 0);
-	InsertChildAtIndex(m_canvas, 2);
+	AppendChild(m_canvas->GetSheet());
 }
 
 bool CMainView::OnWindowResized(sf::Event::SizeEvent const & event)
