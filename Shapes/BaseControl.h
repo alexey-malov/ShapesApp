@@ -45,7 +45,8 @@ public:
 
 protected:
 	CBaseControl() = default;
-
+	virtual void OnRemovedFromParent();
+	virtual void OnAddedToParent();
 	virtual bool OnWindowResized(sf::Event::SizeEvent const& event);
 	virtual bool OnMousePressed(sf::Event::MouseButtonEvent const& event);
 	virtual bool OnMouseReleased(sf::Event::MouseButtonEvent const& event);
@@ -62,9 +63,12 @@ private:
 	void ChangeChildIndex(const CBaseControlPtr & control, unsigned newIndex);
 	void AdoptChild(const CBaseControlPtr & control, unsigned index);
 	bool IsItOneOfMyParents(const CBaseControlPtr & control)const;
+	bool CanBeAParent() const;
+	void AddDeferredChildren();
 
 	std::vector<CBaseControlPtr> m_children;
 	std::weak_ptr<CBaseControl> m_parent;
 	sf::FloatRect m_frame;
+	mutable bool m_hasDeferredChildren = false;
 };
 }

@@ -8,13 +8,36 @@ using boost::algorithm::all_of;
 using sf::Vector2f;
 using sf::FloatRect;
 
+class CMockControl : public CBaseControl
+{
+public:
+	size_t removedFromParentCounter = 0;
+	size_t addedToParentCounter = 0;
+
+	static std::shared_ptr<CMockControl> Create()
+	{
+		return std::make_shared<CMockControl>();
+	}
+
+	void OnAddedToParent() override
+	{
+		addedToParentCounter++;
+	}
+
+	void OnRemovedFromParent() override
+	{
+		removedFromParentCounter++;
+	}
+};
+
+typedef shared_ptr<CMockControl> CMockControlPtr;
 
 struct BaseControl_
 {
-	CBaseControlPtr control = CBaseControl::Create();
-	CBaseControlPtr parent = CBaseControl::Create();
-	CBaseControlPtr grandParent = CBaseControl::Create();
-	const vector<CBaseControlPtr> children = { CBaseControl::Create(), CBaseControl::Create(), CBaseControl::Create(), CBaseControl::Create()};
+	CMockControlPtr control = CMockControl::Create();
+	CMockControlPtr parent = CMockControl::Create();
+	CMockControlPtr grandParent = CMockControl::Create();
+	const vector<CMockControlPtr> children = { CMockControl::Create(), CMockControl::Create(), CMockControl::Create(), CMockControl::Create()};
 
 	template <typename Range>
 	void ExpectChildren(const Range & expectedChildren)
@@ -27,6 +50,8 @@ struct BaseControl_
 		}
 	}
 };
+
+
 
 BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 	BOOST_AUTO_TEST_SUITE(by_default)
@@ -203,6 +228,26 @@ BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 			BOOST_CHECK(!control->GetParent());
 			BOOST_CHECK_EQUAL(parent->GetChildCount(), 0u);
 		}
+		BOOST_AUTO_TEST_CASE(receives_notifications_when_removed_from_parent)
+		{
+			auto oldCounter = control->removedFromParentCounter;
+			control->RemoveFromParent();
+			BOOST_CHECK_EQUAL(control->removedFromParentCounter, oldCounter + 1);
+			control->RemoveFromParent();
+			BOOST_CHECK_EQUAL(control->removedFromParentCounter, oldCounter + 1);
+			parent->AppendChild(control);
+			control->RemoveFromParent();
+			BOOST_CHECK_EQUAL(control->removedFromParentCounter, oldCounter + 2);
+		}
+		BOOST_AUTO_TEST_CASE(receives_notifications_when_added_to_parent)
+		{
+			BOOST_CHECK_EQUAL(control->addedToParentCounter, 1);
+			control->RemoveFromParent();
+			parent->AppendChild(control);
+			BOOST_CHECK_EQUAL(control->addedToParentCounter, 2);
+			parent->InsertChildAtIndex(control, 2);
+			BOOST_CHECK_EQUAL(control->addedToParentCounter, 2);
+		}
 		BOOST_AUTO_TEST_CASE(does_not_allow_inserting_any_of_its_parents)
 		{
 			BOOST_CHECK_THROW(control->AppendChild(parent), std::invalid_argument);
@@ -234,6 +279,74 @@ BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 				otherControl->GlobalToLocal(control->LocalToGlobal(pt))
 			);
 		}
+		BOOST_AUTO_TEST_SUITE_END()
+
+	BOOST_AUTO_TEST_SUITE(pending_addition_of_children)
+		class test_heir_CBaseControl_ : public CBaseControl
+		{
+		};
+
+		struct wrap_test_heir_to_unique_ptr_ : BaseControl_
+		{
+			unique_ptr<test_heir_CBaseControl_> unqPtr = make_unique<test_heir_CBaseControl_>();
+		};
+		BOOST_FIXTURE_TEST_SUITE(after_wrap_test_heir_to_unique_ptr, wrap_test_heir_to_unique_ptr_)
+			BOOST_AUTO_TEST_CASE(has_no_childrens)
+			{
+				BOOST_CHECK_EQUAL(unqPtr->GetChildCount(), 0);
+			}
+		BOOST_AUTO_TEST_SUITE_END()
+
+		struct can_append_child_and_dont_get_except_
+			: public wrap_test_heir_to_unique_ptr_
+		{
+			can_append_child_and_dont_get_except_()
+			{
+				BOOST_REQUIRE_NO_THROW(unqPtr->AppendChild(children[0]));
+			}
+		};
+		BOOST_FIXTURE_TEST_SUITE(can_append_child_and_dont_get_except, can_append_child_and_dont_get_except_)
+			BOOST_AUTO_TEST_CASE(has_a_one_children)
+			{
+				BOOST_CHECK_EQUAL(unqPtr->GetChildCount(), 1);
+			}
+			BOOST_AUTO_TEST_CASE(can_get_a_children_by_index)
+			{
+				BOOST_CHECK_EQUAL(unqPtr->GetChild(0), children[0]);
+			}
+			BOOST_AUTO_TEST_CASE(childrens_parent_is_equal_nullptr)
+			{
+				BOOST_CHECK(children[0]->GetParent() == nullptr);
+			}
+			BOOST_AUTO_TEST_CASE(if_child_has_a_parent_then_after_append_to_new_node_his_parent_is_equal_nullptr)
+			{
+				auto oldParent = CBaseControl::Create();
+				oldParent->AppendChild(children[1]);
+				BOOST_CHECK(children[1]->GetParent() == oldParent);
+
+				BOOST_CHECK_NO_THROW(unqPtr->AppendChild(children[1]));
+				BOOST_CHECK_EQUAL(unqPtr->GetChildCount(), 2);
+				BOOST_CHECK(unqPtr->GetChild(1) == children[1]);
+				BOOST_CHECK(unqPtr->GetChild(1)->GetParent() == nullptr);
+			}
+		BOOST_AUTO_TEST_SUITE_END()
+
+		struct after_convert_from_unique_to_shared_ptr_ : can_append_child_and_dont_get_except_
+		{
+			after_convert_from_unique_to_shared_ptr_()
+			{
+				BOOST_REQUIRE_NO_THROW(shrdPtr->AppendChild(children[1]));
+			}
+
+			shared_ptr<test_heir_CBaseControl_> shrdPtr = move(unqPtr);
+		};
+		BOOST_FIXTURE_TEST_SUITE(after_convert_from_unique_to_shared_ptr, after_convert_from_unique_to_shared_ptr_)
+			BOOST_AUTO_TEST_CASE(childrens_parent_is_not_equal_a_nullptr)
+			{
+				BOOST_CHECK_EQUAL(children[0]->GetParent(), shrdPtr);
+			}
+		BOOST_AUTO_TEST_SUITE_END()
+
 	BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE_END()
