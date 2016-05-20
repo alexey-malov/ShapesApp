@@ -23,18 +23,18 @@ bool CBaseControl::OnEvent(sf::Event const & event)
 		|| DispatchOwnEvent(event);
 }
 
-bool CBaseControl::CanBeAParent()
+bool CBaseControl::CanBeAParent()const
 {
 	try
 	{
 		shared_from_this().get();
+		return true;
 	}
-	catch (bad_weak_ptr)
+	catch (const bad_weak_ptr &)
 	{
-		m_haveDeferredChildren = true;
+		m_hasDeferredChildren = true;
 		return false;
 	}
-	return true;
 }
 
 void CBaseControl::AddDeferredChildren()
@@ -43,7 +43,7 @@ void CBaseControl::AddDeferredChildren()
 	{
 		it->SetParent(shared_from_this());
 	}
-	m_haveDeferredChildren = false;
+	m_hasDeferredChildren = false;
 }
 
 void CBaseControl::AppendChild(const CBaseControlPtr & control)
@@ -207,7 +207,7 @@ void CBaseControl::ChangeChildIndex(const CBaseControlPtr & control, unsigned ne
 	assert(control->GetParent().get() == this);
 	assert(control.get() != this);
 
-	if (CanBeAParent() && m_haveDeferredChildren)
+	if (CanBeAParent() && m_hasDeferredChildren)
 	{
 		AddDeferredChildren();
 	}
@@ -249,14 +249,13 @@ void CBaseControl::AdoptChild(const CBaseControlPtr & control, unsigned index)
 
 	if (CanBeAParent())
 	{
-		if (m_haveDeferredChildren)
+		if (m_hasDeferredChildren)
 		{
 			AddDeferredChildren();
 		}
 		else
 		{
 			auto self = shared_from_this();
-			control->RemoveFromParent();
 			control->SetParent(self);
 		}
 	}
