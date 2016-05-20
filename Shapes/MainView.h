@@ -1,7 +1,6 @@
 #pragma once
 #include "ToolBar.h"
-
-#include "Image.h"
+#include "Canvas.h"
 
 namespace ui
 {
@@ -15,18 +14,14 @@ public:
 	void AddChildWithIndex(unsigned index, sf::Vector2u const &size);
 
 	void CreateMainToolbar();
-protected:
-	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void CreateCanvas();
 private:
 	bool OnWindowResized(sf::Event::SizeEvent const& event) override;
 	std::shared_ptr<CToolBar> GetToolbar(unsigned index);
 
-	CMainView();
-
 private:
 	std::map<unsigned, std::shared_ptr<CToolBar>> m_toolbars;
-
-	std::unique_ptr<IImage2> m_texturedImage;
+	std::shared_ptr<CCanvas> m_canvas;
 };
 
 }

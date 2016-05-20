@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "MainView.h"
+#include "RectangleShapeView.h"
+#include "TriangleShapeView.h"
+#include "EllipseShapeView.h"
 #include <iostream>
-#include "TexturedImage.h"
 
 using namespace ui;
 using namespace std;
@@ -26,14 +28,6 @@ shared_ptr<CToolBar> CMainView::GetToolbar(unsigned index)
 	return m_toolbars.at(index);
 }
 
-CMainView::CMainView()
-{
-	std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
-	texture->loadFromFile("./images/btn1-normal.png");
-
-	m_texturedImage = make_unique<CTexturedImage2>(texture);
-}
-
 void CMainView::CreateMainToolbar()
 {
 	AddChildWithIndex(0, sf::Vector2u(490, 500));
@@ -42,33 +36,68 @@ void CMainView::CreateMainToolbar()
 
 	toolbar->SetRightIndentSize(float(500u - 490u));
 
-	toolbar->AddChildWithIndex(1);
-	toolbar->AddChildWithIndex(2);
-	toolbar->AddChildWithIndex(3);
+	auto createRectangleButton = toolbar->AddChildWithIndex(1);
+	auto createTriangleButton = toolbar->AddChildWithIndex(2);
+	auto createCircleButton = toolbar->AddChildWithIndex(3);
+	auto undoButton = toolbar->AddChildWithIndex(4);
+	auto redoButton =toolbar->AddChildWithIndex(5);
+	auto deleteButton = toolbar->AddChildWithIndex(6);
 
-	auto button1 = toolbar->GetButton(1);
-	auto button2 = toolbar->GetButton(2);
-	auto button3 = toolbar->GetButton(3);
+	std::shared_ptr<sf::Texture> rectangleTexture = std::make_shared<sf::Texture>();
+	std::shared_ptr<sf::Texture> triangleTexture = std::make_shared<sf::Texture>();
+	std::shared_ptr<sf::Texture> circleTexture = std::make_shared<sf::Texture>();
+	std::shared_ptr<sf::Texture> undoTexture = std::make_shared<sf::Texture>();
+	std::shared_ptr<sf::Texture> redoTexture = std::make_shared<sf::Texture>();
+	std::shared_ptr<sf::Texture> deleteTexture = std::make_shared<sf::Texture>();
 
-	button1->SetAction([]() {cout << "click" << endl; });
-	button2->SetAction([]() {cout << "clack" << endl; });
-	button3->SetAction([]() {cout << "bang" << endl; });
+	rectangleTexture->loadFromFile("./images/icons/rectangle.png");
+	triangleTexture->loadFromFile("./images/icons/triangle.png");
+	circleTexture->loadFromFile("./images/icons/circle.png");
+	undoTexture->loadFromFile("./images/icons/undo.png");
+	redoTexture->loadFromFile("./images/icons/redo.png");
+	deleteTexture->loadFromFile("./images/icons/delete.png");
+
+	createRectangleButton->SetIcon(rectangleTexture);
+	createTriangleButton->SetIcon(triangleTexture);
+	createCircleButton->SetIcon(circleTexture);
+	undoButton->SetIcon(undoTexture);
+	redoButton->SetIcon(redoTexture);
+	deleteButton->SetIcon(deleteTexture);
+
+
+	createRectangleButton->SetAction([]() {cout << "Rectangle created" << endl; });
+	createTriangleButton->SetAction([]() {cout << "Triangle created" << endl; });
+	createCircleButton->SetAction([]() {cout << "Circle created" << endl; });
+	undoButton->SetAction([]() {cout << "Undo" << endl; });
+	redoButton->SetAction([]() {cout << "Redo" << endl; });
+	deleteButton->SetAction([]() {cout << "delete shape" << endl; });
+
+	shared_ptr<Texture> background = make_shared<Texture>();
+	background->loadFromFile("./images/wood.jpg");
+	toolbar->SetButtonsBackgrounds(background);
 
 	toolbar->SetFrame({ 5, 50, 500, 50 });
 	AppendChild(toolbar);
 }
 
-void ui::CMainView::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
+void  CMainView::CreateCanvas()
 {
-	m_texturedImage->SetSize(Vector2f(30, 20));
-	auto t0 = states.transform;
-	states.transform.translate(10, 20);
-	target.draw(*m_texturedImage, states);
+	m_canvas = CCanvas::Create(sf::FloatRect(50, 150, 550, 300));
+	AppendChild(m_canvas->GetSheet());
 
-	m_texturedImage->SetSize(Vector2f(50, 30));
-	states.transform = t0;
-	states.transform.translate(10, 200);
-	target.draw(*m_texturedImage, states);
+	auto rect = make_shared<CRectangleShapeView>(sf::FloatRect(150, 300, 50, 30));
+	m_canvas->Insert(rect, 1);
+	
+	auto triangle = make_shared<CTriangleShapeView>(sf::FloatRect(170, 300, 160, 170));
+	m_canvas->Insert(triangle, 2);
+
+	auto ellipse = make_shared<CEllipseShapeView>(sf::FloatRect(175, 200, 70, 100));
+	m_canvas->Insert(ellipse, 3);
+
+	auto rect2 = make_shared<CRectangleShapeView>(sf::FloatRect(200, 200, 100, 100));
+	m_canvas->Insert(rect2, 0);
+
+	AppendChild(m_canvas->GetSheet());
 }
 
 bool CMainView::OnWindowResized(sf::Event::SizeEvent const & event)
@@ -79,6 +108,7 @@ bool CMainView::OnWindowResized(sf::Event::SizeEvent const & event)
 			- it.second->GetRightIndentSize()
 			, it.second->GetToolbarSize().y });
 	}
+	m_canvas->SetCanvasSize({float(event.width), float(event.height)});
 
 	return true;
 }

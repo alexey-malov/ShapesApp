@@ -23,6 +23,29 @@ bool CBaseControl::OnEvent(sf::Event const & event)
 		|| DispatchOwnEvent(event);
 }
 
+bool CBaseControl::CanBeAParent()const
+{
+	try
+	{
+		shared_from_this().get();
+		return true;
+	}
+	catch (const bad_weak_ptr &)
+	{
+		m_hasDeferredChildren = true;
+		return false;
+	}
+}
+
+void CBaseControl::AddDeferredChildren()
+{
+	for (auto &it : m_children)
+	{
+		it->SetParent(shared_from_this());
+	}
+	m_hasDeferredChildren = false;
+}
+
 void CBaseControl::AppendChild(const CBaseControlPtr & control)
 {
 	InsertChildAtIndex(control, GetChildCount());
@@ -77,6 +100,7 @@ void CBaseControl::RemoveFromParent()
 		auto self = shared_from_this();
 		parent->RemoveChild(self);
 		m_parent.reset();
+		OnRemovedFromParent();
 	}
 }
 
@@ -92,6 +116,41 @@ void CBaseControl::SetFrame(const sf::FloatRect & frame)
 sf::FloatRect CBaseControl::GetFrame() const
 {
 	return m_frame;
+}
+
+sf::Vector2f CBaseControl::LocalToGlobal(const sf::Vector2f & local) const
+{
+	auto parent = m_parent.lock();
+	auto global = parent ? parent->LocalToGlobal(local) : local;
+	return GetOrigin() + global;
+}
+
+sf::Vector2f CBaseControl::GlobalToLocal(const sf::Vector2f & global) const
+{
+	sf::Vector2f origin = GetOrigin();
+	auto parent = m_parent.lock();
+	while (parent)
+	{
+		origin += parent->GetOrigin();
+		parent = parent->GetParent();
+	}
+	return global - origin;
+}
+
+sf::Vector2f CBaseControl::ConvertPointFromControl(const sf::Vector2f & pt, const CBaseControlConstPtr & control) const
+{
+	return GlobalToLocal(control->LocalToGlobal(pt));
+}
+
+sf::Vector2f CBaseControl::ConvertPointToControl(const sf::Vector2f & pt, const CBaseControlConstPtr & control) const
+{
+	return control->ConvertPointFromControl(pt, shared_from_this());
+}
+
+bool CBaseControl::HitTest(sf::Vector2f const & local) const
+{
+	return (local.x >= 0 && local.x < m_frame.width)	// x is within the horizontal bounds
+		&& (local.y >= 0 && local.y < m_frame.height);	// y is within the vertical bounds
 }
 
 void CBaseControl::OnDraw(sf::RenderTarget & /*target*/, sf::RenderStates /*states*/) const
@@ -124,6 +183,8 @@ bool CBaseControl::DispatchOwnEvent(sf::Event const & event)
 		return OnMouseReleased(event.mouseButton);
 	case sf::Event::Resized:
 		return OnWindowResized(event.size);
+	case sf::Event::MouseMoved:
+		return OnMouseMoved(event.mouseMove);
 	default:
 		return false;
 	}
@@ -132,6 +193,7 @@ bool CBaseControl::DispatchOwnEvent(sf::Event const & event)
 void CBaseControl::SetParent(const CBaseControlPtr & parent)
 {
 	m_parent = parent;
+	OnAddedToParent();
 }
 
 void CBaseControl::RemoveChild(const CBaseControlPtr & child)
@@ -144,6 +206,11 @@ void CBaseControl::ChangeChildIndex(const CBaseControlPtr & control, unsigned ne
 	assert(control);
 	assert(control->GetParent().get() == this);
 	assert(control.get() != this);
+
+	if (CanBeAParent() && m_hasDeferredChildren)
+	{
+		AddDeferredChildren();
+	}
 
 	auto src = find(m_children, control);
 	assert(src != m_children.end());
@@ -170,6 +237,7 @@ void CBaseControl::AdoptChild(const CBaseControlPtr & control, unsigned index)
 	assert(control.get() != this);
 	assert(control->GetParent().get() != this);
 
+	control->RemoveFromParent();
 	if (index < m_children.size())
 	{
 		m_children.insert(m_children.begin() + index, control);
@@ -179,9 +247,18 @@ void CBaseControl::AdoptChild(const CBaseControlPtr & control, unsigned index)
 		m_children.push_back(control);
 	}
 
-	auto self = shared_from_this();
-	control->RemoveFromParent();
-	control->SetParent(self);
+	if (CanBeAParent())
+	{
+		if (m_hasDeferredChildren)
+		{
+			AddDeferredChildren();
+		}
+		else
+		{
+			auto self = shared_from_this();
+			control->SetParent(self);
+		}
+	}
 }
 
 bool CBaseControl::IsItOneOfMyParents(const CBaseControlPtr & control) const
@@ -196,6 +273,11 @@ bool CBaseControl::IsItOneOfMyParents(const CBaseControlPtr & control) const
 	}
 
 	return false;
+}
+
+sf::Vector2f CBaseControl::GetOrigin() const
+{
+	return{ m_frame.left, m_frame.top };
 }
 
 bool CBaseControl::OnMousePressed(sf::Event::MouseButtonEvent const &)
@@ -213,6 +295,20 @@ bool CBaseControl::OnWindowResized(sf::Event::SizeEvent const &)
 	return false;
 }
 
+bool CBaseControl::OnMouseMoved(sf::Event::MouseMoveEvent const&)
+{
+	return false;
+}
+
+void CBaseControl::OnRemovedFromParent()
+{
+	// Can be overriden in subclasses
+}
+
+void CBaseControl::OnAddedToParent()
+{
+	// Can be overriden in subclasses
+}
 }
 
 

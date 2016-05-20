@@ -101,9 +101,10 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,25 +154,29 @@
     <ClInclude Include="BaseControl.h" />
     <ClInclude Include="BaseControlContainer.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="Image.h" />
+    <ClInclude Include="Canvas.h" />
+    <ClInclude Include="EllipseShapeView.h" />
     <ClInclude Include="MainView.h" />
-    <ClInclude Include="Scale9GridTexturedImage.h" />
+    <ClInclude Include="RectangleShapeView.h" />
+    <ClInclude Include="ShapeView.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="TexturedImage.h" />
     <ClInclude Include="ToolBar.h" />
     <ClInclude Include="Signals.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ToolbarButton.h" />
+    <ClInclude Include="TriangleShapeView.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseControl.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="EllipseShapeView.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainView.cpp" />
-    <ClCompile Include="Scale9GridTexturedImage.cpp" />
+    <ClCompile Include="RectangleShapeView.cpp" />
+    <ClCompile Include="ShapeView.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="TexturedImage.cpp" />
     <ClCompile Include="ToolBar.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -180,6 +185,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ToolbarButton.cpp" />
+    <ClCompile Include="TriangleShapeView.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
