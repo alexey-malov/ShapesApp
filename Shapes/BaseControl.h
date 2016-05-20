@@ -50,6 +50,7 @@ protected:
 	virtual bool OnWindowResized(sf::Event::SizeEvent const& event);
 	virtual bool OnMousePressed(sf::Event::MouseButtonEvent const& event);
 	virtual bool OnMouseReleased(sf::Event::MouseButtonEvent const& event);
+	virtual bool OnMouseMoved(sf::Event::MouseMoveEvent const& event);
 	virtual void OnMouseOver(sf::Event::MouseMoveEvent const&) {};
 	virtual void OnMouseLeave(sf::Event::MouseMoveEvent const&) {};
 	virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const;
