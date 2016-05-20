@@ -23,6 +23,29 @@ bool CBaseControl::OnEvent(sf::Event const & event)
 		|| DispatchOwnEvent(event);
 }
 
+bool CBaseControl::CanBeAParent()
+{
+	try
+	{
+		shared_from_this().get();
+	}
+	catch (bad_weak_ptr)
+	{
+		m_haveDeferredChildren = true;
+		return false;
+	}
+	return true;
+}
+
+void CBaseControl::AddDeferredChildren()
+{
+	for (auto &it : m_children)
+	{
+		it->SetParent(shared_from_this());
+	}
+	m_haveDeferredChildren = false;
+}
+
 void CBaseControl::AppendChild(const CBaseControlPtr & control)
 {
 	InsertChildAtIndex(control, GetChildCount());
@@ -184,6 +207,11 @@ void CBaseControl::ChangeChildIndex(const CBaseControlPtr & control, unsigned ne
 	assert(control->GetParent().get() == this);
 	assert(control.get() != this);
 
+	if (CanBeAParent() && m_haveDeferredChildren)
+	{
+		AddDeferredChildren();
+	}
+
 	auto src = find(m_children, control);
 	assert(src != m_children.end());
 
@@ -209,6 +237,7 @@ void CBaseControl::AdoptChild(const CBaseControlPtr & control, unsigned index)
 	assert(control.get() != this);
 	assert(control->GetParent().get() != this);
 
+	control->RemoveFromParent();
 	if (index < m_children.size())
 	{
 		m_children.insert(m_children.begin() + index, control);
@@ -218,9 +247,19 @@ void CBaseControl::AdoptChild(const CBaseControlPtr & control, unsigned index)
 		m_children.push_back(control);
 	}
 
-	auto self = shared_from_this();
-	control->RemoveFromParent();
-	control->SetParent(self);
+	if (CanBeAParent())
+	{
+		if (m_haveDeferredChildren)
+		{
+			AddDeferredChildren();
+		}
+		else
+		{
+			auto self = shared_from_this();
+			control->RemoveFromParent();
+			control->SetParent(self);
+		}
+	}
 }
 
 bool CBaseControl::IsItOneOfMyParents(const CBaseControlPtr & control) const
