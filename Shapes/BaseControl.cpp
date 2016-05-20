@@ -77,6 +77,7 @@ void CBaseControl::RemoveFromParent()
 		auto self = shared_from_this();
 		parent->RemoveChild(self);
 		m_parent.reset();
+		OnRemovedFromParent();
 	}
 }
 
@@ -169,6 +170,7 @@ bool CBaseControl::DispatchOwnEvent(sf::Event const & event)
 void CBaseControl::SetParent(const CBaseControlPtr & parent)
 {
 	m_parent = parent;
+	OnAddedToParent();
 }
 
 void CBaseControl::RemoveChild(const CBaseControlPtr & child)
@@ -237,7 +239,7 @@ bool CBaseControl::IsItOneOfMyParents(const CBaseControlPtr & control) const
 
 sf::Vector2f CBaseControl::GetOrigin() const
 {
-	return { m_frame.left, m_frame.top };
+	return{ m_frame.left, m_frame.top };
 }
 
 bool CBaseControl::OnMousePressed(sf::Event::MouseButtonEvent const &)
@@ -255,11 +257,20 @@ bool CBaseControl::OnWindowResized(sf::Event::SizeEvent const &)
 	return false;
 }
 
-bool CBaseControl::OnMouseMoved(sf::Event::MouseMoveEvent const& )
+bool CBaseControl::OnMouseMoved(sf::Event::MouseMoveEvent const&)
 {
 	return false;
 }
 
+void CBaseControl::OnRemovedFromParent()
+{
+	// Can be overriden in subclasses
+}
+
+void CBaseControl::OnAddedToParent()
+{
+	// Can be overriden in subclasses
+}
 }
 
 

@@ -45,7 +45,8 @@ public:
 
 protected:
 	CBaseControl() = default;
-
+	virtual void OnRemovedFromParent();
+	virtual void OnAddedToParent();
 	virtual bool OnWindowResized(sf::Event::SizeEvent const& event);
 	virtual bool OnMousePressed(sf::Event::MouseButtonEvent const& event);
 	virtual bool OnMouseReleased(sf::Event::MouseButtonEvent const& event);

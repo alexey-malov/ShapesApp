@@ -8,13 +8,36 @@ using boost::algorithm::all_of;
 using sf::Vector2f;
 using sf::FloatRect;
 
+class CMockControl : public CBaseControl
+{
+public:
+	size_t removedFromParentCounter = 0;
+	size_t addedToParentCounter = 0;
+
+	static std::shared_ptr<CMockControl> Create()
+	{
+		return std::make_shared<CMockControl>();
+	}
+
+	void OnAddedToParent() override
+	{
+		addedToParentCounter++;
+	}
+
+	void OnRemovedFromParent() override
+	{
+		removedFromParentCounter++;
+	}
+};
+
+typedef shared_ptr<CMockControl> CMockControlPtr;
 
 struct BaseControl_
 {
-	CBaseControlPtr control = CBaseControl::Create();
-	CBaseControlPtr parent = CBaseControl::Create();
-	CBaseControlPtr grandParent = CBaseControl::Create();
-	const vector<CBaseControlPtr> children = { CBaseControl::Create(), CBaseControl::Create(), CBaseControl::Create(), CBaseControl::Create()};
+	CMockControlPtr control = CMockControl::Create();
+	CMockControlPtr parent = CMockControl::Create();
+	CMockControlPtr grandParent = CMockControl::Create();
+	const vector<CMockControlPtr> children = { CMockControl::Create(), CMockControl::Create(), CMockControl::Create(), CMockControl::Create()};
 
 	template <typename Range>
 	void ExpectChildren(const Range & expectedChildren)
@@ -27,6 +50,8 @@ struct BaseControl_
 		}
 	}
 };
+
+
 
 BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 	BOOST_AUTO_TEST_SUITE(by_default)
@@ -203,6 +228,26 @@ BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 			BOOST_CHECK(!control->GetParent());
 			BOOST_CHECK_EQUAL(parent->GetChildCount(), 0u);
 		}
+		BOOST_AUTO_TEST_CASE(receives_notifications_when_removed_from_parent)
+		{
+			auto oldCounter = control->removedFromParentCounter;
+			control->RemoveFromParent();
+			BOOST_CHECK_EQUAL(control->removedFromParentCounter, oldCounter + 1);
+			control->RemoveFromParent();
+			BOOST_CHECK_EQUAL(control->removedFromParentCounter, oldCounter + 1);
+			parent->AppendChild(control);
+			control->RemoveFromParent();
+			BOOST_CHECK_EQUAL(control->removedFromParentCounter, oldCounter + 2);
+		}
+		BOOST_AUTO_TEST_CASE(receives_notifications_when_added_to_parent)
+		{
+			BOOST_CHECK_EQUAL(control->addedToParentCounter, 1);
+			control->RemoveFromParent();
+			parent->AppendChild(control);
+			BOOST_CHECK_EQUAL(control->addedToParentCounter, 2);
+			parent->InsertChildAtIndex(control, 2);
+			BOOST_CHECK_EQUAL(control->addedToParentCounter, 2);
+		}
 		BOOST_AUTO_TEST_CASE(does_not_allow_inserting_any_of_its_parents)
 		{
 			BOOST_CHECK_THROW(control->AppendChild(parent), std::invalid_argument);
@@ -234,6 +279,6 @@ BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 				otherControl->GlobalToLocal(control->LocalToGlobal(pt))
 			);
 		}
-	BOOST_AUTO_TEST_SUITE_END()
+		BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE_END()
