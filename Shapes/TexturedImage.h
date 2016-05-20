@@ -6,21 +6,24 @@
 class CTexturedImage : public IImage
 {
 public:
-	void SetTexture(std::shared_ptr<sf::Texture> const& texturePtr, bool resetRect = true) override;
+	CTexturedImage(const std::shared_ptr<sf::Texture> & texture);
+/*
+	void SetTexture(std::shared_ptr<sf::Texture> const& texturePtr, bool resetRect = true);
 	const sf::Texture* GetTexture() const;
+	void SetTextureRect(const sf::IntRect& rectangle);*/
+//	const sf::IntRect& GetTextureRect() const;
+//	void SetPosition(float x, float y) override;
+//	const sf::Vector2f GetPosition() const override;
+//	sf::FloatRect GetGlobalBounds() const;
+//	void SetScale(float factorX, float factorY);
 	void SetTextureRect(const sf::IntRect& rectangle);
-	const sf::IntRect& GetTextureRect() const;
-	void SetPosition(float x, float y) override;
-	const sf::Vector2f GetPosition() const override;
-	sf::FloatRect GetGlobalBounds() const;
-	void SetScale(float factorX, float factorY);
 	void SetSize(float x, float y) override;
 	sf::Vector2f GetSize()const override;
-
-private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states)const override;
-	sf::Sprite m_sprite;
+private:
 	std::shared_ptr<sf::Texture> m_texturePtr;
+	sf::Sprite m_sprite;
+	sf::Vector2f m_size;
 };
 
 class CTexturedImage2 : public IImage2

@@ -13,14 +13,16 @@ CScale9GridTexturedImage::CScale9GridTexturedImage(std::shared_ptr<sf::Texture> 
 		throw std::invalid_argument("Image must include scale rect");
 	}
 	m_texturedImages = CreateSpritesGrid();
-	UpdateCellsPosition();
+//	UpdateCellsPosition();
 }
 
+/*
 CScale9GridTexturedImage::CScale9GridTexturedImage()
 {
 
-}
+}*/
 
+/*
 void CScale9GridTexturedImage::SetTexture(std::shared_ptr<sf::Texture> const & texturePtr, bool resetScaleRect)
 {
 	assert(texturePtr);
@@ -43,11 +45,11 @@ void CScale9GridTexturedImage::SetScaleRect(sf::IntRect const & middle)
 	m_middle = middle;
 	m_texturedImages = CreateSpritesGrid();
 	UpdateCellsPosition();
-}
+}*/
 
 void CScale9GridTexturedImage::SetSize(float x, float y)
 {
-	auto startPos = GetPosition();
+	//auto startPos = GetPosition();
 	auto textureSize = m_texture->getSize();
 	auto scaleRectX = x - textureSize.x;
 	auto scaleRectY = y - textureSize.y;
@@ -63,8 +65,8 @@ void CScale9GridTexturedImage::SetSize(float x, float y)
 		m_texturedImages[5].GetSize().y);
 	m_texturedImages[7].SetSize(m_texturedImages[7].GetSize().x,
 		m_texturedImages[7].GetSize().y + scaleRectY);
-	UpdateCellsPosition();
-	SetPosition(startPos.x, startPos.y);
+//	UpdateCellsPosition();
+	//SetPosition(startPos.x, startPos.y);
 }
 
 sf::Vector2f CScale9GridTexturedImage::GetSize() const
@@ -74,6 +76,7 @@ sf::Vector2f CScale9GridTexturedImage::GetSize() const
 	return sf::Vector2f(width, height);
 }
 
+/*
 sf::FloatRect CScale9GridTexturedImage::GetGlobalBounds() const
 {
 	auto pos = sf::Vector2f(m_texturedImages[0].GetPosition());
@@ -90,7 +93,7 @@ void CScale9GridTexturedImage::SetPosition(float x, float y)
 const sf::Vector2f CScale9GridTexturedImage::GetPosition() const
 {
 	return m_texturedImages[8].GetPosition() - m_texturedImages[0].GetSize() - m_texturedImages[8].GetSize() / 2.f;
-}
+}*/
 
 CScale9GridTexturedImage::~CScale9GridTexturedImage()
 {
@@ -107,11 +110,12 @@ void CScale9GridTexturedImage::draw(sf::RenderTarget & target, sf::RenderStates 
 std::vector<CTexturedImage> CScale9GridTexturedImage::CreateSpritesGrid()
 {
 	assert(m_texture);
-	std::vector<CTexturedImage> sprites(9);
-	for (auto & sprite : sprites)
+	std::vector<CTexturedImage> sprites;
+	for (size_t spritesCount = 0; spritesCount < 9; spritesCount++)
 	{
-		sprite.SetTexture(m_texture);
+		sprites.push_back(CTexturedImage(m_texture));
 	}
+
 	auto middleUpperRight = m_middle.left + m_middle.width;
 	auto middleBottomLeft = m_middle.top + m_middle.height;
 	sprites[0].SetTextureRect(sf::IntRect(0, 0, m_middle.left, m_middle.top));
@@ -147,11 +151,11 @@ std::vector<CTexturedImage> CScale9GridTexturedImage::CreateSpritesGrid()
 		, m_middle.left
 		, m_middle.height));
 	sprites[8].SetTextureRect(m_middle);
-	sprites[8].SetPosition(static_cast<float>(m_middle.left), static_cast<float>(m_middle.top));
+//	sprites[8].SetPosition(static_cast<float>(m_middle.left), static_cast<float>(m_middle.top));
 	return sprites;
 }
 
-void CScale9GridTexturedImage::UpdateCellsPosition()
+/*void CScale9GridTexturedImage::UpdateCellsPosition()
 {
 	auto middle = m_texturedImages[8].GetGlobalBounds();
 	auto middleUpperRight = middle.left + middle.width;
@@ -165,7 +169,7 @@ void CScale9GridTexturedImage::UpdateCellsPosition()
 	m_texturedImages[5].SetPosition(middle.left, middleBottomLeft);
 	m_texturedImages[6].SetPosition(middle.left - m_texturedImages[6].GetSize().x, middleBottomLeft);
 	m_texturedImages[7].SetPosition(middle.left - m_texturedImages[7].GetSize().x, middle.top);
-}
+}*/
 
 bool CScale9GridTexturedImage::IsImageIncludeScaleRect()
 {

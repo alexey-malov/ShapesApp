@@ -1,6 +1,21 @@
 #include "stdafx.h"
 #include "TexturedImage.h"
 
+
+
+CTexturedImage::CTexturedImage(const std::shared_ptr<sf::Texture> & texture)
+	:m_texturePtr(texture)
+{
+
+}
+
+
+void CTexturedImage::SetTextureRect(const sf::IntRect & rectangle)
+{
+	m_sprite.setTextureRect(rectangle);
+}
+
+/*
 void CTexturedImage::SetTexture(std::shared_ptr<sf::Texture> const & texturePtr, bool resetRect)
 {
 	m_texturePtr = texturePtr;
@@ -21,12 +36,14 @@ const sf::IntRect & CTexturedImage::GetTextureRect() const
 void CTexturedImage::SetPosition(float x, float y)
 {
 	m_sprite.setPosition(x, y);
-}
+}*/
 void CTexturedImage::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(m_sprite, states);
 }
 
+
+/*
 const sf::Vector2f CTexturedImage::GetPosition() const
 {
 	return m_sprite.getPosition();
@@ -41,6 +58,7 @@ void CTexturedImage::SetScale(float factorX, float factorY)
 {
 	m_sprite.setScale(factorX, factorY);
 }
+*/
 
 
 void CTexturedImage::SetSize(float x, float y)
