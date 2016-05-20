@@ -62,9 +62,12 @@ private:
 	void ChangeChildIndex(const CBaseControlPtr & control, unsigned newIndex);
 	void AdoptChild(const CBaseControlPtr & control, unsigned index);
 	bool IsItOneOfMyParents(const CBaseControlPtr & control)const;
+	bool CanBeAParent() const;
+	void AddDeferredChildren();
 
 	std::vector<CBaseControlPtr> m_children;
 	std::weak_ptr<CBaseControl> m_parent;
 	sf::FloatRect m_frame;
+	mutable bool m_hasDeferredChildren = false;
 };
 }
