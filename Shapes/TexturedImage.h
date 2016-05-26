@@ -25,15 +25,3 @@ private:
 	sf::Sprite m_sprite;
 	sf::Vector2f m_size;
 };
-
-class CTexturedImage2 : public IImage2
-{
-public:
-	CTexturedImage2(const std::shared_ptr<sf::Texture> & texture);
-	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
-	void SetSize(const sf::Vector2f & size) override;
-	sf::Vector2f GetSize() const override;
-private:
-	std::shared_ptr<sf::Texture> m_texture;
-	sf::Vector2f m_size;
-};

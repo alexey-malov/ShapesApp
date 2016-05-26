@@ -21,8 +21,8 @@ void CScale9GridTexturedImage::SetSize(float x, float y)
 	auto scaleRectX = x - GetSize().x;
 	auto scaleRectY = y - GetSize().y;
 
-	m_middle.width += scaleRectX;
-	m_middle.height += scaleRectY;
+	m_middle.width += static_cast<int>(scaleRectX);
+	m_middle.height += static_cast<int>(scaleRectY);
 
 	m_texturedImages[8].SetSize(m_texturedImages[8].GetSize().x  + scaleRectX,
 		m_texturedImages[8].GetSize().y + scaleRectY);
@@ -65,27 +65,26 @@ void CScale9GridTexturedImage::draw(sf::RenderTarget & target, sf::RenderStates 
 		m_middle.left - m_texturedImages[0].GetSize().x,
 		m_middle.top - m_texturedImages[0].GetSize().y
 	));
-
 	target.draw(m_texturedImages[1], tmpTransform1.translate(
-		m_middle.left, m_middle.top - m_texturedImages[1].GetSize().y
+		static_cast<float>(m_middle.left), m_middle.top - m_texturedImages[1].GetSize().y
 	));
 	target.draw(m_texturedImages[2], tmpTransform2.translate(
-		middleUpperRight, m_middle.top - m_texturedImages[2].GetSize().y
+		static_cast<float>(middleUpperRight), m_middle.top - m_texturedImages[2].GetSize().y
 	));
 	target.draw(m_texturedImages[3], tmpTransform3.translate(
-		middleUpperRight, m_middle.top
+		static_cast<float>(middleUpperRight), static_cast<float>(m_middle.top)
 	));
 	target.draw(m_texturedImages[4], tmpTransform4.translate(
-		middleUpperRight, middleBottomLeft
+		static_cast<float>(middleUpperRight), static_cast<float>(middleBottomLeft)
 	));
 	target.draw(m_texturedImages[5], tmpTransform5.translate(
-		m_middle.left, middleBottomLeft
+		static_cast<float>(m_middle.left), static_cast<float>(middleBottomLeft)
 	));
 	target.draw(m_texturedImages[6], tmpTransform6.translate(
-		m_middle.left - m_texturedImages[6].GetSize().x, middleBottomLeft
+		m_middle.left - m_texturedImages[6].GetSize().x, static_cast<float>(middleBottomLeft)
 	));
 	target.draw(m_texturedImages[7], tmpTransform7.translate(
-		m_middle.left - m_texturedImages[7].GetSize().x, m_middle.top
+		m_middle.left - m_texturedImages[7].GetSize().x, static_cast<float>(m_middle.top)
 	));
 	target.draw(m_texturedImages[8], tmpTransform8.translate(
 		static_cast<float>(m_middle.left), static_cast<float>(m_middle.top)
