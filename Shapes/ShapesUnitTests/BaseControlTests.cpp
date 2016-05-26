@@ -286,33 +286,33 @@ BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 		{
 		};
 
-		struct wrap_test_heir_to_unique_ptr_ : BaseControl_
+		struct wrap_test_heir_to_not_design_state_of_BaseControl_ : BaseControl_
 		{
-			unique_ptr<test_heir_CBaseControl_> unqPtr = make_unique<test_heir_CBaseControl_>();
+			unique_ptr<test_heir_CBaseControl_> notDesignedState = make_unique<test_heir_CBaseControl_>();
 		};
-		BOOST_FIXTURE_TEST_SUITE(after_wrap_test_heir_to_unique_ptr, wrap_test_heir_to_unique_ptr_)
+		BOOST_FIXTURE_TEST_SUITE(wrap_test_heir_to_not_design_state_of_BaseControl, wrap_test_heir_to_not_design_state_of_BaseControl_)
 			BOOST_AUTO_TEST_CASE(has_no_childrens)
 			{
-				BOOST_CHECK_EQUAL(unqPtr->GetChildCount(), 0);
+				BOOST_CHECK_EQUAL(notDesignedState->GetChildCount(), 0);
 			}
 		BOOST_AUTO_TEST_SUITE_END()
 
 		struct can_append_child_and_dont_get_except_
-			: public wrap_test_heir_to_unique_ptr_
+			: public wrap_test_heir_to_not_design_state_of_BaseControl_
 		{
 			can_append_child_and_dont_get_except_()
 			{
-				BOOST_REQUIRE_NO_THROW(unqPtr->AppendChild(children[0]));
+				BOOST_REQUIRE_NO_THROW(notDesignedState->AppendChild(children[0]));
 			}
 		};
 		BOOST_FIXTURE_TEST_SUITE(can_append_child_and_dont_get_except, can_append_child_and_dont_get_except_)
 			BOOST_AUTO_TEST_CASE(has_a_one_children)
 			{
-				BOOST_CHECK_EQUAL(unqPtr->GetChildCount(), 1);
+				BOOST_CHECK_EQUAL(notDesignedState->GetChildCount(), 1);
 			}
 			BOOST_AUTO_TEST_CASE(can_get_a_children_by_index)
 			{
-				BOOST_CHECK_EQUAL(unqPtr->GetChild(0), children[0]);
+				BOOST_CHECK_EQUAL(notDesignedState->GetChild(0), children[0]);
 			}
 			BOOST_AUTO_TEST_CASE(childrens_parent_is_equal_nullptr)
 			{
@@ -324,26 +324,26 @@ BOOST_FIXTURE_TEST_SUITE(BaseControl, BaseControl_)
 				oldParent->AppendChild(children[1]);
 				BOOST_CHECK(children[1]->GetParent() == oldParent);
 
-				BOOST_CHECK_NO_THROW(unqPtr->AppendChild(children[1]));
-				BOOST_CHECK_EQUAL(unqPtr->GetChildCount(), 2);
-				BOOST_CHECK(unqPtr->GetChild(1) == children[1]);
-				BOOST_CHECK(unqPtr->GetChild(1)->GetParent() == nullptr);
+				BOOST_CHECK_NO_THROW(notDesignedState->AppendChild(children[1]));
+				BOOST_CHECK_EQUAL(notDesignedState->GetChildCount(), 2);
+				BOOST_CHECK(notDesignedState->GetChild(1) == children[1]);
+				BOOST_CHECK(notDesignedState->GetChild(1)->GetParent() == nullptr);
 			}
 		BOOST_AUTO_TEST_SUITE_END()
 
-		struct after_convert_from_unique_to_shared_ptr_ : can_append_child_and_dont_get_except_
+		struct after_CBaseControll_is_fully_constructed_ : can_append_child_and_dont_get_except_
 		{
-			after_convert_from_unique_to_shared_ptr_()
+			after_CBaseControll_is_fully_constructed_()
 			{
-				BOOST_REQUIRE_NO_THROW(shrdPtr->AppendChild(children[1]));
+				BOOST_REQUIRE_NO_THROW(designedState->AppendChild(children[1]));
 			}
 
-			shared_ptr<test_heir_CBaseControl_> shrdPtr = move(unqPtr);
+			shared_ptr<test_heir_CBaseControl_> designedState = move(notDesignedState);
 		};
-		BOOST_FIXTURE_TEST_SUITE(after_convert_from_unique_to_shared_ptr, after_convert_from_unique_to_shared_ptr_)
+		BOOST_FIXTURE_TEST_SUITE(after_the_CBaseControll_is_fully_constructed, after_CBaseControll_is_fully_constructed_)
 			BOOST_AUTO_TEST_CASE(childrens_parent_is_not_equal_a_nullptr)
 			{
-				BOOST_CHECK_EQUAL(children[0]->GetParent(), shrdPtr);
+				BOOST_CHECK_EQUAL(children[0]->GetParent(), designedState);
 			}
 		BOOST_AUTO_TEST_SUITE_END()
 
