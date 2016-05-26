@@ -3,7 +3,7 @@
 #include <iostream>
 namespace ui
 {
-static const sf::Vector2f BUTTON_SIZE = { 50.0f, 50.0f };
+static const sf::Vector2f BUTTON_SIZE = { 80.f, 80.f };
 
 std::shared_ptr<CToolBar> CToolBar::Create(sf::Vector2u const& size)
 {
@@ -22,31 +22,30 @@ CToolBar::CToolBar(sf::Vector2u const& size)
 
 void CToolBar::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 {
+
 	target.draw(m_background, states);
 }
 
-std::shared_ptr<IToolbarButton> CToolBar::AddChildWithIndex(unsigned index)
+CToolbarButtonPtr CToolBar::AddChildWithIndex(unsigned index)
 {
 	auto button = CButton::Create();
 
 	InsertChildAtIndex(button, index);
-
-	m_buttons.insert({ index, CToolbarButton::Create(button) });
-
-	button->SetFrame({ float((GetChildCount() - 1) * 55 + 5), 5, BUTTON_SIZE.x , BUTTON_SIZE.y });
-	return m_buttons.find(index)->second;
+	auto toolbarBtn = CToolbarButton::Create(button);
+	m_buttons.insert({ index, toolbarBtn });
+	return toolbarBtn;
 }
 
-std::shared_ptr<IToolbarButton> CToolBar::GetButton(unsigned index)
+std::shared_ptr<CToolbarButton> CToolBar::GetButton(unsigned const & index)
 {
 	return m_buttons.find(index)->second;
 }
 
-void CToolBar::SetButtonsBackgrounds(const std::shared_ptr<sf::Texture>& texture)
+void CToolBar::SetButtonsBackgrounds(const std::shared_ptr<IImage> & image)
 {
 	for (auto &it : m_buttons)
 	{
-		it.second->SetBackground(texture);
+		it.second->SetBackground(image);
 	}
 }
 

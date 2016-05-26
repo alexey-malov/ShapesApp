@@ -43,7 +43,6 @@ void CStage::Execute()
 		{
 			OnEvent(event);
 		}
-
 		m_window->clear();
 		m_window->draw(*m_root);
 		m_window->display();

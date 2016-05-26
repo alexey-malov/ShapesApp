@@ -18,6 +18,9 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "TexturedImage.h"
+#include "Scale9GridTexturedImage.h"
+
 #include <boost/range/algorithm/find.hpp>
 #include <boost/range/algorithm/remove.hpp>
 #include <boost/numeric/conversion/cast.hpp>
