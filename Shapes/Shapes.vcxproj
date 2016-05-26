@@ -156,7 +156,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Ellipse.h" />
     <ClInclude Include="MainView.h" />
-    <ClInclude Include="RectangleModel.h" />
+    <ClInclude Include="Rectangle.h" />
     <ClInclude Include="ShapeCollection.h" />
     <ClInclude Include="ShapesModel.h" />
     <ClInclude Include="Stage.h" />
@@ -173,7 +173,7 @@
     <ClCompile Include="Ellipse.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainView.cpp" />
-    <ClCompile Include="RectangleModel.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="ShapeCollection.cpp" />
     <ClCompile Include="ShapesModel.cpp" />
     <ClCompile Include="Stage.cpp" />

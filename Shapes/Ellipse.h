@@ -1,7 +1,7 @@
 #pragma once
 #include "ShapesModel.h"
 
-namespace ui
+namespace model
 {
 
 class CEllipse :
@@ -9,12 +9,6 @@ class CEllipse :
 {
 public:
 	CEllipse();
-	
-	float GetRadius();
-	void SetRadius(float const& radius);
 
-private:
-	float m_radius;
 };
-
 }

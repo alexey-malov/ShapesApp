@@ -2,18 +2,25 @@
 #include "Triangle.h"
 
 
-ui::CTriangle::CTriangle()
+model::CTriangle::CTriangle()
 {
 }
 
-ui::TrianglePicks ui::CTriangle::GetPicks()
+void model::CTriangle::SetFrame(Frame const & frame)
+{
+	CAbstractShape::SetFrame(frame);
+	SetPicks();
+}
+
+model::TrianglePicks model::CTriangle::GetPicks()
 {
 	return m_picks;
 }
 
-void ui::CTriangle::SetPicks(Point const & point1, Point const & point2, Point const & point3)
+void model::CTriangle::SetPicks()
 {
-	m_picks.firstPick = point1;
-	m_picks.secondPick = point2;
-	m_picks.thirdPick = point3;
+	auto frame = GetFrame();
+	m_picks.firstPick = frame.position;
+	m_picks.secondPick = Pointf(frame.position.x + (frame.width / 2), frame.position.y + frame.height);
+	m_picks.thirdPick = Pointf(frame.position.x + frame.width, frame.position.y);
 }

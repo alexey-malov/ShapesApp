@@ -1,7 +1,7 @@
 #pragma once
 #include "ShapesModel.h"
 
-namespace ui
+namespace model
 {
 
 class CShapeCollection

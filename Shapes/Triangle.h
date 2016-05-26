@@ -1,25 +1,15 @@
 #pragma once
 #include "ShapesModel.h"
 
-namespace ui
+namespace model
 {
 
-struct Point
-{
-	Point()
-		: x(0)
-		, y(0)
-	{
-	}
-	float x;
-	float y;
-};
 
 struct TrianglePicks
 {
-	Point firstPick;
-	Point secondPick;
-	Point thirdPick;
+	Pointf firstPick;
+	Pointf secondPick;
+	Pointf thirdPick;
 };
 
 class CTriangle :
@@ -28,8 +18,9 @@ class CTriangle :
 public:
 	CTriangle();
 
+	void SetFrame(Frame const& frame) override;
 	TrianglePicks GetPicks();
-	void SetPicks(Point const& point1, Point const& point2, Point const& point3);
+	void SetPicks();
 
 private:
 	TrianglePicks m_picks;
