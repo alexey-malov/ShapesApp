@@ -13,48 +13,17 @@ CScale9GridTexturedImage::CScale9GridTexturedImage(std::shared_ptr<sf::Texture> 
 		throw std::invalid_argument("Image must include scale rect");
 	}
 	m_texturedImages = CreateSpritesGrid();
-//	UpdateCellsPosition();
 }
-
-/*
-CScale9GridTexturedImage::CScale9GridTexturedImage()
-{
-
-}*/
-
-/*
-void CScale9GridTexturedImage::SetTexture(std::shared_ptr<sf::Texture> const & texturePtr, bool resetScaleRect)
-{
-	assert(texturePtr);
-	m_texture = texturePtr;
-	auto textureSize = m_texture->getSize();
-	if (resetScaleRect)
-	{
-		m_middle = sf::IntRect(0, 0, textureSize.x, textureSize.y);
-	}
-	m_texturedImages = CreateSpritesGrid();
-	UpdateCellsPosition();
-}
-
-void CScale9GridTexturedImage::SetScaleRect(sf::IntRect const & middle)
-{
-	if (!IsImageIncludeScaleRect())
-	{
-		throw std::invalid_argument("Image must include scale rect");
-	}
-	m_middle = middle;
-	m_texturedImages = CreateSpritesGrid();
-	UpdateCellsPosition();
-}*/
 
 void CScale9GridTexturedImage::SetSize(float x, float y)
 {
-	//auto startPos = GetPosition();
 	auto textureSize = m_texture->getSize();
-	auto scaleRectX = x - textureSize.x;
-	auto scaleRectY = y - textureSize.y;
-	/*if (scaleRectX < 0) { scaleRectX = 0; }
-	if (scaleRectY < 0) { scaleRectY = 0; }*/
+	auto scaleRectX = x - GetSize().x;
+	auto scaleRectY = y - GetSize().y;
+
+	m_middle.width += scaleRectX;
+	m_middle.height += scaleRectY;
+
 	m_texturedImages[8].SetSize(m_texturedImages[8].GetSize().x  + scaleRectX,
 		m_texturedImages[8].GetSize().y + scaleRectY);
 	m_texturedImages[1].SetSize(m_texturedImages[1].GetSize().x + scaleRectX,
@@ -65,8 +34,7 @@ void CScale9GridTexturedImage::SetSize(float x, float y)
 		m_texturedImages[5].GetSize().y);
 	m_texturedImages[7].SetSize(m_texturedImages[7].GetSize().x,
 		m_texturedImages[7].GetSize().y + scaleRectY);
-//	UpdateCellsPosition();
-	//SetPosition(startPos.x, startPos.y);
+
 }
 
 sf::Vector2f CScale9GridTexturedImage::GetSize() const
@@ -76,35 +44,52 @@ sf::Vector2f CScale9GridTexturedImage::GetSize() const
 	return sf::Vector2f(width, height);
 }
 
-/*
-sf::FloatRect CScale9GridTexturedImage::GetGlobalBounds() const
-{
-	auto pos = sf::Vector2f(m_texturedImages[0].GetPosition());
-	return sf::FloatRect(pos.x, pos.y, GetSize().x, GetSize().y);
-}
-
-void CScale9GridTexturedImage::SetPosition(float x, float y)
-{
-	m_texturedImages[8].SetPosition(x + m_texturedImages[0].GetSize().x,
-		y + m_texturedImages[0].GetSize().y);
-	UpdateCellsPosition();
-}
-
-const sf::Vector2f CScale9GridTexturedImage::GetPosition() const
-{
-	return m_texturedImages[8].GetPosition() - m_texturedImages[0].GetSize() - m_texturedImages[8].GetSize() / 2.f;
-}*/
-
 CScale9GridTexturedImage::~CScale9GridTexturedImage()
 {
 }
 
 void CScale9GridTexturedImage::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	for (auto & image : m_texturedImages)
-	{
-		target.draw(image, states);
-	}
+	auto middleUpperRight = m_middle.left + m_middle.width;
+	auto middleBottomLeft = m_middle.top + m_middle.height;
+	auto tmpTransform0 = states.transform;
+	auto tmpTransform1 = states.transform;
+	auto tmpTransform2 = states.transform;
+	auto tmpTransform3 = states.transform;
+	auto tmpTransform4 = states.transform;
+	auto tmpTransform5 = states.transform;
+	auto tmpTransform6 = states.transform;
+	auto tmpTransform7 = states.transform;
+	auto tmpTransform8 = states.transform;
+	target.draw(m_texturedImages[0], tmpTransform0.translate(
+		m_middle.left - m_texturedImages[0].GetSize().x,
+		m_middle.top - m_texturedImages[0].GetSize().y
+	));
+
+	target.draw(m_texturedImages[1], tmpTransform1.translate(
+		m_middle.left, m_middle.top - m_texturedImages[1].GetSize().y
+	));
+	target.draw(m_texturedImages[2], tmpTransform2.translate(
+		middleUpperRight, m_middle.top - m_texturedImages[2].GetSize().y
+	));
+	target.draw(m_texturedImages[3], tmpTransform3.translate(
+		middleUpperRight, m_middle.top
+	));
+	target.draw(m_texturedImages[4], tmpTransform4.translate(
+		middleUpperRight, middleBottomLeft
+	));
+	target.draw(m_texturedImages[5], tmpTransform5.translate(
+		m_middle.left, middleBottomLeft
+	));
+	target.draw(m_texturedImages[6], tmpTransform6.translate(
+		m_middle.left - m_texturedImages[6].GetSize().x, middleBottomLeft
+	));
+	target.draw(m_texturedImages[7], tmpTransform7.translate(
+		m_middle.left - m_texturedImages[7].GetSize().x, m_middle.top
+	));
+	target.draw(m_texturedImages[8], tmpTransform8.translate(
+		static_cast<float>(m_middle.left), static_cast<float>(m_middle.top)
+	));
 }
 
 std::vector<CTexturedImage> CScale9GridTexturedImage::CreateSpritesGrid()
@@ -151,25 +136,8 @@ std::vector<CTexturedImage> CScale9GridTexturedImage::CreateSpritesGrid()
 		, m_middle.left
 		, m_middle.height));
 	sprites[8].SetTextureRect(m_middle);
-//	sprites[8].SetPosition(static_cast<float>(m_middle.left), static_cast<float>(m_middle.top));
 	return sprites;
 }
-
-/*void CScale9GridTexturedImage::UpdateCellsPosition()
-{
-	auto middle = m_texturedImages[8].GetGlobalBounds();
-	auto middleUpperRight = middle.left + middle.width;
-	auto middleBottomLeft = middle.top + middle.height;
-	m_texturedImages[0].SetPosition(middle.left - m_texturedImages[0].GetSize().x,
-		middle.top - m_texturedImages[0].GetSize().y);
-	m_texturedImages[1].SetPosition(middle.left, middle.top - m_texturedImages[1].GetSize().y);
-	m_texturedImages[2].SetPosition(middleUpperRight, middle.top - m_texturedImages[2].GetSize().y);
-	m_texturedImages[3].SetPosition(middleUpperRight, middle.top);
-	m_texturedImages[4].SetPosition(middleUpperRight, middleBottomLeft);
-	m_texturedImages[5].SetPosition(middle.left, middleBottomLeft);
-	m_texturedImages[6].SetPosition(middle.left - m_texturedImages[6].GetSize().x, middleBottomLeft);
-	m_texturedImages[7].SetPosition(middle.left - m_texturedImages[7].GetSize().x, middle.top);
-}*/
 
 bool CScale9GridTexturedImage::IsImageIncludeScaleRect()
 {

@@ -156,10 +156,13 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="EllipseShapeView.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="MainView.h" />
     <ClInclude Include="RectangleShapeView.h" />
+    <ClInclude Include="Scale9GridTexturedImage.h" />
     <ClInclude Include="ShapeView.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="TexturedImage.h" />
     <ClInclude Include="ToolBar.h" />
     <ClInclude Include="Signals.h" />
     <ClInclude Include="stdafx.h" />
@@ -175,8 +178,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainView.cpp" />
     <ClCompile Include="RectangleShapeView.cpp" />
+    <ClCompile Include="Scale9GridTexturedImage.cpp" />
     <ClCompile Include="ShapeView.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="TexturedImage.cpp" />
     <ClCompile Include="ToolBar.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

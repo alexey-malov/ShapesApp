@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Button.h"
-
+#include "Image.h"
 using namespace sf;
 
 namespace ui
@@ -30,7 +30,7 @@ void CButton::SetIcon(const std::shared_ptr<sf::Texture> & texture)
 
 void CButton::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(m_background, states);
+	target.draw(*m_backgroundTexture, states);
 	if (m_iconTexture)
 	{
 		target.draw(m_iconSprite, states);
@@ -42,10 +42,10 @@ Connection CButton::DoOnClick(OnClick::slot_type const & handler)
 	return m_onClick.connect(handler);
 }
 
-void CButton::SetBackground(const std::shared_ptr<sf::Texture> & texture)
+void CButton::SetBackground(const std::shared_ptr<IImage> & texture)
 {
 	m_backgroundTexture = texture;
-	m_background.setTexture(m_backgroundTexture.get());
+	//m_background.setTexture(m_backgroundTexture.get());
 }
 
 bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)

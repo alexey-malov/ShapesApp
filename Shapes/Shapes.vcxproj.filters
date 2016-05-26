@@ -65,6 +65,15 @@
     <ClInclude Include="EllipseShapeView.h">
       <Filter>Source Files\ui\ShapeView</Filter>
     </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="Scale9GridTexturedImage.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturedImage.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -105,6 +114,12 @@
     </ClCompile>
     <ClCompile Include="EllipseShapeView.cpp">
       <Filter>Source Files\ui\ShapeView</Filter>
+    </ClCompile>
+    <ClCompile Include="Scale9GridTexturedImage.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturedImage.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

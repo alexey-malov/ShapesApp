@@ -16,7 +16,6 @@ public:
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	std::vector<CTexturedImage> CreateSpritesGrid();
-	//void UpdateCellsPosition();
 	bool IsImageIncludeScaleRect();
 	std::shared_ptr<sf::Texture> m_texture;
 	sf::IntRect m_middle;

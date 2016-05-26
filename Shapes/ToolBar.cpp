@@ -22,22 +22,18 @@ CToolBar::CToolBar(sf::Vector2u const& size)
 
 void CToolBar::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 {
+
 	target.draw(m_background, states);
 }
 
-void CToolBar::AddChildWithIndex(unsigned index)
+CToolbarButtonPtr CToolBar::AddChildWithIndex(unsigned index)
 {
 	auto button = CButton::Create();
 
 	InsertChildAtIndex(button, index);
-
-	m_buttons.insert({ index, CToolbarButton::Create(button) });
-	std::shared_ptr<sf::Texture> backgroundTexture = std::make_shared<sf::Texture>();
-	backgroundTexture->loadFromFile("./images/btn1-normal.png");
-	auto textureSize = backgroundTexture->getSize();
-	std::shared_ptr<IImage> image = std::make_shared<CScale9GridTexturedImage>(backgroundTexture, sf::IntRect(2, 2, 6, 6));
-	button->SetBackground(image);
-	button->SetFrame({ float((GetChildCount() - 1) * 50 + 5), 5, BUTTON_SIZE.x , BUTTON_SIZE.y });
+	auto toolbarBtn = CToolbarButton::Create(button);
+	m_buttons.insert({ index, toolbarBtn });
+	return toolbarBtn;
 }
 
 std::shared_ptr<CToolbarButton> CToolBar::GetButton(unsigned const & index)

@@ -6,7 +6,7 @@
 CTexturedImage::CTexturedImage(const std::shared_ptr<sf::Texture> & texture)
 	:m_texturePtr(texture)
 {
-
+	m_sprite.setTexture(*texture);
 }
 
 

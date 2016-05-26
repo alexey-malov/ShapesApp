@@ -1,7 +1,10 @@
 #pragma once
 #include "Button.h"
+
 namespace ui
 {
+	class CToolbarButton;
+typedef std::shared_ptr<CToolbarButton> CToolbarButtonPtr;
 struct IToolbarButton
 {
 	typedef Signal<void()> OnClick;

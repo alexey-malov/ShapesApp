@@ -3,6 +3,7 @@
 #include "RectangleShapeView.h"
 #include "TriangleShapeView.h"
 #include "EllipseShapeView.h"
+#include "Scale9GridTexturedImage.h"
 #include <iostream>
 
 using namespace ui;
@@ -72,8 +73,10 @@ void CMainView::CreateMainToolbar()
 	redoButton->SetAction([]() {cout << "Redo" << endl; });
 	deleteButton->SetAction([]() {cout << "delete shape" << endl; });
 
-	shared_ptr<Texture> background = make_shared<Texture>();
-	background->loadFromFile("./images/wood.jpg");
+	auto texture = make_shared<sf::Texture>();
+	texture->loadFromFile("images/btn1-normal.png");
+	auto background = make_shared<CScale9GridTexturedImage>(texture, sf::IntRect(2, 2, 6, 6));
+	background->SetSize(50, 50);
 	toolbar->SetButtonsBackgrounds(background);
 
 	toolbar->SetFrame({ 5, 50, 500, 50 });

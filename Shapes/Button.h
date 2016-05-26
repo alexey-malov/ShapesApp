@@ -2,6 +2,7 @@
 #include "BaseControl.h"
 #include "Signals.h"
 
+class IImage;
 enum class ButtonState {
 	NORMAL,
 	HOVERED,
@@ -20,7 +21,7 @@ public:
 	Connection DoOnClick(OnClick::slot_type const &handler);
 
 	void SetIcon(const std::shared_ptr<sf::Texture> & texture);
-	void SetBackground(const std::shared_ptr<sf::Texture> & texture);
+	void SetBackground(const std::shared_ptr<IImage> & texture);
 protected:
 	CButton();
 	void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -33,7 +34,7 @@ protected:
 private:
 	bool MouseHitTest(const sf::Vector2i & mousePos)const;
 
-	std::shared_ptr<sf::Texture> m_backgroundTexture;
+	std::shared_ptr<IImage> m_backgroundTexture;
 	sf::RectangleShape m_background;
 	std::shared_ptr<sf::Texture> m_iconTexture;
 	sf::Sprite m_iconSprite;
