@@ -6,7 +6,7 @@ void model::CShapeCollection::AddShapeWithIndex(std::shared_ptr<model::IShape> &
 	m_shapes.insert({ index, shape });
 }
 
-std::shared_ptr<IShape> model::CShapeCollection::GetShapeByIndex(size_t const & index)
+std::shared_ptr<model::IShape> model::CShapeCollection::GetShapeByIndex(size_t const & index)
 {
 	return m_shapes.find(index)->second;
 }
