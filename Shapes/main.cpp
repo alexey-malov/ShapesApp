@@ -18,6 +18,7 @@ int main()
 	ui::CStage stage(move(window));
 	auto mainView = CMainView::Create();
 	mainView->CreateMainToolbar();
+	mainView->CreateCanvas();
 	stage.GetRoot()->AppendChild(mainView);
 	stage.Execute();
 	return 0;
