@@ -45,7 +45,6 @@ Connection CButton::DoOnClick(OnClick::slot_type const & handler)
 void CButton::SetBackground(const std::shared_ptr<IImage> & texture)
 {
 	m_backgroundTexture = texture;
-	//m_background.setTexture(m_backgroundTexture.get());
 }
 
 bool CButton::OnMousePressed(sf::Event::MouseButtonEvent const & event)

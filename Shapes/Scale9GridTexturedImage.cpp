@@ -8,7 +8,7 @@ CScale9GridTexturedImage::CScale9GridTexturedImage(std::shared_ptr<sf::Texture> 
 	, m_middle(scaleRectSize)
 {
 	assert(texturePtr);
-	if (!IsImageIncludeScaleRect())
+	if (!IsImageIncludesScaleRect())
 	{
 		throw std::invalid_argument("Image must include scale rect");
 	}
@@ -138,7 +138,7 @@ std::vector<CTexturedImage> CScale9GridTexturedImage::CreateSpritesGrid()
 	return sprites;
 }
 
-bool CScale9GridTexturedImage::IsImageIncludeScaleRect()
+bool CScale9GridTexturedImage::IsImageIncludesScaleRect()const
 {
 	if (static_cast<unsigned>(m_middle.left + m_middle.width) <= m_texture->getSize().x
 	&& static_cast<unsigned>(m_middle.top + m_middle.height) <= m_texture->getSize().y)

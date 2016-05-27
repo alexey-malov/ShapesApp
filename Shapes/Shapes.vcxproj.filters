@@ -72,7 +72,7 @@
       <Filter>Source Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="TexturedImage.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -119,7 +119,7 @@
       <Filter>Source Files\ui</Filter>
     </ClCompile>
     <ClCompile Include="TexturedImage.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

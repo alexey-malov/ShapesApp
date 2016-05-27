@@ -32,6 +32,7 @@ CToolbarButtonPtr CToolBar::AddChildWithIndex(unsigned index)
 
 	InsertChildAtIndex(button, index);
 	auto toolbarBtn = CToolbarButton::Create(button);
+	button->SetFrame({ float((GetChildCount() - 1) * 55 + 5), 5, BUTTON_SIZE.x , BUTTON_SIZE.y });
 	m_buttons.insert({ index, toolbarBtn });
 	return toolbarBtn;
 }
