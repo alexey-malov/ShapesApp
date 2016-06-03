@@ -90,6 +90,8 @@
       <SDLCheck>true</SDLCheck>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalIncludeDirectories>..</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -108,6 +110,8 @@
       <SDLCheck>true</SDLCheck>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalIncludeDirectories>..</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,6 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalIncludeDirectories>..</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,6 +156,7 @@
       <SDLCheck>true</SDLCheck>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalIncludeDirectories>..</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
