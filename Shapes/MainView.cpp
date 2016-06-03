@@ -82,22 +82,20 @@ void CMainView::CreateMainToolbar()
 
 void  CMainView::CreateCanvas()
 {
-	m_canvas = CCanvas::Create(sf::FloatRect(50, 150, 550, 300));
+	m_canvas = CCanvas::Create(sf::FloatRect(5, 100, 550, 300));
 	AppendChild(m_canvas->GetSheet());
 
-	auto rect = make_shared<CRectangleShapeView>(sf::FloatRect(150, 300, 50, 30));
+	auto rect = make_shared<CRectangleShapeView>(sf::FloatRect(0, 0, 100, 100));
 	m_canvas->Insert(rect, 1);
 	
-	auto triangle = make_shared<CTriangleShapeView>(sf::FloatRect(170, 300, 160, 170));
+	auto triangle = make_shared<CTriangleShapeView>(sf::FloatRect(20, 50, 160, 170));
 	m_canvas->Insert(triangle, 2);
 
-	auto ellipse = make_shared<CEllipseShapeView>(sf::FloatRect(175, 200, 70, 100));
+	auto ellipse = make_shared<CEllipseShapeView>(sf::FloatRect(140, 64, 70, 100));
 	m_canvas->Insert(ellipse, 3);
 
-	auto rect2 = make_shared<CRectangleShapeView>(sf::FloatRect(200, 200, 100, 100));
+	auto rect2 = make_shared<CRectangleShapeView>(sf::FloatRect(100, 60, 100, 100));
 	m_canvas->Insert(rect2, 0);
-
-	AppendChild(m_canvas->GetSheet());
 }
 
 bool CMainView::OnWindowResized(sf::Event::SizeEvent const & event)
@@ -108,7 +106,6 @@ bool CMainView::OnWindowResized(sf::Event::SizeEvent const & event)
 			- it.second->GetRightIndentSize()
 			, it.second->GetToolbarSize().y });
 	}
-	m_canvas->SetCanvasSize({float(event.width), float(event.height)});
 
 	return true;
 }

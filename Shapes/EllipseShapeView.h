@@ -16,7 +16,6 @@ private:
 	void InitCircle();
 private:
 	sf::CircleShape m_circle;
-	sf::FloatRect m_frame;
 };
 
 }

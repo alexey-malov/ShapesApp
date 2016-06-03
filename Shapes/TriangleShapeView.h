@@ -17,7 +17,6 @@ private:
 	void InitTriangle();
 private:
 	sf::ConvexShape m_triangle;
-	sf::FloatRect m_frame;
 };
 
 }

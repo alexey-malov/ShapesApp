@@ -18,6 +18,10 @@ void CCanvas::Insert(std::shared_ptr<CShapeView> const & shape, unsigned index)
 	}
 	m_shapes[index] = shape;
 	m_sheet->InsertChildAtIndex(shape, index);
+	auto oldRect = shape->GetFrame();
+	auto sheetRect = m_sheet->GetFrame();
+	shape->SetFrame({ oldRect.left + sheetRect.left * 0.5f, oldRect.top + sheetRect.top * 0.5f,
+						oldRect.width, oldRect.height });
 }
 
 std::shared_ptr<CShapeView> CCanvas::GetShape(unsigned index)
@@ -26,19 +30,14 @@ std::shared_ptr<CShapeView> CCanvas::GetShape(unsigned index)
 	return m_shapes[index];
 }
 
+void CCanvas::SetFrame(sf::FloatRect const & newFrame)
+{
+	m_sheet->SetFrame(newFrame);
+}
+
 CCanvas::CCanvas(sf::FloatRect const& frame)
 	: m_sheet(ui::CSheet::Create(frame))
 {
-}
-
-void CCanvas::SetCanvasSize(sf::Vector2f const & size)
-{
-	m_sheet->SetSheetSize(size);
-}
-
-void CCanvas::SetCanvasPosition(sf::Vector2f const &pos)
-{
-	m_sheet->SetSheetPosition(pos);
 }
 
 std::shared_ptr<CSheet> CCanvas::GetSheet()
@@ -53,25 +52,20 @@ std::shared_ptr<CSheet> CSheet::Create(sf::FloatRect const& frame)
 	return std::shared_ptr<CSheet>(new CSheet(frame));
 }
 
-void CSheet::SetSheetSize(sf::Vector2f const & size)
-{
-	m_background.setSize(size);
-}
-
-void CSheet::SetSheetPosition(sf::Vector2f const & pos)
-{
-	m_background.setPosition(pos);
-}
-
 void CSheet::OnDraw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(m_background, states);
 }
 
+void CSheet::OnFrameChanged(const sf::FloatRect & newFrame)
+{
+	m_background.setPosition(sf::Vector2f(newFrame.left, newFrame.top));
+	m_background.setSize(sf::Vector2f(newFrame.width, newFrame.height));
+}
+
 CSheet::CSheet(sf::FloatRect const& frame)
 {
-	SetSheetSize(sf::Vector2f(frame.width, frame.height));
-	SetSheetPosition(sf::Vector2f(frame.left, frame.top));
+	SetFrame(frame);
 	m_background.setFillColor(sf::Color::White);
 }
 

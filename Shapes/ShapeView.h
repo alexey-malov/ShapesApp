@@ -8,9 +8,7 @@ namespace ui
 class CShapeView : public CBaseControl
 {
 public:
-	CShapeView(sf::FloatRect const & frame);
-private:
-	sf::FloatRect m_frame;
+	CShapeView();
 };
 
 }

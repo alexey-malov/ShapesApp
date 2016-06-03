@@ -15,7 +15,6 @@ private:
 	void InitRectangle();
 private:
 	sf::RectangleShape m_rectangle;
-	sf::FloatRect m_frame;
 };
 
 }

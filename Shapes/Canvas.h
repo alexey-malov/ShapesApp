@@ -8,10 +8,9 @@ class CSheet : public CBaseControl
 {
 public:
 	static std::shared_ptr<CSheet> Create(sf::FloatRect const& frame);
-	void SetSheetSize(sf::Vector2f const &size);
-	void SetSheetPosition(sf::Vector2f const &pos);
 protected:
 	void OnDraw(sf::RenderTarget & target, sf::RenderStates states) const override;
+	void OnFrameChanged(const sf::FloatRect & newFrame) override ;
 private:
 	CSheet(sf::FloatRect const& frame);
 	sf::RectangleShape m_background;
@@ -25,16 +24,13 @@ public:
 	void Insert(std::shared_ptr<CShapeView> const & shape, unsigned index);
 	std::shared_ptr<CShapeView> GetShape(unsigned index);
 
-	void SetCanvasSize(sf::Vector2f const &size);
-
-	void SetCanvasPosition(sf::Vector2f const &pos);
+	void SetFrame(sf::FloatRect const & newFrame);
 
 	std::shared_ptr<CSheet> GetSheet();
 private:
 	CCanvas(sf::FloatRect const& frame);
 	
 	std::shared_ptr<CSheet> m_sheet;
-	sf::RectangleShape m_background;
 
 	std::vector<std::shared_ptr<CShapeView>> m_shapes;
 };
