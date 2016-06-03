@@ -5,26 +5,26 @@ namespace model
 	
 struct Pointf
 {
-	Pointf() {};
+	Pointf() = default;
 	Pointf(float xPos, float yPos)
 		: x(xPos)
 		, y(yPos)
-	{};
-	float x;
-	float y;
+	{}
+	float x = 0;
+	float y = 0;
 };
 
 struct Frame
 {
-	Frame() {};
+	Frame() = default;
 	Frame(float h, float w, Pointf const& pos)
 		: height(h)
 		, width(w)
 		, position(pos)
 	{};
-	float height;
-	float width;
-	Pointf position;
+	float height = 0;
+	float width = 0;
+	Pointf position = Pointf(0, 0);
 };
 
 struct IShape
