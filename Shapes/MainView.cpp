@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "MainView.h"
+#include "RectangleShapeView.h"
+#include "TriangleShapeView.h"
+#include "EllipseShapeView.h"
 #include <iostream>
 
 using namespace ui;
@@ -77,6 +80,26 @@ void CMainView::CreateMainToolbar()
 	AppendChild(toolbar);
 }
 
+void  CMainView::CreateCanvas()
+{
+	m_canvas = CCanvas::Create(sf::FloatRect(50, 150, 550, 300));
+	AppendChild(m_canvas->GetSheet());
+
+	auto rect = make_shared<CRectangleShapeView>(sf::FloatRect(150, 300, 50, 30));
+	m_canvas->Insert(rect, 1);
+	
+	auto triangle = make_shared<CTriangleShapeView>(sf::FloatRect(170, 300, 160, 170));
+	m_canvas->Insert(triangle, 2);
+
+	auto ellipse = make_shared<CEllipseShapeView>(sf::FloatRect(175, 200, 70, 100));
+	m_canvas->Insert(ellipse, 3);
+
+	auto rect2 = make_shared<CRectangleShapeView>(sf::FloatRect(200, 200, 100, 100));
+	m_canvas->Insert(rect2, 0);
+
+	AppendChild(m_canvas->GetSheet());
+}
+
 bool CMainView::OnWindowResized(sf::Event::SizeEvent const & event)
 {
 	for (auto it : m_toolbars)
@@ -85,6 +108,7 @@ bool CMainView::OnWindowResized(sf::Event::SizeEvent const & event)
 			- it.second->GetRightIndentSize()
 			, it.second->GetToolbarSize().y });
 	}
+	m_canvas->SetCanvasSize({float(event.width), float(event.height)});
 
 	return true;
 }

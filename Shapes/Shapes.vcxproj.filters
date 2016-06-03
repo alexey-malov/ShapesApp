@@ -12,8 +12,13 @@
     <Filter Include="Source Files\ui">
       <UniqueIdentifier>{effbb389-508f-4075-bd0a-841c2f91ec05}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="Source Files\model">
       <UniqueIdentifier>{a92f4606-e260-47bc-8292-c61bce8eb1f2}</UniqueIdentifier>
+=======
+    <Filter Include="Source Files\ui\ShapeView">
+      <UniqueIdentifier>{e24fdad9-4313-4f54-bd8c-b6afcc482ec0}</UniqueIdentifier>
+>>>>>>> 545e6309974edeac4c01ae53f0bc9825d4aabee1
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +55,7 @@
     <ClInclude Include="MainView.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Ellipse.h">
       <Filter>Source Files\model</Filter>
     </ClInclude>
@@ -64,6 +70,22 @@
     </ClInclude>
     <ClInclude Include="Triangle.h">
       <Filter>Source Files\model</Filter>
+=======
+    <ClInclude Include="Canvas.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeView.h">
+      <Filter>Source Files\ui\ShapeView</Filter>
+    </ClInclude>
+    <ClInclude Include="RectangleShapeView.h">
+      <Filter>Source Files\ui\ShapeView</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleShapeView.h">
+      <Filter>Source Files\ui\ShapeView</Filter>
+    </ClInclude>
+    <ClInclude Include="EllipseShapeView.h">
+      <Filter>Source Files\ui\ShapeView</Filter>
+>>>>>>> 545e6309974edeac4c01ae53f0bc9825d4aabee1
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +113,7 @@
     <ClCompile Include="MainView.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Ellipse.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
@@ -105,6 +128,22 @@
     </ClCompile>
     <ClCompile Include="Triangle.cpp">
       <Filter>Source Files\model</Filter>
+=======
+    <ClCompile Include="Canvas.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapeView.cpp">
+      <Filter>Source Files\ui\ShapeView</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleShapeView.cpp">
+      <Filter>Source Files\ui\ShapeView</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleShapeView.cpp">
+      <Filter>Source Files\ui\ShapeView</Filter>
+    </ClCompile>
+    <ClCompile Include="EllipseShapeView.cpp">
+      <Filter>Source Files\ui\ShapeView</Filter>
+>>>>>>> 545e6309974edeac4c01ae53f0bc9825d4aabee1
     </ClCompile>
   </ItemGroup>
 </Project>

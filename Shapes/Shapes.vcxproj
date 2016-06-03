@@ -154,28 +154,49 @@
     <ClInclude Include="BaseControl.h" />
     <ClInclude Include="BaseControlContainer.h" />
     <ClInclude Include="Button.h" />
+<<<<<<< HEAD
     <ClInclude Include="Ellipse.h" />
     <ClInclude Include="MainView.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="ShapeCollection.h" />
     <ClInclude Include="ShapesModel.h" />
+=======
+    <ClInclude Include="Canvas.h" />
+    <ClInclude Include="EllipseShapeView.h" />
+    <ClInclude Include="MainView.h" />
+    <ClInclude Include="RectangleShapeView.h" />
+    <ClInclude Include="ShapeView.h" />
+>>>>>>> 545e6309974edeac4c01ae53f0bc9825d4aabee1
     <ClInclude Include="Stage.h" />
     <ClInclude Include="ToolBar.h" />
     <ClInclude Include="Signals.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ToolbarButton.h" />
+<<<<<<< HEAD
     <ClInclude Include="Triangle.h" />
+=======
+    <ClInclude Include="TriangleShapeView.h" />
+>>>>>>> 545e6309974edeac4c01ae53f0bc9825d4aabee1
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseControl.cpp" />
     <ClCompile Include="Button.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Ellipse.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainView.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="ShapeCollection.cpp" />
     <ClCompile Include="ShapesModel.cpp" />
+=======
+    <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="EllipseShapeView.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainView.cpp" />
+    <ClCompile Include="RectangleShapeView.cpp" />
+    <ClCompile Include="ShapeView.cpp" />
+>>>>>>> 545e6309974edeac4c01ae53f0bc9825d4aabee1
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="ToolBar.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -185,7 +206,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ToolbarButton.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Triangle.cpp" />
+=======
+    <ClCompile Include="TriangleShapeView.cpp" />
+>>>>>>> 545e6309974edeac4c01ae53f0bc9825d4aabee1
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
