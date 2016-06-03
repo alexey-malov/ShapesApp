@@ -12,6 +12,9 @@
     <Filter Include="Source Files\ui">
       <UniqueIdentifier>{effbb389-508f-4075-bd0a-841c2f91ec05}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\model">
+      <UniqueIdentifier>{a92f4606-e260-47bc-8292-c61bce8eb1f2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\ui\ShapeView">
       <UniqueIdentifier>{e24fdad9-4313-4f54-bd8c-b6afcc482ec0}</UniqueIdentifier>
     </Filter>
@@ -49,6 +52,21 @@
     </ClInclude>
     <ClInclude Include="MainView.h">
       <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellipse.h">
+      <Filter>Source Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Source Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeCollection.h">
+      <Filter>Source Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapesModel.h">
+      <Filter>Source Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Source Files\model</Filter>
     </ClInclude>
     <ClInclude Include="Canvas.h">
       <Filter>Source Files\ui</Filter>
@@ -90,6 +108,21 @@
     </ClCompile>
     <ClCompile Include="MainView.cpp">
       <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellipse.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapeCollection.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapesModel.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Source Files\model</Filter>
     </ClCompile>
     <ClCompile Include="Canvas.cpp">
       <Filter>Source Files\ui</Filter>

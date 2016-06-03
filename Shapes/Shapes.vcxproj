@@ -154,9 +154,13 @@
     <ClInclude Include="BaseControl.h" />
     <ClInclude Include="BaseControlContainer.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Ellipse.h" />
+    <ClInclude Include="MainView.h" />
+    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="ShapeCollection.h" />
+    <ClInclude Include="ShapesModel.h" />
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="EllipseShapeView.h" />
-    <ClInclude Include="MainView.h" />
     <ClInclude Include="RectangleShapeView.h" />
     <ClInclude Include="ShapeView.h" />
     <ClInclude Include="Stage.h" />
@@ -165,15 +169,20 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ToolbarButton.h" />
+    <ClInclude Include="Triangle.h" />
     <ClInclude Include="TriangleShapeView.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseControl.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Canvas.cpp" />
-    <ClCompile Include="EllipseShapeView.cpp" />
+    <ClCompile Include="Ellipse.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainView.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="ShapeCollection.cpp" />
+    <ClCompile Include="ShapesModel.cpp" />
+    <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="EllipseShapeView.cpp" />
     <ClCompile Include="RectangleShapeView.cpp" />
     <ClCompile Include="ShapeView.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -185,6 +194,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ToolbarButton.cpp" />
+    <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="TriangleShapeView.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
